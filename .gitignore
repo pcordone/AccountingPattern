@@ -1,0 +1,129 @@
+# Taken from: https://stackoverflow.com/questions/49478/git-ignore-file-for-xcode-projects
+
+#####
+# OS X temporary files that should never be committed
+#
+# c.f. http://www.westwind.com/reference/os-x/invisibles.html
+
+.DS_Store
+
+# c.f. http://www.westwind.com/reference/os-x/invisibles.html
+
+.Trashes
+
+# c.f. http://www.westwind.com/reference/os-x/invisibles.html
+
+*.swp
+
+####
+# Xcode temporary files that should never be committed
+# 
+# NB: NIB/XIB files still exist even on Storyboard projects, so we want this...
+
+*~.nib
+
+####
+# Xcode build files -
+#
+# NB: slash on the end, so we only remove the FOLDER, not any files that were badly named "DerivedData"
+
+DerivedData/
+
+# NB: slash on the end, so we only remove the FOLDER, not any files that were badly named "build"
+
+build/
+
+#####
+# Xcode private settings (window sizes, bookmarks, breakpoints, custom executables, smart groups)
+#
+# This is complicated:
+#
+# SOMETIMES you need to put this file in version control.
+# Apple designed it poorly - if you use "custom executables", they are
+#  saved in this file.
+# 99% of projects do NOT use those, so they do NOT want to version control this file.
+#  ..but if you're in the 1%, comment out the line "*.pbxuser"
+
+# .pbxuser: http://lists.apple.com/archives/xcode-users/2004/Jan/msg00193.html
+
+*.pbxuser
+
+####
+# Xcode 4 - semi-personal settings
+#
+# Apple Shared data that Apple put in the wrong folder
+# c.f. http://stackoverflow.com/a/19260712/153422
+#     FROM ANSWER: Apple says "don't ignore it"
+#     FROM COMMENTS: Apple is wrong; Apple code is too buggy to trust; there are no known negative side-effects to ignoring Apple's unofficial advice and instead doing the thing that actively fixes bugs in Xcode
+# Up to you, but ... current advice: ignore it.
+*.xccheckout
+
+#
+#
+# OPTION 1: ---------------------------------
+#     throw away ALL personal settings (including custom schemes!
+#     - unless they are "shared")
+# As per build/ and DerivedData/, this ought to have a trailing slash
+#
+# NB: this is exclusive with OPTION 2 below
+# xcuserdata/
+
+# OPTION 2: ---------------------------------
+#     get rid of ALL personal settings, but KEEP SOME OF THEM
+#     - NB: you must manually uncomment the bits you want to keep
+#
+# NB: this *requires* git v1.8.2 or above; you may need to upgrade to latest OS X,
+#    or manually install git over the top of the OS X version
+# NB: this is exclusive with OPTION 1 above
+#
+xcuserdata/**/*
+
+#     (requires option 2 above): Personal Schemes
+#
+!xcuserdata/**/xcschemes/*
+
+####
+# Xcode 4 - Deprecated classes
+#
+# Allegedly, if you manually "deprecate" your classes, they get moved here.
+#
+# We're using source-control, so this is a "feature" that we do not want!
+
+*.moved-aside
+
+####
+# OPTIONAL: Some well-known tools that people use side-by-side with Xcode / iOS development
+#
+# NB: I'd rather not include these here, but gitignore's design is weak and doesn't allow
+#     modular gitignore: you have to put EVERYTHING in one file.
+#
+# COCOAPODS:
+#
+# c.f. http://guides.cocoapods.org/using/using-cocoapods.html#what-is-a-podfilelock
+# c.f. http://guides.cocoapods.org/using/using-cocoapods.html#should-i-ignore-the-pods-directory-in-source-control
+#
+#!Podfile.lock
+#
+# RUBY:
+#
+# c.f. http://yehudakatz.com/2010/12/16/clarifying-the-roles-of-the-gemspec-and-gemfile/
+#
+#!Gemfile.lock
+#
+# IDEA:
+#
+# c.f. https://www.jetbrains.com/objc/help/managing-projects-under-version-control.html?search=workspace.xml
+# 
+#.idea/workspace.xml
+#
+# TEXTMATE:
+#
+# -- UNVERIFIED: c.f. http://stackoverflow.com/a/50283/153422
+#
+#tm_build_errors
+
+####
+# UNKNOWN: recommended by others, but I can't discover what these files are
+#
+Breakpoints_v2.xcbkptlist
+Expressions.xcexplist

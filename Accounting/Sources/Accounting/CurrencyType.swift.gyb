@@ -1,0 +1,104 @@
+% warning = "This file was automatically generated and should not be edited."
+// ${warning}
+
+import Foundation
+import os.log
+
+/// A monetary unit.
+/// https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes
+/// https://en.wikipedia.org/wiki/ISO_4217
+public enum CurrencyType: String {
+%{
+    import csv
+
+    first_line = True
+}%
+% with open('../../../Resources/iso4217.csv') as file:
+    % for row in csv.DictReader(file):
+%{
+code = row["Code"]
+name = row["Name"]
+minorUnit = row["MinorUnit"]
+}%
+        % if code:
+            % if first_line:
+                %{ first_line = False }%
+        case ${code}="${code}"
+            % else:
+            ,${code} = "${code}"
+            %end
+        %end
+    %end
+
+    public var code: String {
+        return self.rawValue
+    }
+
+    public var name: String {
+        switch self {
+    %{file.seek(0, 0)}%
+    % for row in csv.DictReader(file):
+        %{
+        code = row["Code"]
+        name = row["Name"]
+        }%
+        % if code and name:
+        case .${code}:
+            return "${name}"
+        %end
+    %end
+        }
+    }
+
+    public var minorUnit: Int {
+        switch self {
+    %{file.seek(0, 0)}%
+    % for row in csv.DictReader(file):
+        %{
+        code = row["Code"]
+        minorUnit = row["MinorUnit"]
+        }%
+        % if code and minorUnit:
+        case .${code}:
+            return ${minorUnit}
+        %end
+    %end
+        }
+    }
+
+    public static func currencyFromCode(_ code: String) -> CurrencyType {
+        guard let result = CurrencyType(rawValue: code) else {
+            preconditionFailure("Currency code parameter \(code) does not match raw value in CurrencyType")
+        }
+        return result
+    }
+
+    public static func currencyFromLocale(_ locale: Locale) -> CurrencyType {
+        guard let currencyCode = locale.currencyCode else {
+            preconditionFailure("Locale \(locale) does not have a currency code associated with it.")
+        }
+        return try CurrencyType.currencyFromCode(currencyCode)
+    }
+
+    public static func currencyForDefaultLocale() -> CurrencyType {
+        return try currencyFromLocale(Locale.current)
+    }
+
+    /**
+     Formats the decimal as a currency for the locale specified.
+    */
+    public static func formatAmount(_ amount: Decimal, withLocale locale: Locale) -> String? {
+        let formatter = NumberFormatter()
+        formatter.locale = locale
+        formatter.numberStyle = .currency
+        return formatter.string(from: NSDecimalNumber(decimal: amount))
+    }
+
+    /**
+     Formats the decimal as a currency for the current locale.
+    */
+    public static func formatWithCurrentLocaleAmount(_ amount: Decimal) -> String? {
+        return CurrencyType.formatAmount(amount, withLocale: Locale.current)
+    }
+%end
+}
