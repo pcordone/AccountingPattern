@@ -2,7 +2,7 @@
 //  Event.swift
 //  Accounting
 //
-//  Created by Peter Cordone on 5/2/19.
+//  Created by Peter Wiley-Cordone on 3/3/20.
 //  Copyright © 2020 Peter Cordone. All rights reserved.
 //
 // Implementation of Martin Fowlers's accounting pattern https://www.martinfowler.com/eaaDev/AccountingNarrative.html.

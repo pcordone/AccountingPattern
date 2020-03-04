@@ -2,8 +2,8 @@
 //  Customer.swift
 //  sophrosyne
 //
-//  Created by Peter Cordone on 5/3/19.
-//  Copyright © 2019 Peter Cordone. All rights reserved.
+//  Created by Peter Wiley-Cordone on 3/3/20.
+//  Copyright © 2020 Peter Cordone. All rights reserved.
 //
 
 import Foundation
