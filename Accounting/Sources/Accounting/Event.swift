@@ -6,6 +6,7 @@
 //  Copyright © 2020 Peter Cordone. All rights reserved.
 //
 // Implementation of Martin Fowlers's accounting pattern https://www.martinfowler.com/eaaDev/AccountingNarrative.html.
+//
 
 import Foundation
 

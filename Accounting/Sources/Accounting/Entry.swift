@@ -9,24 +9,26 @@ import Foundation
 
 /**
  Proposed as part of Posting Rule pattern.
- - Note: Starts on page 23.  I called CostType Account since it's more consistent with accounting nomenclature (i.e. accounts are in the chart of accounts)
+ - Note: Starts on page 23.  I called CostType Account since it's more consistent with accounting nomenclature (i.e. accounts are in the chart of accounts).  I added eventId since I want every entry to be able to trace back to the origin event.
  */
 public struct Entry: Hashable, Identifiable  {
     public let id = UUID()
+    public let eventId: UUID
     public let date: Date
     public let entryType: EntryType
     public let amount: Money
-    public let account: Account
+    public let otherParty: OtherParty
         
     public static func == (lhs: Entry, rhs: Entry) -> Bool {
         return lhs.id == rhs.id
     }
     
-    public init(date: Date, entryType: EntryType, amount: Money, account: Account) {
+    public init(eventId: UUID, date: Date, entryType: EntryType, amount: Money, otherParty: OtherParty) {
+        self.eventId = eventId
         self.date = date
         self.entryType = entryType
         self.amount = amount
-        self.account = account
+        self.otherParty = otherParty
     }
     
     public func hash(into hasher: inout Hasher) {

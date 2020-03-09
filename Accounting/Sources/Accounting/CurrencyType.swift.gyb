@@ -13,7 +13,7 @@ public enum CurrencyType: String {
 
     first_line = True
 }%
-% with open('../../../Resources/iso4217.csv') as file:
+% with open('../iso4217.csv') as file:
     % for row in csv.DictReader(file):
 %{
 code = row["Code"]
