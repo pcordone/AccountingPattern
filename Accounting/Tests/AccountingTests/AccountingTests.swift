@@ -1,5 +1,5 @@
 import XCTest
-@testable import AccountingPackage
+@testable import Accounting
 
 final class AccountingTests: XCTestCase {
     func testAccountEntries() {

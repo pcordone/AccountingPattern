@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "AccountingPackage::AccountingPackage"
-               BuildableName = "AccountingPackage.framework"
-               BlueprintName = "AccountingPackage"
-               ReferencedContainer = "container:AccountingPackage.xcodeproj">
+               BlueprintIdentifier = "Accounting::Accounting"
+               BuildableName = "Accounting.framework"
+               BlueprintName = "Accounting"
+               ReferencedContainer = "container:Accounting.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -32,10 +32,10 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "AccountingPackage::AccountingPackageTests"
-               BuildableName = "AccountingPackageTests.xctest"
-               BlueprintName = "AccountingPackageTests"
-               ReferencedContainer = "container:AccountingPackage.xcodeproj">
+               BlueprintIdentifier = "Accounting::AccountingTests"
+               BuildableName = "AccountingTests.xctest"
+               BlueprintName = "AccountingTests"
+               ReferencedContainer = "container:Accounting.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>

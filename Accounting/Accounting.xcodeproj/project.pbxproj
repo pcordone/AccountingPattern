@@ -3,7 +3,7 @@
    archiveVersion = "1";
    objectVersion = "46";
    objects = {
-      "AccountingPackage::AccountingPackage" = {
+      "Accounting::Accounting" = {
          isa = "PBXNativeTarget";
          buildConfigurationList = "OBJ_85";
          buildPhases = (
@@ -14,17 +14,17 @@
             "OBJ_110",
             "OBJ_112"
          );
-         name = "AccountingPackage";
-         productName = "AccountingPackage";
-         productReference = "AccountingPackage::AccountingPackage::Product";
+         name = "Accounting";
+         productName = "Accounting";
+         productReference = "Accounting::Accounting::Product";
          productType = "com.apple.product-type.framework";
       };
-      "AccountingPackage::AccountingPackage::Product" = {
+      "Accounting::Accounting::Product" = {
          isa = "PBXFileReference";
-         path = "AccountingPackage.framework";
+         path = "Accounting.framework";
          sourceTree = "BUILT_PRODUCTS_DIR";
       };
-      "AccountingPackage::AccountingPackagePackageTests::ProductTarget" = {
+      "Accounting::AccountingPackageTests::ProductTarget" = {
          isa = "PBXAggregateTarget";
          buildConfigurationList = "OBJ_121";
          buildPhases = (
@@ -32,10 +32,10 @@
          dependencies = (
             "OBJ_124"
          );
-         name = "AccountingPackagePackageTests";
-         productName = "AccountingPackagePackageTests";
+         name = "AccountingPackageTests";
+         productName = "AccountingPackageTests";
       };
-      "AccountingPackage::AccountingPackageTests" = {
+      "Accounting::AccountingTests" = {
          isa = "PBXNativeTarget";
          buildConfigurationList = "OBJ_126";
          buildPhases = (
@@ -48,17 +48,17 @@
             "OBJ_141",
             "OBJ_142"
          );
-         name = "AccountingPackageTests";
-         productName = "AccountingPackageTests";
-         productReference = "AccountingPackage::AccountingPackageTests::Product";
+         name = "AccountingTests";
+         productName = "AccountingTests";
+         productReference = "Accounting::AccountingTests::Product";
          productType = "com.apple.product-type.bundle.unit-test";
       };
-      "AccountingPackage::AccountingPackageTests::Product" = {
+      "Accounting::AccountingTests::Product" = {
          isa = "PBXFileReference";
-         path = "AccountingPackageTests.xctest";
+         path = "AccountingTests.xctest";
          sourceTree = "BUILT_PRODUCTS_DIR";
       };
-      "AccountingPackage::SwiftPMPackageDescription" = {
+      "Accounting::SwiftPMPackageDescription" = {
          isa = "PBXNativeTarget";
          buildConfigurationList = "OBJ_115";
          buildPhases = (
@@ -66,8 +66,8 @@
          );
          dependencies = (
          );
-         name = "AccountingPackagePackageDescription";
-         productName = "AccountingPackagePackageDescription";
+         name = "AccountingPackageDescription";
+         productName = "AccountingPackageDescription";
          productType = "com.apple.product-type.framework";
       };
       "DataStructures::DataStructures" = {
@@ -150,10 +150,10 @@
          productRefGroup = "OBJ_76";
          projectDirPath = ".";
          targets = (
-            "AccountingPackage::AccountingPackage",
-            "AccountingPackage::SwiftPMPackageDescription",
-            "AccountingPackage::AccountingPackagePackageTests::ProductTarget",
-            "AccountingPackage::AccountingPackageTests",
+            "Accounting::Accounting",
+            "Accounting::SwiftPMPackageDescription",
+            "Accounting::AccountingPackageTests::ProductTarget",
+            "Accounting::AccountingTests",
             "DataStructures::DataStructures",
             "DataStructures::SwiftPMPackageDescription",
             "Mockingbird::Mockingbird",
@@ -310,7 +310,7 @@
       };
       "OBJ_124" = {
          isa = "PBXTargetDependency";
-         target = "AccountingPackage::AccountingPackageTests";
+         target = "Accounting::AccountingTests";
       };
       "OBJ_126" = {
          isa = "XCConfigurationList";
@@ -333,7 +333,7 @@
             HEADER_SEARCH_PATHS = (
                "$(inherited)"
             );
-            INFOPLIST_FILE = "AccountingPackage.xcodeproj/AccountingPackageTests_Info.plist";
+            INFOPLIST_FILE = "Accounting.xcodeproj/AccountingTests_Info.plist";
             IPHONEOS_DEPLOYMENT_TARGET = "8.0";
             LD_RUNPATH_SEARCH_PATHS = (
                "$(inherited)",
@@ -354,7 +354,7 @@
                "$(inherited)"
             );
             SWIFT_VERSION = "5.0";
-            TARGET_NAME = "AccountingPackageTests";
+            TARGET_NAME = "AccountingTests";
             TVOS_DEPLOYMENT_TARGET = "9.0";
             WATCHOS_DEPLOYMENT_TARGET = "2.0";
          };
@@ -372,7 +372,7 @@
             HEADER_SEARCH_PATHS = (
                "$(inherited)"
             );
-            INFOPLIST_FILE = "AccountingPackage.xcodeproj/AccountingPackageTests_Info.plist";
+            INFOPLIST_FILE = "Accounting.xcodeproj/AccountingTests_Info.plist";
             IPHONEOS_DEPLOYMENT_TARGET = "8.0";
             LD_RUNPATH_SEARCH_PATHS = (
                "$(inherited)",
@@ -393,7 +393,7 @@
                "$(inherited)"
             );
             SWIFT_VERSION = "5.0";
-            TARGET_NAME = "AccountingPackageTests";
+            TARGET_NAME = "AccountingTests";
             TVOS_DEPLOYMENT_TARGET = "9.0";
             WATCHOS_DEPLOYMENT_TARGET = "2.0";
          };
@@ -439,7 +439,7 @@
       };
       "OBJ_135" = {
          isa = "PBXBuildFile";
-         fileRef = "AccountingPackage::AccountingPackage::Product";
+         fileRef = "Accounting::Accounting::Product";
       };
       "OBJ_136" = {
          isa = "PBXBuildFile";
@@ -460,7 +460,7 @@
       };
       "OBJ_140" = {
          isa = "PBXTargetDependency";
-         target = "AccountingPackage::AccountingPackage";
+         target = "Accounting::Accounting";
       };
       "OBJ_141" = {
          isa = "PBXTargetDependency";
@@ -490,7 +490,7 @@
             HEADER_SEARCH_PATHS = (
                "$(inherited)"
             );
-            INFOPLIST_FILE = "AccountingPackage.xcodeproj/DataStructures_Info.plist";
+            INFOPLIST_FILE = "Accounting.xcodeproj/DataStructures_Info.plist";
             IPHONEOS_DEPLOYMENT_TARGET = "8.0";
             LD_RUNPATH_SEARCH_PATHS = (
                "$(inherited)",
@@ -531,7 +531,7 @@
             HEADER_SEARCH_PATHS = (
                "$(inherited)"
             );
-            INFOPLIST_FILE = "AccountingPackage.xcodeproj/DataStructures_Info.plist";
+            INFOPLIST_FILE = "Accounting.xcodeproj/DataStructures_Info.plist";
             IPHONEOS_DEPLOYMENT_TARGET = "8.0";
             LD_RUNPATH_SEARCH_PATHS = (
                "$(inherited)",
@@ -669,7 +669,7 @@
             HEADER_SEARCH_PATHS = (
                "$(inherited)"
             );
-            INFOPLIST_FILE = "AccountingPackage.xcodeproj/Mockingbird_Info.plist";
+            INFOPLIST_FILE = "Accounting.xcodeproj/Mockingbird_Info.plist";
             IPHONEOS_DEPLOYMENT_TARGET = "8.0";
             LD_RUNPATH_SEARCH_PATHS = (
                "$(inherited)",
@@ -712,7 +712,7 @@
             HEADER_SEARCH_PATHS = (
                "$(inherited)"
             );
-            INFOPLIST_FILE = "AccountingPackage.xcodeproj/Mockingbird_Info.plist";
+            INFOPLIST_FILE = "Accounting.xcodeproj/Mockingbird_Info.plist";
             IPHONEOS_DEPLOYMENT_TARGET = "8.0";
             LD_RUNPATH_SEARCH_PATHS = (
                "$(inherited)",
@@ -943,7 +943,7 @@
             HEADER_SEARCH_PATHS = (
                "$(inherited)"
             );
-            INFOPLIST_FILE = "AccountingPackage.xcodeproj/SwiftAlgorithmClub_Info.plist";
+            INFOPLIST_FILE = "Accounting.xcodeproj/SwiftAlgorithmClub_Info.plist";
             IPHONEOS_DEPLOYMENT_TARGET = "8.0";
             LD_RUNPATH_SEARCH_PATHS = (
                "$(inherited)",
@@ -984,7 +984,7 @@
             HEADER_SEARCH_PATHS = (
                "$(inherited)"
             );
-            INFOPLIST_FILE = "AccountingPackage.xcodeproj/SwiftAlgorithmClub_Info.plist";
+            INFOPLIST_FILE = "Accounting.xcodeproj/SwiftAlgorithmClub_Info.plist";
             IPHONEOS_DEPLOYMENT_TARGET = "8.0";
             LD_RUNPATH_SEARCH_PATHS = (
                "$(inherited)",
@@ -1163,8 +1163,8 @@
             "OBJ_31",
             "OBJ_32"
          );
-         name = "AccountingPackageTests";
-         path = "Tests/AccountingPackageTests";
+         name = "AccountingTests";
+         path = "Tests/AccountingTests";
          sourceTree = "SOURCE_ROOT";
       };
       "OBJ_3" = {
@@ -1611,11 +1611,11 @@
       "OBJ_76" = {
          isa = "PBXGroup";
          children = (
-            "AccountingPackage::AccountingPackage::Product",
+            "Accounting::Accounting::Product",
+            "Accounting::AccountingTests::Product",
+            "Mockingbird::Mockingbird::Product",
             "SwiftAlgorithmClub::SwiftAlgorithmClub::Product",
-            "AccountingPackage::AccountingPackageTests::Product",
-            "DataStructures::DataStructures::Product",
-            "Mockingbird::Mockingbird::Product"
+            "DataStructures::DataStructures::Product"
          );
          name = "Products";
          path = "";
@@ -1644,8 +1644,8 @@
             "OBJ_26",
             "OBJ_27"
          );
-         name = "AccountingPackage";
-         path = "Sources/AccountingPackage";
+         name = "Accounting";
+         path = "Sources/Accounting";
          sourceTree = "SOURCE_ROOT";
       };
       "OBJ_82" = {
@@ -1678,7 +1678,7 @@
             HEADER_SEARCH_PATHS = (
                "$(inherited)"
             );
-            INFOPLIST_FILE = "AccountingPackage.xcodeproj/AccountingPackage_Info.plist";
+            INFOPLIST_FILE = "Accounting.xcodeproj/Accounting_Info.plist";
             IPHONEOS_DEPLOYMENT_TARGET = "8.0";
             LD_RUNPATH_SEARCH_PATHS = (
                "$(inherited)",
@@ -1694,7 +1694,7 @@
             OTHER_SWIFT_FLAGS = (
                "$(inherited)"
             );
-            PRODUCT_BUNDLE_IDENTIFIER = "AccountingPackage";
+            PRODUCT_BUNDLE_IDENTIFIER = "Accounting";
             PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
             PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
             SKIP_INSTALL = "YES";
@@ -1702,7 +1702,7 @@
                "$(inherited)"
             );
             SWIFT_VERSION = "5.0";
-            TARGET_NAME = "AccountingPackage";
+            TARGET_NAME = "Accounting";
             TVOS_DEPLOYMENT_TARGET = "9.0";
             WATCHOS_DEPLOYMENT_TARGET = "2.0";
          };
@@ -1719,7 +1719,7 @@
             HEADER_SEARCH_PATHS = (
                "$(inherited)"
             );
-            INFOPLIST_FILE = "AccountingPackage.xcodeproj/AccountingPackage_Info.plist";
+            INFOPLIST_FILE = "Accounting.xcodeproj/Accounting_Info.plist";
             IPHONEOS_DEPLOYMENT_TARGET = "8.0";
             LD_RUNPATH_SEARCH_PATHS = (
                "$(inherited)",
@@ -1735,7 +1735,7 @@
             OTHER_SWIFT_FLAGS = (
                "$(inherited)"
             );
-            PRODUCT_BUNDLE_IDENTIFIER = "AccountingPackage";
+            PRODUCT_BUNDLE_IDENTIFIER = "Accounting";
             PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
             PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
             SKIP_INSTALL = "YES";
@@ -1743,7 +1743,7 @@
                "$(inherited)"
             );
             SWIFT_VERSION = "5.0";
-            TARGET_NAME = "AccountingPackage";
+            TARGET_NAME = "Accounting";
             TVOS_DEPLOYMENT_TARGET = "9.0";
             WATCHOS_DEPLOYMENT_TARGET = "2.0";
          };

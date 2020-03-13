@@ -8,7 +8,8 @@
 import Foundation
 
 import XCTest
-@testable import AccountingPackage
+@testable import Accounting
+
 import Mockingbird
 
 final class ChartOfAccountsTest: XCTestCase {
