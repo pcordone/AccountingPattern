@@ -8,6 +8,6 @@
 
 import Foundation
 
-public protocol NamedObject {
-    var name: String { get }
+public protocol NamedObject: Hashable, Comparable {
+    var name: String { get set }
 }

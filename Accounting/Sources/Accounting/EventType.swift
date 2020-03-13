@@ -20,6 +20,10 @@ public class EventType: NamedObject, Equatable, Hashable {
         return lhs.id == rhs.id
     }
     
+    public static func < (lhs: EventType, rhs: EventType) -> Bool {
+        lhs.name < rhs.name
+    }
+    
     public init(name: String) {
         self.name = name
     }

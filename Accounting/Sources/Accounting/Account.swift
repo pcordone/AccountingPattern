@@ -14,22 +14,27 @@ import Foundation
  - ToDo: Need to incorporate MoneyBag for balance calculations and return it.
  - ToDo: Do I also want to put in validation for enforcing a XF transaction for when currency of entries change or more generally, how do we support spending across currencies?  I probably want to create a new account for the new currency.
  */
-public struct Account: NamedObject, Equatable, Hashable {
+public struct Account: NamedObject, Equatable {
+    public var name: String
+    
     enum AccountError: Error {
         case attemptedToAddEntryWhereAmountCurrencyDoesNotMatchAccountCurrency
     }
     
     public let id = UUID()
-    public let name: String
     public let number: AccountNumber
     public let currency: CurrencyType
     public var entries: Set<Entry>
-
+    
     public init(name: String, number: AccountNumber, currency: CurrencyType, entries: Set<Entry> = Set<Entry>()) {
         self.name = name
         self.number = number
         self.currency = currency
         self.entries = entries
+    }
+    
+    public static func < (lhs: Account, rhs: Account) -> Bool {
+        return lhs.name < rhs.name
     }
     
     public static func == (lhs: Account, rhs: Account) -> Bool {
