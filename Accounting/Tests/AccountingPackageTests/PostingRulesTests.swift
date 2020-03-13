@@ -7,7 +7,7 @@
 
 import Foundation
 import XCTest
-@testable import Accounting
+@testable import AccountingPackage
     
 final class PostingRulesTests: XCTestCase {
 
