@@ -13,7 +13,7 @@ let package = Package(
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
-        .package(path: "../../DataStructures"),
+        .package(url: "https://github.com/pcordone/DataStructures.git", .branch("master")),
         .package(url: "https://github.com/birdrides/mockingbird.git", .exact("0.10.0")),
     ],
     targets: [
