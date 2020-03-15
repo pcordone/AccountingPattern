@@ -22,7 +22,15 @@
 
 /* Begin PBXBuildFile section */
 		1B88494BD983AA668AEC73E8 /* AccountingMocks.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4644AF9D60B540CD2881E2 /* AccountingMocks.generated.swift */; };
-		OBJ_100 /* MoneyEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_21 /* MoneyEvent.swift */; };
+		C10C1EDA241C7EBD00BF4B49 /* Hashable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10C1ECC241C7EBD00BF4B49 /* Hashable.swift */; };
+		C10C1EDB241C7EBD00BF4B49 /* Comparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10C1ECD241C7EBD00BF4B49 /* Comparable.swift */; };
+		C10C1EDC241C7EBD00BF4B49 /* Misc.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10C1ECE241C7EBD00BF4B49 /* Misc.swift */; };
+		C10C1EDD241C7EBD00BF4B49 /* Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10C1ECF241C7EBD00BF4B49 /* Codable.swift */; };
+		C10C1EDE241C7EBD00BF4B49 /* Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10C1ED0241C7EBD00BF4B49 /* Equatable.swift */; };
+		C10C1EE3241D110A00BF4B49 /* PostToSingleAccountEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10C1EE2241D110A00BF4B49 /* PostToSingleAccountEvent.swift */; };
+		C10C1EE4241D111B00BF4B49 /* PostToSingleAccountEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10C1EE2241D110A00BF4B49 /* PostToSingleAccountEvent.swift */; };
+		C10C1EE6241E51BC00BF4B49 /* SingleAccountEntryPostingRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10C1EE5241E51BC00BF4B49 /* SingleAccountEntryPostingRule.swift */; };
+		C10C1EE7241E51BC00BF4B49 /* SingleAccountEntryPostingRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10C1EE5241E51BC00BF4B49 /* SingleAccountEntryPostingRule.swift */; };
 		OBJ_101 /* NamedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_22 /* NamedObject.swift */; };
 		OBJ_102 /* OtherParty.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_23 /* OtherParty.swift */; };
 		OBJ_103 /* PostingRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_24 /* PostingRule.swift */; };
@@ -78,63 +86,128 @@
 		OBJ_99 /* Money.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_20 /* Money.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		C10C1E9A241C4D6C00BF4B49 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = OBJ_1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = "DataStructures::DataStructures";
+			remoteInfo = DataStructures;
+		};
+		C10C1E9B241C4D6C00BF4B49 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = OBJ_1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = "SwiftAlgorithmClub::SwiftAlgorithmClub";
+			remoteInfo = SwiftAlgorithmClub;
+		};
+		C10C1E9C241C4D6C00BF4B49 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = OBJ_1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = "SwiftAlgorithmClub::SwiftAlgorithmClub";
+			remoteInfo = SwiftAlgorithmClub;
+		};
+		C10C1E9D241C4D6D00BF4B49 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = OBJ_1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = "Mockingbird::Mockingbird";
+			remoteInfo = Mockingbird;
+		};
+		C10C1E9E241C4D6D00BF4B49 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = OBJ_1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = "Accounting::Accounting";
+			remoteInfo = Accounting;
+		};
+		C10C1E9F241C4D6D00BF4B49 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = OBJ_1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = "DataStructures::DataStructures";
+			remoteInfo = DataStructures;
+		};
+		C10C1EA0241C4D6D00BF4B49 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = OBJ_1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = "SwiftAlgorithmClub::SwiftAlgorithmClub";
+			remoteInfo = SwiftAlgorithmClub;
+		};
+		C10C1EA1241C4E4700BF4B49 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = OBJ_1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = "Accounting::AccountingTests";
+			remoteInfo = AccountingTests;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
-		"Accounting::Accounting::Product" /* Accounting.framework */ = {isa = PBXFileReference; path = Accounting.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		"Accounting::AccountingTests::Product" /* AccountingTests.xctest */ = {isa = PBXFileReference; path = AccountingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		CA4644AF9D60B540CD2881E2 /* AccountingMocks.generated.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; lastKnownFileType = sourcecode.swift; name = AccountingMocks.generated.swift; path = MockingbirdMocks/AccountingMocks.generated.swift; sourceTree = "<group>"; };
-		"DataStructures::DataStructures::Product" /* DataStructures.framework */ = {isa = PBXFileReference; path = DataStructures.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		"Mockingbird::Mockingbird::Product" /* Mockingbird.framework */ = {isa = PBXFileReference; path = Mockingbird.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		OBJ_10 /* Account.swift */ = {isa = PBXFileReference; path = Account.swift; sourceTree = "<group>"; };
-		OBJ_11 /* AccountName.swift */ = {isa = PBXFileReference; path = AccountName.swift; sourceTree = "<group>"; };
-		OBJ_12 /* AccountNumber.swift */ = {isa = PBXFileReference; path = AccountNumber.swift; sourceTree = "<group>"; };
-		OBJ_13 /* AccountingEvent.swift */ = {isa = PBXFileReference; path = AccountingEvent.swift; sourceTree = "<group>"; };
-		OBJ_14 /* ChartOfAccounts.swift */ = {isa = PBXFileReference; path = ChartOfAccounts.swift; sourceTree = "<group>"; };
-		OBJ_15 /* CurrencyType.swift */ = {isa = PBXFileReference; path = CurrencyType.swift; sourceTree = "<group>"; };
-		OBJ_16 /* Entry.swift */ = {isa = PBXFileReference; path = Entry.swift; sourceTree = "<group>"; };
-		OBJ_17 /* EntryType.swift */ = {isa = PBXFileReference; path = EntryType.swift; sourceTree = "<group>"; };
-		OBJ_18 /* Event.swift */ = {isa = PBXFileReference; path = Event.swift; sourceTree = "<group>"; };
-		OBJ_19 /* EventType.swift */ = {isa = PBXFileReference; path = EventType.swift; sourceTree = "<group>"; };
-		OBJ_20 /* Money.swift */ = {isa = PBXFileReference; path = Money.swift; sourceTree = "<group>"; };
-		OBJ_21 /* MoneyEvent.swift */ = {isa = PBXFileReference; path = MoneyEvent.swift; sourceTree = "<group>"; };
-		OBJ_22 /* NamedObject.swift */ = {isa = PBXFileReference; path = NamedObject.swift; sourceTree = "<group>"; };
-		OBJ_23 /* OtherParty.swift */ = {isa = PBXFileReference; path = OtherParty.swift; sourceTree = "<group>"; };
-		OBJ_24 /* PostingRule.swift */ = {isa = PBXFileReference; path = PostingRule.swift; sourceTree = "<group>"; };
-		OBJ_25 /* ServiceAgreement.swift */ = {isa = PBXFileReference; path = ServiceAgreement.swift; sourceTree = "<group>"; };
-		OBJ_26 /* SortOrderType.swift */ = {isa = PBXFileReference; path = SortOrderType.swift; sourceTree = "<group>"; };
-		OBJ_27 /* TemporalCollection.swift */ = {isa = PBXFileReference; path = TemporalCollection.swift; sourceTree = "<group>"; };
-		OBJ_30 /* AccountingTests.swift */ = {isa = PBXFileReference; path = AccountingTests.swift; sourceTree = "<group>"; };
-		OBJ_31 /* ChartOfAccountsTest.swift */ = {isa = PBXFileReference; path = ChartOfAccountsTest.swift; sourceTree = "<group>"; };
-		OBJ_32 /* PostingRulesTests.swift */ = {isa = PBXFileReference; path = PostingRulesTests.swift; sourceTree = "<group>"; };
-		OBJ_37 /* ArgumentCaptor.swift */ = {isa = PBXFileReference; path = ArgumentCaptor.swift; sourceTree = "<group>"; };
-		OBJ_38 /* TypeFacade.swift */ = {isa = PBXFileReference; path = TypeFacade.swift; sourceTree = "<group>"; };
-		OBJ_40 /* ArgumentMatcher.swift */ = {isa = PBXFileReference; path = ArgumentMatcher.swift; sourceTree = "<group>"; };
-		OBJ_41 /* CountMatcher.swift */ = {isa = PBXFileReference; path = CountMatcher.swift; sourceTree = "<group>"; };
-		OBJ_43 /* Mock.swift */ = {isa = PBXFileReference; path = Mock.swift; sourceTree = "<group>"; };
-		OBJ_44 /* MockingContext.swift */ = {isa = PBXFileReference; path = MockingContext.swift; sourceTree = "<group>"; };
-		OBJ_45 /* Mockingbird.swift */ = {isa = PBXFileReference; path = Mockingbird.swift; sourceTree = "<group>"; };
-		OBJ_47 /* Stubbing.swift */ = {isa = PBXFileReference; path = Stubbing.swift; sourceTree = "<group>"; };
-		OBJ_48 /* StubbingContext.swift */ = {isa = PBXFileReference; path = StubbingContext.swift; sourceTree = "<group>"; };
-		OBJ_49 /* TestKiller.swift */ = {isa = PBXFileReference; path = TestKiller.swift; sourceTree = "<group>"; };
-		OBJ_51 /* Array+Extensions.swift */ = {isa = PBXFileReference; path = "Array+Extensions.swift"; sourceTree = "<group>"; };
-		OBJ_52 /* DateFormatter+Extensions.swift */ = {isa = PBXFileReference; path = "DateFormatter+Extensions.swift"; sourceTree = "<group>"; };
-		OBJ_53 /* String+Extensions.swift */ = {isa = PBXFileReference; path = "String+Extensions.swift"; sourceTree = "<group>"; };
-		OBJ_54 /* Synchronized.swift */ = {isa = PBXFileReference; path = Synchronized.swift; sourceTree = "<group>"; };
-		OBJ_55 /* Version.swift */ = {isa = PBXFileReference; path = Version.swift; sourceTree = "<group>"; };
-		OBJ_56 /* VersionControl.swift */ = {isa = PBXFileReference; path = VersionControl.swift; sourceTree = "<group>"; };
-		OBJ_58 /* Invocation.swift */ = {isa = PBXFileReference; path = Invocation.swift; sourceTree = "<group>"; };
-		OBJ_59 /* TestFailure.swift */ = {isa = PBXFileReference; path = TestFailure.swift; sourceTree = "<group>"; };
+		"Accounting::Accounting::Product" /* Accounting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Accounting.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		"Accounting::AccountingTests::Product" /* AccountingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = AccountingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C10C1ECC241C7EBD00BF4B49 /* Hashable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hashable.swift; sourceTree = "<group>"; };
+		C10C1ECD241C7EBD00BF4B49 /* Comparable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comparable.swift; sourceTree = "<group>"; };
+		C10C1ECE241C7EBD00BF4B49 /* Misc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Misc.swift; sourceTree = "<group>"; };
+		C10C1ECF241C7EBD00BF4B49 /* Codable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Codable.swift; sourceTree = "<group>"; };
+		C10C1ED0241C7EBD00BF4B49 /* Equatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Equatable.swift; sourceTree = "<group>"; };
+		C10C1EE2241D110A00BF4B49 /* PostToSingleAccountEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostToSingleAccountEvent.swift; sourceTree = "<group>"; };
+		C10C1EE5241E51BC00BF4B49 /* SingleAccountEntryPostingRule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleAccountEntryPostingRule.swift; sourceTree = "<group>"; };
+		CA4644AF9D60B540CD2881E2 /* AccountingMocks.generated.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = AccountingMocks.generated.swift; path = MockingbirdMocks/AccountingMocks.generated.swift; sourceTree = "<group>"; };
+		"DataStructures::DataStructures::Product" /* DataStructures.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DataStructures.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		"Mockingbird::Mockingbird::Product" /* Mockingbird.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Mockingbird.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		OBJ_10 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
+		OBJ_11 /* AccountName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountName.swift; sourceTree = "<group>"; };
+		OBJ_12 /* AccountNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountNumber.swift; sourceTree = "<group>"; };
+		OBJ_13 /* AccountingEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountingEvent.swift; sourceTree = "<group>"; };
+		OBJ_14 /* ChartOfAccounts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartOfAccounts.swift; sourceTree = "<group>"; };
+		OBJ_15 /* CurrencyType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyType.swift; sourceTree = "<group>"; };
+		OBJ_16 /* Entry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entry.swift; sourceTree = "<group>"; };
+		OBJ_17 /* EntryType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryType.swift; sourceTree = "<group>"; };
+		OBJ_18 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		OBJ_19 /* EventType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventType.swift; sourceTree = "<group>"; };
+		OBJ_20 /* Money.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Money.swift; sourceTree = "<group>"; };
+		OBJ_22 /* NamedObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NamedObject.swift; sourceTree = "<group>"; };
+		OBJ_23 /* OtherParty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherParty.swift; sourceTree = "<group>"; };
+		OBJ_24 /* PostingRule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostingRule.swift; sourceTree = "<group>"; };
+		OBJ_25 /* ServiceAgreement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceAgreement.swift; sourceTree = "<group>"; };
+		OBJ_26 /* SortOrderType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortOrderType.swift; sourceTree = "<group>"; };
+		OBJ_27 /* TemporalCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemporalCollection.swift; sourceTree = "<group>"; };
+		OBJ_30 /* AccountingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountingTests.swift; sourceTree = "<group>"; };
+		OBJ_31 /* ChartOfAccountsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartOfAccountsTest.swift; sourceTree = "<group>"; };
+		OBJ_32 /* PostingRulesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostingRulesTests.swift; sourceTree = "<group>"; };
+		OBJ_37 /* ArgumentCaptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArgumentCaptor.swift; sourceTree = "<group>"; };
+		OBJ_38 /* TypeFacade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeFacade.swift; sourceTree = "<group>"; };
+		OBJ_40 /* ArgumentMatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArgumentMatcher.swift; sourceTree = "<group>"; };
+		OBJ_41 /* CountMatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountMatcher.swift; sourceTree = "<group>"; };
+		OBJ_43 /* Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mock.swift; sourceTree = "<group>"; };
+		OBJ_44 /* MockingContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockingContext.swift; sourceTree = "<group>"; };
+		OBJ_45 /* Mockingbird.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mockingbird.swift; sourceTree = "<group>"; };
+		OBJ_47 /* Stubbing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stubbing.swift; sourceTree = "<group>"; };
+		OBJ_48 /* StubbingContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubbingContext.swift; sourceTree = "<group>"; };
+		OBJ_49 /* TestKiller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestKiller.swift; sourceTree = "<group>"; };
+		OBJ_51 /* Array+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extensions.swift"; sourceTree = "<group>"; };
+		OBJ_52 /* DateFormatter+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Extensions.swift"; sourceTree = "<group>"; };
+		OBJ_53 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
+		OBJ_54 /* Synchronized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Synchronized.swift; sourceTree = "<group>"; };
+		OBJ_55 /* Version.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Version.swift; sourceTree = "<group>"; };
+		OBJ_56 /* VersionControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionControl.swift; sourceTree = "<group>"; };
+		OBJ_58 /* Invocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Invocation.swift; sourceTree = "<group>"; };
+		OBJ_59 /* TestFailure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestFailure.swift; sourceTree = "<group>"; };
 		OBJ_6 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
-		OBJ_60 /* Verification.swift */ = {isa = PBXFileReference; path = Verification.swift; sourceTree = "<group>"; };
+		OBJ_60 /* Verification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Verification.swift; sourceTree = "<group>"; };
 		OBJ_66 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = Package.swift; path = "/Users/pete/Documents/sophrosyne/src/accounting-pattern/Accounting/.build/checkouts/mockingbird/Package.swift"; sourceTree = "<group>"; };
-		OBJ_69 /* OrderedDictionary.swift */ = {isa = PBXFileReference; path = OrderedDictionary.swift; sourceTree = "<group>"; };
+		OBJ_69 /* OrderedDictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderedDictionary.swift; sourceTree = "<group>"; };
 		OBJ_70 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = Package.swift; path = /Users/pete/Documents/sophrosyne/src/DataStructures/Package.swift; sourceTree = "<group>"; };
-		OBJ_73 /* OrderedArray.swift */ = {isa = PBXFileReference; path = OrderedArray.swift; sourceTree = "<group>"; };
-		OBJ_74 /* RedBlackTree.swift */ = {isa = PBXFileReference; path = RedBlackTree.swift; sourceTree = "<group>"; };
+		OBJ_73 /* OrderedArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderedArray.swift; sourceTree = "<group>"; };
+		OBJ_74 /* RedBlackTree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedBlackTree.swift; sourceTree = "<group>"; };
 		OBJ_75 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = Package.swift; path = /Users/pete/Documents/sophrosyne/src/SwiftAlgorithmClub/Package.swift; sourceTree = "<group>"; };
-		OBJ_82 /* Makefile */ = {isa = PBXFileReference; path = Makefile; sourceTree = "<group>"; };
-		OBJ_83 /* README.md */ = {isa = PBXFileReference; path = README.md; sourceTree = "<group>"; };
-		OBJ_9 /* CurrencyType.swift.gyb */ = {isa = PBXFileReference; path = CurrencyType.swift.gyb; sourceTree = "<group>"; };
-		"SwiftAlgorithmClub::SwiftAlgorithmClub::Product" /* SwiftAlgorithmClub.framework */ = {isa = PBXFileReference; path = SwiftAlgorithmClub.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		OBJ_82 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		OBJ_83 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		OBJ_9 /* CurrencyType.swift.gyb */ = {isa = PBXFileReference; lastKnownFileType = text; path = CurrencyType.swift.gyb; sourceTree = "<group>"; };
+		"SwiftAlgorithmClub::SwiftAlgorithmClub::Product" /* SwiftAlgorithmClub.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SwiftAlgorithmClub.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -191,13 +264,32 @@
 			name = "Generated Mocks";
 			sourceTree = "<group>";
 		};
+		C10C1EC2241C7EBD00BF4B49 /* MockingbirdSupport */ = {
+			isa = PBXGroup;
+			children = (
+				C10C1ECB241C7EBD00BF4B49 /* Swift */,
+			);
+			path = MockingbirdSupport;
+			sourceTree = "<group>";
+		};
+		C10C1ECB241C7EBD00BF4B49 /* Swift */ = {
+			isa = PBXGroup;
+			children = (
+				C10C1ECC241C7EBD00BF4B49 /* Hashable.swift */,
+				C10C1ECD241C7EBD00BF4B49 /* Comparable.swift */,
+				C10C1ECE241C7EBD00BF4B49 /* Misc.swift */,
+				C10C1ECF241C7EBD00BF4B49 /* Codable.swift */,
+				C10C1ED0241C7EBD00BF4B49 /* Equatable.swift */,
+			);
+			path = Swift;
+			sourceTree = "<group>";
+		};
 		OBJ_28 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
 				OBJ_29 /* AccountingTests */,
 			);
 			name = Tests;
-			path = "";
 			sourceTree = SOURCE_ROOT;
 		};
 		OBJ_29 /* AccountingTests */ = {
@@ -219,7 +311,6 @@
 				OBJ_71 /* SwiftAlgorithmClub */,
 			);
 			name = Dependencies;
-			path = "";
 			sourceTree = "<group>";
 		};
 		OBJ_34 /* Mockingbird 0.10.0 */ = {
@@ -234,7 +325,6 @@
 				OBJ_66 /* Package.swift */,
 			);
 			name = "Mockingbird 0.10.0";
-			path = "";
 			sourceTree = SOURCE_ROOT;
 		};
 		OBJ_35 /* Mockingbird */ = {
@@ -258,7 +348,6 @@
 				OBJ_37 /* ArgumentCaptor.swift */,
 				OBJ_38 /* TypeFacade.swift */,
 			);
-			name = DSL;
 			path = DSL;
 			sourceTree = "<group>";
 		};
@@ -268,7 +357,6 @@
 				OBJ_40 /* ArgumentMatcher.swift */,
 				OBJ_41 /* CountMatcher.swift */,
 			);
-			name = Matching;
 			path = Matching;
 			sourceTree = "<group>";
 		};
@@ -278,7 +366,6 @@
 				OBJ_43 /* Mock.swift */,
 				OBJ_44 /* MockingContext.swift */,
 			);
-			name = Mocking;
 			path = Mocking;
 			sourceTree = "<group>";
 		};
@@ -289,13 +376,13 @@
 				OBJ_48 /* StubbingContext.swift */,
 				OBJ_49 /* TestKiller.swift */,
 			);
-			name = Stubbing;
 			path = Stubbing;
 			sourceTree = "<group>";
 		};
 		OBJ_5 /*  */ = {
 			isa = PBXGroup;
 			children = (
+				C10C1EC2241C7EBD00BF4B49 /* MockingbirdSupport */,
 				OBJ_6 /* Package.swift */,
 				OBJ_7 /* Sources */,
 				OBJ_28 /* Tests */,
@@ -305,7 +392,7 @@
 				OBJ_83 /* README.md */,
 				58BDBD084577F526C3B0D525 /* Generated Mocks */,
 			);
-			path = "";
+			name = "";
 			sourceTree = "<group>";
 		};
 		OBJ_50 /* Utilities */ = {
@@ -318,7 +405,6 @@
 				OBJ_55 /* Version.swift */,
 				OBJ_56 /* VersionControl.swift */,
 			);
-			name = Utilities;
 			path = Utilities;
 			sourceTree = "<group>";
 		};
@@ -329,7 +415,6 @@
 				OBJ_59 /* TestFailure.swift */,
 				OBJ_60 /* Verification.swift */,
 			);
-			name = Verification;
 			path = Verification;
 			sourceTree = "<group>";
 		};
@@ -380,7 +465,6 @@
 				OBJ_70 /* Package.swift */,
 			);
 			name = DataStructures;
-			path = "";
 			sourceTree = SOURCE_ROOT;
 		};
 		OBJ_68 /* DataStructures */ = {
@@ -398,7 +482,6 @@
 				OBJ_8 /* Accounting */,
 			);
 			name = Sources;
-			path = "";
 			sourceTree = SOURCE_ROOT;
 		};
 		OBJ_71 /* SwiftAlgorithmClub */ = {
@@ -408,7 +491,6 @@
 				OBJ_75 /* Package.swift */,
 			);
 			name = SwiftAlgorithmClub;
-			path = "";
 			sourceTree = SOURCE_ROOT;
 		};
 		OBJ_72 /* SwiftAlgorithmClub */ = {
@@ -431,7 +513,6 @@
 				"DataStructures::DataStructures::Product" /* DataStructures.framework */,
 			);
 			name = Products;
-			path = "";
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		OBJ_8 /* Accounting */ = {
@@ -441,18 +522,19 @@
 				OBJ_10 /* Account.swift */,
 				OBJ_11 /* AccountName.swift */,
 				OBJ_12 /* AccountNumber.swift */,
+				OBJ_18 /* Event.swift */,
 				OBJ_13 /* AccountingEvent.swift */,
+				C10C1EE2241D110A00BF4B49 /* PostToSingleAccountEvent.swift */,
 				OBJ_14 /* ChartOfAccounts.swift */,
 				OBJ_15 /* CurrencyType.swift */,
 				OBJ_16 /* Entry.swift */,
 				OBJ_17 /* EntryType.swift */,
-				OBJ_18 /* Event.swift */,
 				OBJ_19 /* EventType.swift */,
 				OBJ_20 /* Money.swift */,
-				OBJ_21 /* MoneyEvent.swift */,
 				OBJ_22 /* NamedObject.swift */,
 				OBJ_23 /* OtherParty.swift */,
 				OBJ_24 /* PostingRule.swift */,
+				C10C1EE5241E51BC00BF4B49 /* SingleAccountEntryPostingRule.swift */,
 				OBJ_25 /* ServiceAgreement.swift */,
 				OBJ_26 /* SortOrderType.swift */,
 				OBJ_27 /* TemporalCollection.swift */,
@@ -627,7 +709,7 @@
 			);
 			mainGroup = OBJ_5 /*  */;
 			productRefGroup = OBJ_76 /* Products */;
-			projectDirPath = .;
+			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				"Accounting::Accounting" /* Accounting */,
@@ -691,9 +773,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C10C1EDB241C7EBD00BF4B49 /* Comparable.swift in Sources */,
 				OBJ_130 /* AccountingTests.swift in Sources */,
+				C10C1EDE241C7EBD00BF4B49 /* Equatable.swift in Sources */,
 				OBJ_131 /* ChartOfAccountsTest.swift in Sources */,
+				C10C1EDA241C7EBD00BF4B49 /* Hashable.swift in Sources */,
+				C10C1EE3241D110A00BF4B49 /* PostToSingleAccountEvent.swift in Sources */,
+				C10C1EDD241C7EBD00BF4B49 /* Codable.swift in Sources */,
+				C10C1EDC241C7EBD00BF4B49 /* Misc.swift in Sources */,
 				OBJ_132 /* PostingRulesTests.swift in Sources */,
+				C10C1EE7241E51BC00BF4B49 /* SingleAccountEntryPostingRule.swift in Sources */,
 				1B88494BD983AA668AEC73E8 /* AccountingMocks.generated.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -776,11 +865,12 @@
 				OBJ_93 /* ChartOfAccounts.swift in Sources */,
 				OBJ_94 /* CurrencyType.swift in Sources */,
 				OBJ_95 /* Entry.swift in Sources */,
+				C10C1EE4241D111B00BF4B49 /* PostToSingleAccountEvent.swift in Sources */,
 				OBJ_96 /* EntryType.swift in Sources */,
 				OBJ_97 /* Event.swift in Sources */,
+				C10C1EE6241E51BC00BF4B49 /* SingleAccountEntryPostingRule.swift in Sources */,
 				OBJ_98 /* EventType.swift in Sources */,
 				OBJ_99 /* Money.swift in Sources */,
-				OBJ_100 /* MoneyEvent.swift in Sources */,
 				OBJ_101 /* NamedObject.swift in Sources */,
 				OBJ_102 /* OtherParty.swift in Sources */,
 				OBJ_103 /* PostingRule.swift in Sources */,
@@ -796,34 +886,42 @@
 		OBJ_110 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = "DataStructures::DataStructures" /* DataStructures */;
+			targetProxy = C10C1E9A241C4D6C00BF4B49 /* PBXContainerItemProxy */;
 		};
 		OBJ_112 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = "SwiftAlgorithmClub::SwiftAlgorithmClub" /* SwiftAlgorithmClub */;
+			targetProxy = C10C1E9C241C4D6C00BF4B49 /* PBXContainerItemProxy */;
 		};
 		OBJ_124 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = "Accounting::AccountingTests" /* AccountingTests */;
+			targetProxy = C10C1EA1241C4E4700BF4B49 /* PBXContainerItemProxy */;
 		};
 		OBJ_138 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = "Mockingbird::Mockingbird" /* Mockingbird */;
+			targetProxy = C10C1E9D241C4D6D00BF4B49 /* PBXContainerItemProxy */;
 		};
 		OBJ_140 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = "Accounting::Accounting" /* Accounting */;
+			targetProxy = C10C1E9E241C4D6D00BF4B49 /* PBXContainerItemProxy */;
 		};
 		OBJ_141 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = "DataStructures::DataStructures" /* DataStructures */;
+			targetProxy = C10C1E9F241C4D6D00BF4B49 /* PBXContainerItemProxy */;
 		};
 		OBJ_142 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = "SwiftAlgorithmClub::SwiftAlgorithmClub" /* SwiftAlgorithmClub */;
+			targetProxy = C10C1EA0241C4D6D00BF4B49 /* PBXContainerItemProxy */;
 		};
 		OBJ_150 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = "SwiftAlgorithmClub::SwiftAlgorithmClub" /* SwiftAlgorithmClub */;
+			targetProxy = C10C1E9B241C4D6C00BF4B49 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -832,18 +930,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				LD = /usr/bin/true;
-				OTHER_SWIFT_FLAGS = (
-					"-swift-version",
-					5,
-					"-I",
-					"$(TOOLCHAIN_DIR)/usr/lib/swift/pm/4_2",
-					"-target",
-					"x86_64-apple-macosx10.10",
-					"-sdk",
-					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk,
-					"-package-description-version",
-					5.1,
-				);
+				OTHER_SWIFT_FLAGS = "-swift-version 5 -I $(TOOLCHAIN_DIR)/usr/lib/swift/pm/4_2 -target x86_64-apple-macosx10.10 -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk -package-description-version 5.1";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -852,18 +939,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				LD = /usr/bin/true;
-				OTHER_SWIFT_FLAGS = (
-					"-swift-version",
-					5,
-					"-I",
-					"$(TOOLCHAIN_DIR)/usr/lib/swift/pm/4_2",
-					"-target",
-					"x86_64-apple-macosx10.10",
-					"-sdk",
-					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk,
-					"-package-description-version",
-					5.1,
-				);
+				OTHER_SWIFT_FLAGS = "-swift-version 5 -I $(TOOLCHAIN_DIR)/usr/lib/swift/pm/4_2 -target x86_64-apple-macosx10.10 -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk -package-description-version 5.1";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
@@ -889,29 +965,15 @@
 					"$(inherited)",
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 				);
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Accounting.xcodeproj/AccountingTests_Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@loader_path/../Frameworks",
-					"@loader_path/Frameworks",
-				);
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @loader_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				OTHER_CFLAGS = (
-					"$(inherited)",
-				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-				);
-				OTHER_SWIFT_FLAGS = (
-					"$(inherited)",
-				);
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
-					"$(inherited)",
-				);
+				OTHER_CFLAGS = "$(inherited)";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
 				SWIFT_VERSION = 5.0;
 				TARGET_NAME = AccountingTests;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
@@ -928,29 +990,15 @@
 					"$(inherited)",
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 				);
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Accounting.xcodeproj/AccountingTests_Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@loader_path/../Frameworks",
-					"@loader_path/Frameworks",
-				);
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @loader_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				OTHER_CFLAGS = (
-					"$(inherited)",
-				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-				);
-				OTHER_SWIFT_FLAGS = (
-					"$(inherited)",
-				);
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
-					"$(inherited)",
-				);
+				OTHER_CFLAGS = "$(inherited)";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
 				SWIFT_VERSION = 5.0;
 				TARGET_NAME = AccountingTests;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
@@ -966,32 +1014,19 @@
 					"$(inherited)",
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 				);
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Accounting.xcodeproj/DataStructures_Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(TOOLCHAIN_DIR)/usr/lib/swift/macosx",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				OTHER_CFLAGS = (
-					"$(inherited)",
-				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-				);
-				OTHER_SWIFT_FLAGS = (
-					"$(inherited)",
-				);
+				OTHER_CFLAGS = "$(inherited)";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = DataStructures;
 				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
-					"$(inherited)",
-				);
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
 				SWIFT_VERSION = 5.0;
 				TARGET_NAME = DataStructures;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
@@ -1007,32 +1042,19 @@
 					"$(inherited)",
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 				);
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Accounting.xcodeproj/DataStructures_Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(TOOLCHAIN_DIR)/usr/lib/swift/macosx",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				OTHER_CFLAGS = (
-					"$(inherited)",
-				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-				);
-				OTHER_SWIFT_FLAGS = (
-					"$(inherited)",
-				);
+				OTHER_CFLAGS = "$(inherited)";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = DataStructures;
 				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
-					"$(inherited)",
-				);
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
 				SWIFT_VERSION = 5.0;
 				TARGET_NAME = DataStructures;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
@@ -1044,18 +1066,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				LD = /usr/bin/true;
-				OTHER_SWIFT_FLAGS = (
-					"-swift-version",
-					5,
-					"-I",
-					"$(TOOLCHAIN_DIR)/usr/lib/swift/pm/4_2",
-					"-target",
-					"x86_64-apple-macosx10.10",
-					"-sdk",
-					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk,
-					"-package-description-version",
-					5.1,
-				);
+				OTHER_SWIFT_FLAGS = "-swift-version 5 -I $(TOOLCHAIN_DIR)/usr/lib/swift/pm/4_2 -target x86_64-apple-macosx10.10 -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk -package-description-version 5.1";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -1064,18 +1075,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				LD = /usr/bin/true;
-				OTHER_SWIFT_FLAGS = (
-					"-swift-version",
-					5,
-					"-I",
-					"$(TOOLCHAIN_DIR)/usr/lib/swift/pm/4_2",
-					"-target",
-					"x86_64-apple-macosx10.10",
-					"-sdk",
-					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk,
-					"-package-description-version",
-					5.1,
-				);
+				OTHER_SWIFT_FLAGS = "-swift-version 5 -I $(TOOLCHAIN_DIR)/usr/lib/swift/pm/4_2 -target x86_64-apple-macosx10.10 -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk -package-description-version 5.1";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
@@ -1088,34 +1088,23 @@
 					"$(inherited)",
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 				);
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Accounting.xcodeproj/Mockingbird_Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(TOOLCHAIN_DIR)/usr/lib/swift/macosx",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				OTHER_CFLAGS = (
-					"$(inherited)",
-				);
+				OTHER_CFLAGS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-framework",
 					XCTest,
 				);
-				OTHER_SWIFT_FLAGS = (
-					"$(inherited)",
-				);
+				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = Mockingbird;
 				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
-					"$(inherited)",
-				);
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
 				SWIFT_VERSION = 5.0;
 				TARGET_NAME = Mockingbird;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
@@ -1131,34 +1120,23 @@
 					"$(inherited)",
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 				);
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Accounting.xcodeproj/Mockingbird_Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(TOOLCHAIN_DIR)/usr/lib/swift/macosx",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				OTHER_CFLAGS = (
-					"$(inherited)",
-				);
+				OTHER_CFLAGS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-framework",
 					XCTest,
 				);
-				OTHER_SWIFT_FLAGS = (
-					"$(inherited)",
-				);
+				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = Mockingbird;
 				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
-					"$(inherited)",
-				);
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
 				SWIFT_VERSION = 5.0;
 				TARGET_NAME = Mockingbird;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
@@ -1170,18 +1148,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				LD = /usr/bin/true;
-				OTHER_SWIFT_FLAGS = (
-					"-swift-version",
-					5,
-					"-I",
-					"$(TOOLCHAIN_DIR)/usr/lib/swift/pm/4_2",
-					"-target",
-					"x86_64-apple-macosx10.10",
-					"-sdk",
-					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk,
-					"-package-description-version",
-					5,
-				);
+				OTHER_SWIFT_FLAGS = "-swift-version 5 -I $(TOOLCHAIN_DIR)/usr/lib/swift/pm/4_2 -target x86_64-apple-macosx10.10 -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk -package-description-version 5";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -1190,18 +1157,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				LD = /usr/bin/true;
-				OTHER_SWIFT_FLAGS = (
-					"-swift-version",
-					5,
-					"-I",
-					"$(TOOLCHAIN_DIR)/usr/lib/swift/pm/4_2",
-					"-target",
-					"x86_64-apple-macosx10.10",
-					"-sdk",
-					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk,
-					"-package-description-version",
-					5,
-				);
+				OTHER_SWIFT_FLAGS = "-swift-version 5 -I $(TOOLCHAIN_DIR)/usr/lib/swift/pm/4_2 -target x86_64-apple-macosx10.10 -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk -package-description-version 5";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
@@ -1214,32 +1170,19 @@
 					"$(inherited)",
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 				);
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Accounting.xcodeproj/SwiftAlgorithmClub_Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(TOOLCHAIN_DIR)/usr/lib/swift/macosx",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				OTHER_CFLAGS = (
-					"$(inherited)",
-				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-				);
-				OTHER_SWIFT_FLAGS = (
-					"$(inherited)",
-				);
+				OTHER_CFLAGS = "$(inherited)";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = SwiftAlgorithmClub;
 				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
-					"$(inherited)",
-				);
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
 				SWIFT_VERSION = 5.0;
 				TARGET_NAME = SwiftAlgorithmClub;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
@@ -1255,32 +1198,19 @@
 					"$(inherited)",
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 				);
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Accounting.xcodeproj/SwiftAlgorithmClub_Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(TOOLCHAIN_DIR)/usr/lib/swift/macosx",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				OTHER_CFLAGS = (
-					"$(inherited)",
-				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-				);
-				OTHER_SWIFT_FLAGS = (
-					"$(inherited)",
-				);
+				OTHER_CFLAGS = "$(inherited)";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = SwiftAlgorithmClub;
 				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
-					"$(inherited)",
-				);
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
 				SWIFT_VERSION = 5.0;
 				TARGET_NAME = SwiftAlgorithmClub;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
@@ -1292,18 +1222,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				LD = /usr/bin/true;
-				OTHER_SWIFT_FLAGS = (
-					"-swift-version",
-					5,
-					"-I",
-					"$(TOOLCHAIN_DIR)/usr/lib/swift/pm/4_2",
-					"-target",
-					"x86_64-apple-macosx10.10",
-					"-sdk",
-					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk,
-					"-package-description-version",
-					5.1,
-				);
+				OTHER_SWIFT_FLAGS = "-swift-version 5 -I $(TOOLCHAIN_DIR)/usr/lib/swift/pm/4_2 -target x86_64-apple-macosx10.10 -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk -package-description-version 5.1";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -1312,18 +1231,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				LD = /usr/bin/true;
-				OTHER_SWIFT_FLAGS = (
-					"-swift-version",
-					5,
-					"-I",
-					"$(TOOLCHAIN_DIR)/usr/lib/swift/pm/4_2",
-					"-target",
-					"x86_64-apple-macosx10.10",
-					"-sdk",
-					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk,
-					"-package-description-version",
-					5.1,
-				);
+				OTHER_SWIFT_FLAGS = "-swift-version 5 -I $(TOOLCHAIN_DIR)/usr/lib/swift/pm/4_2 -target x86_64-apple-macosx10.10 -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk -package-description-version 5.1";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
@@ -1343,28 +1251,14 @@
 					"SWIFT_PACKAGE=1",
 					"DEBUG=1",
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_SWIFT_FLAGS = (
-					"$(inherited)",
-					"-DXcode",
-				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -DXcode";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-				SUPPORTED_PLATFORMS = (
-					macosx,
-					iphoneos,
-					iphonesimulator,
-					appletvos,
-					appletvsimulator,
-					watchos,
-					watchsimulator,
-				);
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
-					"$(inherited)",
-					SWIFT_PACKAGE,
-					DEBUG,
-				);
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) SWIFT_PACKAGE DEBUG";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				USE_HEADERMAP = NO;
 			};
@@ -1383,26 +1277,13 @@
 					"$(inherited)",
 					"SWIFT_PACKAGE=1",
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				OTHER_SWIFT_FLAGS = (
-					"$(inherited)",
-					"-DXcode",
-				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -DXcode";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-				SUPPORTED_PLATFORMS = (
-					macosx,
-					iphoneos,
-					iphonesimulator,
-					appletvos,
-					appletvsimulator,
-					watchos,
-					watchsimulator,
-				);
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
-					"$(inherited)",
-					SWIFT_PACKAGE,
-				);
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) SWIFT_PACKAGE";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				USE_HEADERMAP = NO;
 			};
@@ -1416,32 +1297,19 @@
 					"$(inherited)",
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 				);
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Accounting.xcodeproj/Accounting_Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(TOOLCHAIN_DIR)/usr/lib/swift/macosx",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				OTHER_CFLAGS = (
-					"$(inherited)",
-				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-				);
-				OTHER_SWIFT_FLAGS = (
-					"$(inherited)",
-				);
+				OTHER_CFLAGS = "$(inherited)";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = Accounting;
 				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
-					"$(inherited)",
-				);
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
 				SWIFT_VERSION = 5.0;
 				TARGET_NAME = Accounting;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
@@ -1457,32 +1325,19 @@
 					"$(inherited)",
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 				);
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Accounting.xcodeproj/Accounting_Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(TOOLCHAIN_DIR)/usr/lib/swift/macosx",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				OTHER_CFLAGS = (
-					"$(inherited)",
-				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-				);
-				OTHER_SWIFT_FLAGS = (
-					"$(inherited)",
-				);
+				OTHER_CFLAGS = "$(inherited)";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = Accounting;
 				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
-					"$(inherited)",
-				);
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
 				SWIFT_VERSION = 5.0;
 				TARGET_NAME = Accounting;
 				TVOS_DEPLOYMENT_TARGET = 9.0;

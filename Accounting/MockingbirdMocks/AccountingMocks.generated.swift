@@ -291,6 +291,21 @@ public final class EventMock: Accounting.Event, Mockingbird.Mock {
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Accounting.EventType, Accounting.EventType>(mock: self, invocation: invocation)
   }
 
+  // MARK: Mocked hashValue
+
+  public var `hashValue`: Int {
+    get {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "hashValue.get", arguments: [])
+      mockingContext.didInvoke(invocation)
+      return (stubbingContext.implementation(for: invocation) as! () -> Int)()
+    }
+  }
+
+  public func getHashValue() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Int, Int> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "hashValue.get", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Int, Int>(mock: self, invocation: invocation)
+  }
+
   // MARK: Mocked isProcessed
 
   public var `isProcessed`: Bool {
@@ -367,10 +382,48 @@ public final class EventMock: Accounting.Event, Mockingbird.Mock {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "whenOccurred.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Date, Date>(mock: self, invocation: invocation)
   }
+
+  // MARK: Mocked ==(_ `lhs`: EventMock, _ `rhs`: EventMock)
+
+  public static func ==(_ `lhs`: EventMock, _ `rhs`: EventMock) -> Bool {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "==(_ `lhs`: EventMock, _ `rhs`: EventMock) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`lhs`), Mockingbird.ArgumentMatcher(`rhs`)])
+    staticMock.mockingContext.didInvoke(invocation)
+    let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? (EventMock, EventMock) -> Bool {
+      return concreteImplementation(`lhs`, `rhs`)
+    } else {
+      return (implementation as! () -> Bool)()
+    }
+  }
+
+  public static func _equalTo(_ `lhs`: @escaping @autoclosure () -> EventMock, _ `rhs`: @escaping @autoclosure () -> EventMock) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (EventMock, EventMock) -> Bool, Bool> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`lhs`), Mockingbird.resolve(`rhs`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "==(_ `lhs`: EventMock, _ `rhs`: EventMock) -> Bool", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (EventMock, EventMock) -> Bool, Bool>(mock: staticMock, invocation: invocation)
+  }
+
+  // MARK: Mocked `hash`(`into` `hasher`: inout Hasher)
+
+  public func `hash`(`into` `hasher`: inout Hasher) -> Void {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`hash`(`into` `hasher`: inout Hasher) -> Void", arguments: [Mockingbird.ArgumentMatcher(`hasher`)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    if let concreteImplementation = implementation as? (inout Hasher) -> Void {
+      concreteImplementation(&`hasher`)
+    } else {
+      (implementation as? () -> Void)?()
+    }
+  }
+
+  public func `hash`(`into` `hasher`: @escaping @autoclosure () -> Hasher) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (inout Hasher) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`hasher`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`hash`(`into` `hasher`: inout Hasher) -> Void", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (inout Hasher) -> Void, Void>(mock: self, invocation: invocation)
+  }
 }
 
 /// Create a source-attributed `Accounting.Event` class mock metatype.
-public func mock(file: StaticString = #file, line: UInt = #line, _ type: Accounting.Event.Protocol) -> EventMock.InitializerProxy.Type {
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: EventMock.Type) -> EventMock.InitializerProxy.Type {
   return EventMock.InitializerProxy.self
 }
 
@@ -632,7 +685,20 @@ public final class NamedObjectMock: Accounting.NamedObject, Mockingbird.Mock {
     }
   }
 
-  public enum InitializerProxy {}
+  // MARK: Mocked hashValue
+
+  public var `hashValue`: Int {
+    get {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "hashValue.get", arguments: [])
+      mockingContext.didInvoke(invocation)
+      return (stubbingContext.implementation(for: invocation) as! () -> Int)()
+    }
+  }
+
+  public func getHashValue() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Int, Int> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "hashValue.get", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Int, Int>(mock: self, invocation: invocation)
+  }
 
   // MARK: Mocked name
 
@@ -664,11 +730,130 @@ public final class NamedObjectMock: Accounting.NamedObject, Mockingbird.Mock {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "name.set", arguments: arguments)
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (String) -> Void, Void>(mock: self, invocation: invocation)
   }
+
+  fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
+    Mockingbird.checkVersion(for: self)
+    self.sourceLocation = sourceLocation
+  }
+
+  // MARK: Mocked <(_ `lhs`: NamedObjectMock, _ `rhs`: NamedObjectMock)
+
+  public static func <(_ `lhs`: NamedObjectMock, _ `rhs`: NamedObjectMock) -> Bool {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "<(_ `lhs`: NamedObjectMock, _ `rhs`: NamedObjectMock) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`lhs`), Mockingbird.ArgumentMatcher(`rhs`)])
+    staticMock.mockingContext.didInvoke(invocation)
+    let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? (NamedObjectMock, NamedObjectMock) -> Bool {
+      return concreteImplementation(`lhs`, `rhs`)
+    } else {
+      return (implementation as! () -> Bool)()
+    }
+  }
+
+  public static func _lessThan(_ `lhs`: @escaping @autoclosure () -> NamedObjectMock, _ `rhs`: @escaping @autoclosure () -> NamedObjectMock) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (NamedObjectMock, NamedObjectMock) -> Bool, Bool> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`lhs`), Mockingbird.resolve(`rhs`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "<(_ `lhs`: NamedObjectMock, _ `rhs`: NamedObjectMock) -> Bool", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (NamedObjectMock, NamedObjectMock) -> Bool, Bool>(mock: staticMock, invocation: invocation)
+  }
+
+  // MARK: Mocked <=(_ `lhs`: NamedObjectMock, _ `rhs`: NamedObjectMock)
+
+  public static func <=(_ `lhs`: NamedObjectMock, _ `rhs`: NamedObjectMock) -> Bool {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "<=(_ `lhs`: NamedObjectMock, _ `rhs`: NamedObjectMock) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`lhs`), Mockingbird.ArgumentMatcher(`rhs`)])
+    staticMock.mockingContext.didInvoke(invocation)
+    let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? (NamedObjectMock, NamedObjectMock) -> Bool {
+      return concreteImplementation(`lhs`, `rhs`)
+    } else {
+      return (implementation as! () -> Bool)()
+    }
+  }
+
+  public static func _lessThanOrEqualTo(_ `lhs`: @escaping @autoclosure () -> NamedObjectMock, _ `rhs`: @escaping @autoclosure () -> NamedObjectMock) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (NamedObjectMock, NamedObjectMock) -> Bool, Bool> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`lhs`), Mockingbird.resolve(`rhs`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "<=(_ `lhs`: NamedObjectMock, _ `rhs`: NamedObjectMock) -> Bool", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (NamedObjectMock, NamedObjectMock) -> Bool, Bool>(mock: staticMock, invocation: invocation)
+  }
+
+  // MARK: Mocked ==(_ `lhs`: NamedObjectMock, _ `rhs`: NamedObjectMock)
+
+  public static func ==(_ `lhs`: NamedObjectMock, _ `rhs`: NamedObjectMock) -> Bool {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "==(_ `lhs`: NamedObjectMock, _ `rhs`: NamedObjectMock) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`lhs`), Mockingbird.ArgumentMatcher(`rhs`)])
+    staticMock.mockingContext.didInvoke(invocation)
+    let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? (NamedObjectMock, NamedObjectMock) -> Bool {
+      return concreteImplementation(`lhs`, `rhs`)
+    } else {
+      return (implementation as! () -> Bool)()
+    }
+  }
+
+  public static func _equalTo(_ `lhs`: @escaping @autoclosure () -> NamedObjectMock, _ `rhs`: @escaping @autoclosure () -> NamedObjectMock) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (NamedObjectMock, NamedObjectMock) -> Bool, Bool> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`lhs`), Mockingbird.resolve(`rhs`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "==(_ `lhs`: NamedObjectMock, _ `rhs`: NamedObjectMock) -> Bool", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (NamedObjectMock, NamedObjectMock) -> Bool, Bool>(mock: staticMock, invocation: invocation)
+  }
+
+  // MARK: Mocked >(_ `lhs`: NamedObjectMock, _ `rhs`: NamedObjectMock)
+
+  public static func >(_ `lhs`: NamedObjectMock, _ `rhs`: NamedObjectMock) -> Bool {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: ">(_ `lhs`: NamedObjectMock, _ `rhs`: NamedObjectMock) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`lhs`), Mockingbird.ArgumentMatcher(`rhs`)])
+    staticMock.mockingContext.didInvoke(invocation)
+    let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? (NamedObjectMock, NamedObjectMock) -> Bool {
+      return concreteImplementation(`lhs`, `rhs`)
+    } else {
+      return (implementation as! () -> Bool)()
+    }
+  }
+
+  public static func _greaterThan(_ `lhs`: @escaping @autoclosure () -> NamedObjectMock, _ `rhs`: @escaping @autoclosure () -> NamedObjectMock) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (NamedObjectMock, NamedObjectMock) -> Bool, Bool> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`lhs`), Mockingbird.resolve(`rhs`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: ">(_ `lhs`: NamedObjectMock, _ `rhs`: NamedObjectMock) -> Bool", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (NamedObjectMock, NamedObjectMock) -> Bool, Bool>(mock: staticMock, invocation: invocation)
+  }
+
+  // MARK: Mocked >=(_ `lhs`: NamedObjectMock, _ `rhs`: NamedObjectMock)
+
+  public static func >=(_ `lhs`: NamedObjectMock, _ `rhs`: NamedObjectMock) -> Bool {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: ">=(_ `lhs`: NamedObjectMock, _ `rhs`: NamedObjectMock) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`lhs`), Mockingbird.ArgumentMatcher(`rhs`)])
+    staticMock.mockingContext.didInvoke(invocation)
+    let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? (NamedObjectMock, NamedObjectMock) -> Bool {
+      return concreteImplementation(`lhs`, `rhs`)
+    } else {
+      return (implementation as! () -> Bool)()
+    }
+  }
+
+  public static func _greaterThanOrEqualTo(_ `lhs`: @escaping @autoclosure () -> NamedObjectMock, _ `rhs`: @escaping @autoclosure () -> NamedObjectMock) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (NamedObjectMock, NamedObjectMock) -> Bool, Bool> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`lhs`), Mockingbird.resolve(`rhs`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: ">=(_ `lhs`: NamedObjectMock, _ `rhs`: NamedObjectMock) -> Bool", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (NamedObjectMock, NamedObjectMock) -> Bool, Bool>(mock: staticMock, invocation: invocation)
+  }
+
+  // MARK: Mocked `hash`(`into` `hasher`: inout Hasher)
+
+  public func `hash`(`into` `hasher`: inout Hasher) -> Void {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`hash`(`into` `hasher`: inout Hasher) -> Void", arguments: [Mockingbird.ArgumentMatcher(`hasher`)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    if let concreteImplementation = implementation as? (inout Hasher) -> Void {
+      concreteImplementation(&`hasher`)
+    } else {
+      (implementation as? () -> Void)?()
+    }
+  }
+
+  public func `hash`(`into` `hasher`: @escaping @autoclosure () -> Hasher) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (inout Hasher) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`hasher`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`hash`(`into` `hasher`: inout Hasher) -> Void", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (inout Hasher) -> Void, Void>(mock: self, invocation: invocation)
+  }
 }
 
-/// Create a source-attributed `Accounting.NamedObject` class mock metatype.
-public func mock(file: StaticString = #file, line: UInt = #line, _ type: Accounting.NamedObject.Protocol) -> NamedObjectMock.InitializerProxy.Type {
-  return NamedObjectMock.InitializerProxy.self
+/// Create a source-attributed `Accounting.NamedObject` concrete protocol mock instance.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: NamedObjectMock.Type) -> NamedObjectMock {
+  return NamedObjectMock(sourceLocation: SourceLocation(file, line))
 }
 
 // MARK: - Mocked PostingRule

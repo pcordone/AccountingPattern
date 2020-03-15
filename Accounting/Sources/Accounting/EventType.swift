@@ -12,20 +12,13 @@ import Foundation
  The event type.
 - Note: Starts on page 11.
 */
-public class EventType: NamedObject, Equatable, Hashable {
-    public let id = UUID()
-    public var name: String
-    
-    public static func == (lhs: EventType, rhs: EventType) -> Bool {
+public protocol EventType: NamedObject {
+    var id: UUID { get }
+}
+
+extension EventType {
+    public static func == (lhs: Self, rhs: Self) -> Bool {
         return lhs.id == rhs.id
-    }
-    
-    public static func < (lhs: EventType, rhs: EventType) -> Bool {
-        lhs.name < rhs.name
-    }
-    
-    public init(name: String) {
-        self.name = name
     }
     
     public func hash(into hasher: inout Hasher) {

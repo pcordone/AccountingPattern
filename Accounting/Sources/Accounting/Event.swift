@@ -14,9 +14,12 @@ import Foundation
  Captures the memory of something interesting which affects the domain.  This class is abstract and should not be instantiated.
  - Note: Starts on page 11.  See page 13 for discussion about how to handle mutability.  I kept it simple in this implementaiton and allowed the isProcessed and whenNoticed properties to be mutable since those are the ones that will change after initial creation.
  */
-public protocol Event: Hashable, Identifiable {
-    var eventType: EventType { get }
+public protocol Event: NamedObject, Identifiable {
+    associatedtype EventTypeImpl: EventType
+    var eventType: EventTypeImpl { get }
     var whenOccurred: Date { get }
     var whenNoticed: Date? { get set }
     var isProcessed: Bool { get set }
+    
+    func process() throws
 }

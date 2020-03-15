@@ -56,7 +56,7 @@ public struct Account: NamedObject, Equatable {
         try addEntry(Entry(eventId: eventId, date: date, entryType: type, amount: amount, otherParty: otherParty))
     }
 
-    @available(OSX 10.12, *)
+    @available(iOS 10.0, *)
     public func balanceBetween(_ interval: DateInterval) -> Money {
         return Money(self.entries.filter({ interval.contains($0.date) })
                            .reduce(0, { result, entry in result + entry.amount.amount }),
@@ -73,14 +73,14 @@ public struct Account: NamedObject, Equatable {
         return balanceAsOf(Date())
     }
     
-    @available(OSX 10.12, *)
+    @available(iOS 10.0, *)
     public func depositsBetween(_ interval: DateInterval) -> Money {
         return Money(self.entries.filter({ interval.contains($0.date) && $0.amount > 0 })
             .reduce(0, { result, entry in result + entry.amount.amount }),
                      self.currency)
     }
     
-    @available(OSX 10.12, *)
+    @available(iOS 10.0, *)
     public func withdrawlsBetween(_ interval: DateInterval) -> Money {
         return Money(self.entries.filter({ interval.contains($0.date) && $0.amount < 0 })
             .reduce(Decimal(0), {result, entry in result + entry.amount.amount}),

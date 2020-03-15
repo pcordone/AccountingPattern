@@ -19,7 +19,7 @@ public struct ServiceAgreement {
         }
         temporalCollection![date] = rule
     }
-    
+
     public func getPostingRuleForEventType(_ eventType: EventType, date: Date) -> PostingRule? {
         guard let temporalCollection = postingRules[eventType] else {
             fatalError("Couldn't find TemporalCollection for event type \(eventType)")

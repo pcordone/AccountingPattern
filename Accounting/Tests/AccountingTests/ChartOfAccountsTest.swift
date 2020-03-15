@@ -20,9 +20,9 @@ final class ChartOfAccountsTest: XCTestCase {
     }
     
     func testAddingAccounts() {
-        //let accountmock = mock(Account.self)
         XCTAssertNoThrow(try COA.addAccountWith(name: "First Account", number: AccountNumber("12345"), currency: .USD))
         XCTAssertEqual(1, COA.count)
+        //let accountmock = mock(Account.self)
         let account = Account(name: "Second Account", number: AccountNumber("67890"), currency: .USD)
         XCTAssertNoThrow(try COA.addAccount(account))
         XCTAssertEqual(2, COA.count)
