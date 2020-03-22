@@ -13,13 +13,9 @@ import Foundation
 /**
  Captures the memory of something interesting which affects the domain.  This class is abstract and should not be instantiated.
  - Note: Starts on page 11.  See page 13 for discussion about how to handle mutability.  I kept it simple in this implementaiton and allowed the isProcessed and whenNoticed properties to be mutable since those are the ones that will change after initial creation.
+ - Note: We will start with a protocol since all event instances may not be monetary accounting events.  For instance, we may start mixing time accounting with monitary, or we could create meditative reminder events and post to a mental health account, or maybe create social events (i.e. supportive social media content) and reack up a virtual social media score.
  */
-public protocol Event: NamedObject, Identifiable {
-    associatedtype EventTypeImpl: EventType
-    var eventType: EventTypeImpl { get }
-    var whenOccurred: Date { get }
-    var whenNoticed: Date? { get set }
-    var isProcessed: Bool { get set }
-    
+public protocol Event: NamedObject {
     func process() throws
+    func findRule() throws -> PostingRule
 }

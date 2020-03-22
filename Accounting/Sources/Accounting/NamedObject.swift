@@ -8,12 +8,6 @@
 
 import Foundation
 
-public protocol NamedObject: Hashable, Comparable {
-    var name: String { get set }
-}
-
-extension NamedObject {    
-    public static func < (lhs: Self, rhs: Self) -> Bool {
-        return lhs.name < rhs.name
-    }
+public protocol NamedObject {
+    var name: String { get }
 }

@@ -10,7 +10,7 @@ import Foundation
 /**
  This is our chart of accounts or holder of all our accounts.
  */
-public struct ChartOfAccounts {
+public class ChartOfAccounts {
     public enum ChartOfAccountsError: Error {
         case accountAlreadyInList
     }
@@ -30,12 +30,12 @@ public struct ChartOfAccounts {
         }
     }
     
-    public mutating func addAccountWith(name: String, number: AccountNumber, currency: CurrencyType, entries: Set<Entry> = Set<Entry>()) throws {
+    public func addAccountWith(name: String, number: AccountNumber, currency: CurrencyType, entries: Set<Entry> = Set<Entry>()) throws {
         let account = Account(name: name, number: number, currency: currency, entries: entries)
         try addAccount(account)
     }
     
-    public mutating func addAccount(_ account: Account) throws {
+    public func addAccount(_ account: Account) throws {
         if (accounts[account.name] != nil) {
             throw ChartOfAccountsError.accountAlreadyInList
         } else {
@@ -44,6 +44,6 @@ public struct ChartOfAccounts {
     }
     
     public func accountsSorted(_ order: SortOrderType) -> [(key: String, value: Account)] {
-        return accounts.sorted(by: { order == SortOrderType.ascending ? $0 < $1 : $0 > $1 })
+        return accounts.sorted(by: { order == SortOrderType.ascending ? $0.key < $1.key : $0.key > $1.key })
     }
 }

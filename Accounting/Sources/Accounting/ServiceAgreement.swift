@@ -8,16 +8,14 @@
 
 import Foundation
 
-public struct ServiceAgreement {
-    private var postingRules = Dictionary<EventType, TemporalCollection>()
+public class ServiceAgreement {
+    var postingRules = Dictionary<EventType, TemporalCollection>()
     
-    public mutating func addPostingRule(_ rule: PostingRule, forEventType eventType: EventType, andDate date: Date) {
-        var temporalCollection = postingRules[eventType]
-        if temporalCollection == nil {
-            temporalCollection = TemporalCollection(allowDuplicates: false)
-            postingRules[eventType] = temporalCollection
+    public func addPostingRule(_ rule: PostingRule, forEventType eventType: EventType, andDate date: Date) {
+        if postingRules[eventType] == nil {
+            postingRules[eventType] = TemporalCollection(allowDuplicates: false)
         }
-        temporalCollection![date] = rule
+        postingRules[eventType]![date] = rule
     }
 
     public func getPostingRuleForEventType(_ eventType: EventType, date: Date) -> PostingRule? {

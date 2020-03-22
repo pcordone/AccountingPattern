@@ -9,7 +9,5 @@
 import Foundation
 
 public protocol PostingRule {
-    associatedtype EventImpl: Event
-    var entryType: EntryType { get }
-    func processEvent(_ event: inout EventImpl) throws
+    func processEvent(_ event: AccountingEvent) throws
 }

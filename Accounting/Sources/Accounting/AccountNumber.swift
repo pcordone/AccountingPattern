@@ -7,7 +7,11 @@
 
 import Foundation
 
-public struct AccountNumber: Hashable, Identifiable {
+public class AccountNumber: Hashable, Identifiable {
+    public var hashValue: Int {
+        return self.id.hashValue
+    }
+    
     public let id = UUID()
     public let number: String
     

@@ -38,6 +38,15 @@
         }
       },
       {
+        "package": "DataStructures",
+        "repositoryURL": "https://github.com/pcordone/DataStructures.git",
+        "state": {
+          "branch": "master",
+          "revision": "be3fd3d0da4f365edfccbdbc2b4d74494d8f7e2a",
+          "version": null
+        }
+      },
+      {
         "package": "Mockingbird",
         "repositoryURL": "https://github.com/birdrides/mockingbird.git",
         "state": {
@@ -107,6 +116,15 @@
           "branch": null,
           "revision": "8656a25cb906c1896339f950ac960ee1b4fe8034",
           "version": "0.4.0"
+        }
+      },
+      {
+        "package": "SwiftAlgorithmClub",
+        "repositoryURL": "https://github.com/pcordone/SwiftAlgorithmClub.git",
+        "state": {
+          "branch": "master",
+          "revision": "57690cc6937a8be18bf5b5f993ee4499b2646022",
+          "version": null
         }
       },
       {

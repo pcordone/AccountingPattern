@@ -14,48 +14,36 @@ import Foundation
  - ToDo: Need to incorporate MoneyBag for balance calculations and return it.
  - ToDo: Do I also want to put in validation for enforcing a XF transaction for when currency of entries change or more generally, how do we support spending across currencies?  I probably want to create a new account for the new currency.
  */
-public struct Account: NamedObject, Equatable {
-    public var name: String
-    
+public class Account: NamedObject {
     enum AccountError: Error {
         case attemptedToAddEntryWhereAmountCurrencyDoesNotMatchAccountCurrency
     }
-    
-    public let id = UUID()
+    public var name: String
+    public let id: UUID
     public let number: AccountNumber
     public let currency: CurrencyType
     public var entries: Set<Entry>
     
-    public init(name: String, number: AccountNumber, currency: CurrencyType, entries: Set<Entry> = Set<Entry>()) {
+    public init(name: String, number: AccountNumber, currency: CurrencyType, entries: Set<Entry> = Set<Entry>(), id: UUID = UUID()) {
+        self.id = id
         self.name = name
         self.number = number
         self.currency = currency
         self.entries = entries
     }
     
-    public static func < (lhs: Account, rhs: Account) -> Bool {
-        return lhs.name < rhs.name
-    }
-    
-    public static func == (lhs: Account, rhs: Account) -> Bool {
-        return lhs.id == rhs.id
-    }
-    
-    public func hash(into hasher: inout Hasher) {
-        hasher.combine(self.id.hashValue)
-    }
-    
-    public mutating func addEntry(_ entry: Entry) throws {
+    public func addEntry(_ entry: Entry) throws {
         guard self.currency == entry.amount.currency else {
              throw AccountError.attemptedToAddEntryWhereAmountCurrencyDoesNotMatchAccountCurrency
          }
         self.entries.insert(entry)
     }
     
-    public mutating func addEntry(type: EntryType, eventId: UUID, amount: Money, date: Date, otherParty: OtherParty) throws {
+    public func addEntry(id: UUID = UUID(), eventId: UUID, type: EntryType, amount: Money, date: Date, otherParty: OtherParty) throws {
         try addEntry(Entry(eventId: eventId, date: date, entryType: type, amount: amount, otherParty: otherParty))
     }
-
+    
+    @available(OSX 10.12, *)
     @available(iOS 10.0, *)
     public func balanceBetween(_ interval: DateInterval) -> Money {
         return Money(self.entries.filter({ interval.contains($0.date) })
@@ -73,6 +61,7 @@ public struct Account: NamedObject, Equatable {
         return balanceAsOf(Date())
     }
     
+    @available(OSX 10.12, *)
     @available(iOS 10.0, *)
     public func depositsBetween(_ interval: DateInterval) -> Money {
         return Money(self.entries.filter({ interval.contains($0.date) && $0.amount > 0 })
@@ -80,10 +69,27 @@ public struct Account: NamedObject, Equatable {
                      self.currency)
     }
     
+    @available(OSX 10.12, *)
     @available(iOS 10.0, *)
     public func withdrawlsBetween(_ interval: DateInterval) -> Money {
         return Money(self.entries.filter({ interval.contains($0.date) && $0.amount < 0 })
             .reduce(Decimal(0), {result, entry in result + entry.amount.amount}),
                      self.currency)
+    }
+}
+
+extension Account: Hashable {
+    public var hashValue: Int {
+        return self.id.hashValue
+    }
+    
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(self.id.hashValue)
+    }
+}
+
+extension Account: Equatable {
+    public static func == (lhs: Account, rhs: Account) -> Bool {
+        return lhs.id == rhs.id
     }
 }

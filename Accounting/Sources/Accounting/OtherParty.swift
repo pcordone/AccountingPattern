@@ -13,6 +13,10 @@ import Foundation
  - Note: Starts on page 23.
  */
 public struct OtherParty: Hashable, Identifiable {
+    public var hashValue: Int {
+        return self.id.hashValue
+    }
+    
     public let id = UUID()
     public let name: String
 

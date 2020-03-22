@@ -9,7 +9,7 @@ enum MoneyError: Error {
 /**
  An amount of money in a given currency.
  */
-public struct Money: Hashable {
+public struct Money {
     public static var zero = Money(Decimal.zero, .XXX)
     public static var invalid = Money(Decimal.nan, .XXX)
     
@@ -75,6 +75,14 @@ public struct Money: Hashable {
     public func formatForLocale(_ locale: Locale) -> String? {
         return CurrencyType.formatAmount(self.amount, withLocale: locale)
     }
+}
+
+extension Money: Hashable {
+    public var hashValue: Int {
+        var hasher = Hasher()
+        self.hash(into: &hasher)
+        return hasher.finalize()
+    }
     
     public static func == (lhs: Money, rhs: Money) -> Bool {
         return (lhs.amount == rhs.amount) && type(of: lhs.currency) == type(of: rhs.currency)
@@ -88,8 +96,20 @@ public struct Money: Hashable {
 
 /// A type that can be compared using the relational operators <, <=, >=, and >.
 extension Money: Comparable {
+    public static func > (lhs: Money, rhs: Money) -> Bool {
+        return lhs.amount > rhs.amount && type(of: lhs.currency) == type(of: rhs.currency)
+    }
+    
+    public static func >= (lhs: Money, rhs: Money) -> Bool {
+        return lhs.amount >= rhs.amount && type(of: lhs.currency) == type(of: rhs.currency)
+    }
+    
     public static func < (lhs: Money, rhs: Money) -> Bool {
         return lhs.amount < rhs.amount && type(of: lhs.currency) == type(of: rhs.currency)
+    }
+    
+    public static func <= (lhs: Money, rhs: Money) -> Bool {
+        return lhs.amount <= rhs.amount && type(of: lhs.currency) == type(of: rhs.currency)
     }
 }
 

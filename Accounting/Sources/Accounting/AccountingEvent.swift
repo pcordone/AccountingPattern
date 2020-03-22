@@ -7,30 +7,60 @@
 
 import Foundation
 
-public struct AccountingEventType: EventType {
-    public var id: UUID = UUID()
-    public var name: String
-    static let openingbalance = AccountingEventType(name: "Opening Balance")
-    static let deposit = AccountingEventType(name: "Deposit")
-    static let withdraw = AccountingEventType(name: "Withdraw")
-    static let purchase = AccountingEventType(name: "Purchase")
-    static let transfer = AccountingEventType(name: "Transfer")
-}
-
 /**
- Proposed as part of Posting Rule pattern.  This class needs to be overriden and should never be instantiated.
+ Proposed as part of Posting Rule pattern.
  - Note: See page 13 for discussion about how to handle mutability.  Starts on page 22.
  */
-public protocol AccountingEvent: Event {
-    associatedtype PostingRuleType
-    var otherParty: OtherParty { get }
-    var amount: Money { get }
-    func findRule() throws -> PostingRuleType
-    func process() throws
+public class AccountingEvent: Event, Identifiable {
+    public enum AccountingEventError: Error {
+        case cantFindPostingRuleForEventType
+    }
+    public var name: String
+    public let id = UUID()
+    public let whenOccurred: Date
+    public var whenNoticed: Date?
+    public var isProcessed: Bool
+    public let eventType: AccountingEventType
+    public let otherParty: OtherParty
+    public let agreement: ServiceAgreement
+    public let amount: Money
+    public let account: Account
+    public let entryType: EntryType
+
+    public init(name: String, eventType: AccountingEventType, whenOccurred: Date, whenNoticed: Date?, isProcessed: Bool, otherParty: OtherParty, agreement: ServiceAgreement, amount: Money, account: Account, entryType: EntryType) {
+        self.name = name
+        self.eventType = eventType
+        self.whenOccurred = whenOccurred
+        self.whenNoticed = whenNoticed
+        self.isProcessed = isProcessed
+        self.otherParty = otherParty
+        self.agreement = agreement
+        self.amount = amount
+        self.account = account
+        self.entryType = entryType
+    }
+    
+    public func process() throws {
+        try findRule().processEvent(self)
+    }
+    
+    public func findRule() throws -> PostingRule {
+        guard let postingRule = agreement.getPostingRuleForEventType(eventType, date: whenOccurred) else {
+            throw AccountingEventError.cantFindPostingRuleForEventType
+        }
+        return postingRule
+    }
 }
 
-extension AccountingEvent {
-    public static func == (lhs: Self, rhs: Self) -> Bool {
+
+extension AccountingEvent: Hashable {
+    public var hashValue: Int {
+        var hasher = Hasher()
+        self.hash(into: &hasher)
+        return hasher.finalize()
+    }
+    
+    public static func == (lhs: AccountingEvent, rhs: AccountingEvent) -> Bool {
         return lhs.id == rhs.id
     }
 
