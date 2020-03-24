@@ -12,7 +12,7 @@ import Foundation
  The event type.
 - Note: Starts on page 11.
 */
-public class EventType: NamedObject, Identifiable {
+public struct EventType: NamedObject, Identifiable {
     public var name: String
     public var id: UUID
 

@@ -21,7 +21,7 @@ final class TemporalCollectionTest: XCTestCase {
         XCTAssertEqual(1, temporalCollection.values.count)
         XCTAssertNotNil(temporalCollection[now])
         XCTAssertTrue(temporalCollection[now] is AccountPostingRule)
-        XCTAssertTrue(postingRule === (temporalCollection[now] as! AccountPostingRule))
+        XCTAssertTrue(postingRule == (temporalCollection[now] as! AccountPostingRule))
     }
     
     static var allTests = [

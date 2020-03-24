@@ -12,9 +12,9 @@ import XCTest
 final class ServiceAgreementTests: XCTestCase {
     func testAddPostingRuleRule() {
         let now = Date()
-        let agreement = ServiceAgreement()
+        var agreement = ServiceAgreement()
         let postingRule = AccountPostingRule()
-        agreement.addPostingRule(postingRule, forEventType: AccountingEventType.postentry, andDate: now)
+        agreement.addPostingRule(postingRule, forEventType: AccountingEvent.POSTING_EVENT_TYPE, andDate: now)
         XCTAssertEqual(1, agreement.postingRules.count)
         let serviceRule = agreement.postingRules.first?.value.values.first?.value
         XCTAssertNotNil(serviceRule)

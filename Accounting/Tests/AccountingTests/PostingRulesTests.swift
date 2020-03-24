@@ -12,24 +12,27 @@ import XCTest
 final class PostingRulesTests: XCTestCase {
 
     func testAccountPostingRule() {
-        let postingRule = AccountPostingRule()
+        var postingRule = AccountPostingRule()
         let now = Date()
-        let account = Account(name: "Account Name", number: AccountNumber("12345"), currency: .USD)
-        XCTAssertEqual(0, account.entries.count)
         let agreement = ServiceAgreement()
         let otherParty = OtherParty(name: "Other Party")
         // test an debit
-        let event = AccountingEvent(name: "Test postentry debit", eventType: .postentry, whenOccurred: now, whenNoticed: nil, isProcessed: false, otherParty: otherParty, agreement: agreement, amount: Money(100), account: account, entryType: .debit)
-        XCTAssertNoThrow(try postingRule.processEvent(event))
-        XCTAssertEqual(1, account.entries.count)
-        XCTAssertNotNil(account.entries.first)
-        let entry = account.entries.first!
+        var event: AccountingEvent = AccountingEvent(name: "Test postentry debit", whenOccurred: now, whenNoticed: nil, isProcessed: false, otherParty: otherParty, agreement: agreement, amount: Money(100), account: Account(name: "Account Name", number: AccountNumber("12345"), currency: .USD), entryType: .debit)
+        // store the generated id of the event so we can make sure they match after the call to processEvent
+        let eventIdBeforeProcessCall = event.id
+        XCTAssertEqual(0, event.account.entries.count)
+        XCTAssertNoThrow(try postingRule.processEvent(&event))
+        // make sure the id's match before and after the process call so that I can rely on id
+        XCTAssertEqual(eventIdBeforeProcessCall, event.id)
+        XCTAssertEqual(1, event.account.entries.count)
+        XCTAssertNotNil(event.account.entries.first)
+        guard let entry = event.account.entries.first else {
+            return XCTFail("Expected a single entry but got none!")
+        }
         XCTAssertEqual(now, entry.date)
         XCTAssertEqual(Money(100), entry.amount)
         XCTAssertEqual(.debit, entry.entryType)
         XCTAssertEqual(otherParty.id, entry.otherParty.id)
-        XCTAssertEqual(event.id, entry.eventId)
-        XCTAssertEqual(event.entryType, .debit)
     }
     
     static var allTests = [

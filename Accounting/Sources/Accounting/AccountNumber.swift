@@ -7,23 +7,25 @@
 
 import Foundation
 
-public class AccountNumber: Hashable, Identifiable {
-    public var hashValue: Int {
-        return self.id.hashValue
-    }
-    
+public struct AccountNumber: Identifiable {
     public let id = UUID()
     public let number: String
-    
-    public static func == (lhs: AccountNumber, rhs: AccountNumber) -> Bool {
-        return lhs.id == rhs.id
-    }
     
     public init(_ number: String) {
         self.number = number
     }
+}
+
+extension AccountNumber: Hashable {
+    public var hashValue: Int {
+        return self.id.hashValue
+    }
     
     public func hash(into hasher: inout Hasher) {
         hasher.combine(self.id.hashValue)
+    }
+    
+    public static func == (lhs: AccountNumber, rhs: AccountNumber) -> Bool {
+        return lhs.id == rhs.id
     }
 }

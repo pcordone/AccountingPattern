@@ -9,27 +9,26 @@ import Foundation
 
 /**
  Proposed as part of Posting Rule pattern.
- - Note: See page 13 for discussion about how to handle mutability.  Starts on page 22.
+ - Note: Starts on page 22.  See page 13 for discussion about how to handle mutability.
  */
-public class AccountingEvent: Event, Identifiable {
-    public enum AccountingEventError: Error {
-        case cantFindPostingRuleForEventType
-    }
+public struct AccountingEvent: Event, Identifiable {
+    public static let POSTING_EVENT_TYPE: EventType = EventType(name: "posting")
+    
     public var name: String
-    public let id = UUID()
+    public let id: UUID
     public let whenOccurred: Date
     public var whenNoticed: Date?
     public var isProcessed: Bool
-    public let eventType: AccountingEventType
+    public var type: EventType
     public let otherParty: OtherParty
     public let agreement: ServiceAgreement
     public let amount: Money
-    public let account: Account
+    public var account: Account
     public let entryType: EntryType
 
-    public init(name: String, eventType: AccountingEventType, whenOccurred: Date, whenNoticed: Date?, isProcessed: Bool, otherParty: OtherParty, agreement: ServiceAgreement, amount: Money, account: Account, entryType: EntryType) {
+    public init(name: String, whenOccurred: Date, whenNoticed: Date?, isProcessed: Bool, otherParty: OtherParty, agreement: ServiceAgreement, amount: Money, account: Account, entryType: EntryType, id: UUID = UUID()) {
         self.name = name
-        self.eventType = eventType
+        self.type = AccountingEvent.POSTING_EVENT_TYPE
         self.whenOccurred = whenOccurred
         self.whenNoticed = whenNoticed
         self.isProcessed = isProcessed
@@ -38,17 +37,7 @@ public class AccountingEvent: Event, Identifiable {
         self.amount = amount
         self.account = account
         self.entryType = entryType
-    }
-    
-    public func process() throws {
-        try findRule().processEvent(self)
-    }
-    
-    public func findRule() throws -> PostingRule {
-        guard let postingRule = agreement.getPostingRuleForEventType(eventType, date: whenOccurred) else {
-            throw AccountingEventError.cantFindPostingRuleForEventType
-        }
-        return postingRule
+        self.id = id
     }
 }
 

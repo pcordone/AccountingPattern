@@ -8,20 +8,32 @@
 
 import Foundation
 
-public class ServiceAgreement {
+public struct ServiceAgreement {
+    public enum RuleFindError: Error {
+        case cantFindPostingRuleForEventType
+        case cantFindPostingRuleForDate
+    }
     var postingRules = Dictionary<EventType, TemporalCollection>()
     
-    public func addPostingRule(_ rule: PostingRule, forEventType eventType: EventType, andDate date: Date) {
+    public mutating func addPostingRule(_ rule: PostingRule, forEventType eventType: EventType, andDate date: Date) {
         if postingRules[eventType] == nil {
             postingRules[eventType] = TemporalCollection(allowDuplicates: false)
         }
         postingRules[eventType]![date] = rule
     }
 
-    public func getPostingRuleForEventType(_ eventType: EventType, date: Date) -> PostingRule? {
+    public func findPostingRuleForEventType(_ eventType: EventType, date: Date) throws -> PostingRule {
         guard let temporalCollection = postingRules[eventType] else {
-            fatalError("Couldn't find TemporalCollection for event type \(eventType)")
+            throw RuleFindError.cantFindPostingRuleForEventType
         }
-        return temporalCollection[date, .previous]
+        guard let rule = temporalCollection[date, .previous] else {
+            throw RuleFindError.cantFindPostingRuleForDate
+        }
+        return rule
+    }
+    
+    public mutating func processEvent(_ event: inout AccountingEvent) throws {
+        var postingRule = try findPostingRuleForEventType(event.type, date: event.whenOccurred)
+        try postingRule.processEvent(&event)
     }
 }

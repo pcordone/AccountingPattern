@@ -4,12 +4,12 @@ import XCTest
 final class AccountTests: XCTestCase {
     func testAddEntry() {
         let now = Date()
-        let account = Account(name: "Account Name", number: AccountNumber("123456"), currency: CurrencyType.USD)
+        var account = Account(name: "Account Name", number: AccountNumber("123456"), currency: CurrencyType.USD)
         XCTAssertEqual(0, account.entries.count)
         let eventId = UUID()
         let id = UUID()
         // test addEntry with an entry object as a parameter
-        let openingBalEntry = Entry(id: id, eventId: eventId, date: now, entryType: .debit, amount: 1000, otherParty: OtherParty(name: "Other Party"))
+        let openingBalEntry = Entry(eventId: eventId, date: now, entryType: .debit, amount: 1000, otherParty: OtherParty(name: "Other Party"), note: "Note text.", id: id)
         XCTAssertNoThrow(try account.addEntry(openingBalEntry))
         XCTAssertEqual(1, account.entries.count)
         XCTAssertTrue(account.entries.contains(openingBalEntry))

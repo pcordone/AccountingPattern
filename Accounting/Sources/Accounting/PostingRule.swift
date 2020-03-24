@@ -9,5 +9,5 @@
 import Foundation
 
 public protocol PostingRule {
-    func processEvent(_ event: AccountingEvent) throws
+    func processEvent(_ event: inout AccountingEvent) throws
 }

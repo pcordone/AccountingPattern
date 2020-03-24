@@ -14,7 +14,7 @@ import Foundation
  - ToDo: Need to incorporate MoneyBag for balance calculations and return it.
  - ToDo: Do I also want to put in validation for enforcing a XF transaction for when currency of entries change or more generally, how do we support spending across currencies?  I probably want to create a new account for the new currency.
  */
-public class Account: NamedObject {
+public struct Account: NamedObject {
     enum AccountError: Error {
         case attemptedToAddEntryWhereAmountCurrencyDoesNotMatchAccountCurrency
     }
@@ -32,29 +32,30 @@ public class Account: NamedObject {
         self.entries = entries
     }
     
-    public func addEntry(_ entry: Entry) throws {
-        guard self.currency == entry.amount.currency else {
+    public mutating func addEntry(_ entry: Entry) throws {
+        guard currency == entry.amount.currency else {
              throw AccountError.attemptedToAddEntryWhereAmountCurrencyDoesNotMatchAccountCurrency
          }
-        self.entries.insert(entry)
+        entries.insert(entry)
     }
     
-    public func addEntry(id: UUID = UUID(), eventId: UUID, type: EntryType, amount: Money, date: Date, otherParty: OtherParty) throws {
-        try addEntry(Entry(eventId: eventId, date: date, entryType: type, amount: amount, otherParty: otherParty))
+    public mutating func addEntry(eventId: UUID, type: EntryType, amount: Money, date: Date, otherParty: OtherParty, id: UUID = UUID()) throws {
+        let entry = Entry(eventId: eventId, date: date, entryType: type, amount: amount, otherParty: otherParty)
+        try addEntry(entry)
     }
     
     @available(OSX 10.12, *)
     @available(iOS 10.0, *)
     public func balanceBetween(_ interval: DateInterval) -> Money {
-        return Money(self.entries.filter({ interval.contains($0.date) })
+        return Money(entries.filter({ interval.contains($0.date) })
                            .reduce(0, { result, entry in result + entry.amount.amount }),
-                     self.currency)
+                     currency)
     }
     
     public func balanceAsOf(_ asOfDate: Date) -> Money {
-        return Money(self.entries.filter({ $0.date >= asOfDate })
+        return Money(entries.filter({ $0.date >= asOfDate })
                          .reduce(0, { result, entry in result + entry.amount.amount }),
-                     self.currency)
+                     currency)
     }
     
     public func balance() -> Money {
@@ -64,27 +65,27 @@ public class Account: NamedObject {
     @available(OSX 10.12, *)
     @available(iOS 10.0, *)
     public func depositsBetween(_ interval: DateInterval) -> Money {
-        return Money(self.entries.filter({ interval.contains($0.date) && $0.amount > 0 })
+        return Money(entries.filter({ interval.contains($0.date) && $0.amount > 0 })
             .reduce(0, { result, entry in result + entry.amount.amount }),
-                     self.currency)
+                     currency)
     }
     
     @available(OSX 10.12, *)
     @available(iOS 10.0, *)
     public func withdrawlsBetween(_ interval: DateInterval) -> Money {
-        return Money(self.entries.filter({ interval.contains($0.date) && $0.amount < 0 })
+        return Money(entries.filter({ interval.contains($0.date) && $0.amount < 0 })
             .reduce(Decimal(0), {result, entry in result + entry.amount.amount}),
-                     self.currency)
+                     currency)
     }
 }
 
 extension Account: Hashable {
     public var hashValue: Int {
-        return self.id.hashValue
+        return id.hashValue
     }
     
     public func hash(into hasher: inout Hasher) {
-        hasher.combine(self.id.hashValue)
+        hasher.combine(id.hashValue)
     }
 }
 
