@@ -12,7 +12,7 @@ import XCTest
 final class PostingRulesTests: XCTestCase {
 
     func testAccountPostingRule() {
-        var postingRule = AccountPostingRule()
+        let postingRule = AccountPostingRule()
         let now = Date()
         let agreement = ServiceAgreement()
         let otherParty = OtherParty(name: "Other Party")

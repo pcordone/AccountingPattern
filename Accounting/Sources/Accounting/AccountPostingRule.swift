@@ -16,9 +16,6 @@ public struct AccountPostingRule: PostingRule, Identifiable {
     }
     
     public func processEvent(_ event: inout AccountingEvent) throws {
-//        guard var event = event as? AccountingEvent else {
-//            fatalError("Can not cast instance of Event to \(String(describing: type(of: AccountingEvent.self)))")
-//        }
         try event.account.addEntry(eventId: event.id, type: event.entryType, amount: event.amount, date: event.whenOccurred, otherParty: event.otherParty)
         assert(event.account.entries.count > 0)
     }
