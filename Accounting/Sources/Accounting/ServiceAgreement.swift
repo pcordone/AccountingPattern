@@ -9,10 +9,6 @@
 import Foundation
 
 public struct ServiceAgreement {
-    public enum RuleFindError: Error {
-        case cantFindPostingRuleForEventType
-        case cantFindPostingRuleForDate
-    }
     var postingRules = Dictionary<EventType, TemporalCollection>()
     
     public mutating func addPostingRule(_ rule: PostingRule, forEventType eventType: EventType, andDate date: Date) {
@@ -33,7 +29,7 @@ public struct ServiceAgreement {
     }
     
     public mutating func processEvent(_ event: inout AccountingEvent) throws {
-        var postingRule = try findPostingRuleForEventType(event.type, date: event.whenOccurred)
+        let postingRule = try findPostingRuleForEventType(event.type, date: event.whenOccurred)
         try postingRule.processEvent(&event)
     }
 }

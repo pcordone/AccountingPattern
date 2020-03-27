@@ -21,19 +21,17 @@ public struct AccountingEvent: Event, Identifiable {
     public var isProcessed: Bool
     public var type: EventType
     public let otherParty: OtherParty
-    public let agreement: ServiceAgreement
     public let amount: Money
     public var account: Account
     public let entryType: EntryType
 
-    public init(name: String, whenOccurred: Date, whenNoticed: Date?, isProcessed: Bool, otherParty: OtherParty, agreement: ServiceAgreement, amount: Money, account: Account, entryType: EntryType, id: UUID = UUID()) {
+    public init(name: String, whenOccurred: Date, whenNoticed: Date?, isProcessed: Bool, otherParty: OtherParty, amount: Money, account: Account, entryType: EntryType, id: UUID = UUID()) {
         self.name = name
         self.type = AccountingEvent.POSTING_EVENT_TYPE
         self.whenOccurred = whenOccurred
         self.whenNoticed = whenNoticed
         self.isProcessed = isProcessed
         self.otherParty = otherParty
-        self.agreement = agreement
         self.amount = amount
         self.account = account
         self.entryType = entryType

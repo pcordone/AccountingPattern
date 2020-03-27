@@ -19,11 +19,10 @@ final class ServiceAgreementTests: XCTestCase {
         let serviceRule = agreement.postingRules.first?.value.values.first?.value
         XCTAssertNotNil(serviceRule)
         XCTAssertTrue(serviceRule is AccountPostingRule)
-//        XCTAssertTrue(postingRule === (serviceRule as! AccountPostingRule))
     }
     
     static var allTests = [
-        ("testFindRule", testAddPostingRuleRule),
+        ("testAddPostingRuleRule", testAddPostingRuleRule),
     ]
 }
 
