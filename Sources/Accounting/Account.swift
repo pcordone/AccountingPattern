@@ -24,7 +24,7 @@ public struct Account: NamedObject {
     public let currency: CurrencyType
     public var entries: Set<Entry>
     
-    public init(name: String, number: AccountNumber, currency: CurrencyType, entries: Set<Entry> = Set<Entry>(), id: UUID = UUID()) {
+    public init(name: String, number: AccountNumber, currency: CurrencyType, id: UUID = UUID(), entries: Set<Entry> = Set<Entry>()) {
         self.id = id
         self.name = name
         self.number = number
@@ -39,8 +39,8 @@ public struct Account: NamedObject {
         entries.insert(entry)
     }
     
-    public mutating func addEntry(eventId: UUID, type: EntryType, amount: Money, date: Date, otherParty: OtherParty, id: UUID = UUID()) throws {
-        let entry = Entry(eventId: eventId, date: date, entryType: type, amount: amount, otherParty: otherParty)
+    public mutating func addEntry(eventId: UUID, type: EntryType, amount: Money, date: Date, otherParty: OtherParty, note: String? = nil, id: UUID = UUID()) throws {
+        let entry = Entry(eventId: eventId, date: date, entryType: type, amount: amount, otherParty: otherParty, note: note, id: id)
         try addEntry(entry)
     }
     

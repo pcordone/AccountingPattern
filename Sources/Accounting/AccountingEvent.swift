@@ -24,8 +24,9 @@ public struct AccountingEvent: Event, Identifiable {
     public let amount: Money
     public var account: Account
     public let entryType: EntryType
+    public let note: String?
 
-    public init(name: String, whenOccurred: Date, whenNoticed: Date?, isProcessed: Bool, otherParty: OtherParty, amount: Money, account: Account, entryType: EntryType, id: UUID = UUID()) {
+    public init(name: String, whenOccurred: Date, whenNoticed: Date?, isProcessed: Bool, otherParty: OtherParty, amount: Money, account: Account, entryType: EntryType, note: String? = nil, id: UUID = UUID()) {
         self.name = name
         self.type = AccountingEvent.POSTING_EVENT_TYPE
         self.whenOccurred = whenOccurred
@@ -36,6 +37,7 @@ public struct AccountingEvent: Event, Identifiable {
         self.account = account
         self.entryType = entryType
         self.id = id
+        self.note = note
     }
 }
 

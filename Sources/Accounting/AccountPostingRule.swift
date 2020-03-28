@@ -16,8 +16,7 @@ public struct AccountPostingRule: PostingRule, Identifiable {
     }
     
     public func processEvent(_ event: inout AccountingEvent) throws {
-        try event.account.addEntry(eventId: event.id, type: event.entryType, amount: event.amount, date: event.whenOccurred, otherParty: event.otherParty)
-        assert(event.account.entries.count > 0)
+        try event.account.addEntry(eventId: event.id, type: event.entryType, amount: event.amount, date: event.whenOccurred, otherParty: event.otherParty, note: event.note)
     }
 }
 

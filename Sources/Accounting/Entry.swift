@@ -32,13 +32,13 @@ public struct Entry: Identifiable {
 }
 
 extension Entry: Hashable {
-//    public var hashValue: Int {
-//        get {
-//            var hasher = Hasher()
-//            self.hash(into: &hasher)
-//            return hasher.finalize()
-//        }
-//    }
+    public var hashValue: Int {
+        get {
+            var hasher = Hasher()
+            self.hash(into: &hasher)
+            return hasher.finalize()
+        }
+    }
     
     public func hash(into hasher: inout Hasher) {
         hasher.combine(self.id.hashValue)

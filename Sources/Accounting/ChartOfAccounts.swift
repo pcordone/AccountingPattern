@@ -20,7 +20,7 @@ public class ChartOfAccounts {
     public var count: Int {
         return accounts.count
     }
-    
+        
     public init() {
     }
 
@@ -30,7 +30,7 @@ public class ChartOfAccounts {
         }
     }
     
-    public func addAccountWith(name: String, number: AccountNumber, currency: CurrencyType, entries: Set<Entry> = Set<Entry>()) throws {
+    public func addAccount(name: String, number: AccountNumber, currency: CurrencyType = CurrencyType.currencyForDefaultLocale(), entries: Set<Entry> = Set<Entry>()) throws {
         let account = Account(name: name, number: number, currency: currency, entries: entries)
         try addAccount(account)
     }

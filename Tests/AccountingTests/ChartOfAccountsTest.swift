@@ -20,7 +20,7 @@ final class ChartOfAccountsTest: XCTestCase {
     }
     
     func testAddingAccounts() {
-        XCTAssertNoThrow(try COA.addAccountWith(name: "First Account", number: AccountNumber("12345"), currency: .USD))
+        XCTAssertNoThrow(try COA.addAccount(name: "First Account", number: AccountNumber("12345"), currency: .USD))
         XCTAssertEqual(1, COA.count)
         //let accountmock = mock(Account.self)
         let account = Account(name: "Second Account", number: AccountNumber("67890"), currency: .USD)
@@ -29,9 +29,9 @@ final class ChartOfAccountsTest: XCTestCase {
     }
     
     func testAddingAccountAlreadyExists() {
-        XCTAssertNoThrow(try COA.addAccountWith(name: "First Account", number: AccountNumber("12345"), currency: .USD))
+        XCTAssertNoThrow(try COA.addAccount(name: "First Account", number: AccountNumber("12345"), currency: .USD))
         XCTAssertEqual(1, COA.count)
-        XCTAssertThrowsError(try COA.addAccountWith(name: "First Account", number: AccountNumber("12345"), currency: .USD), "Should have thrown \(ChartOfAccounts.ChartOfAccountsError.accountAlreadyInList)") {
+        XCTAssertThrowsError(try COA.addAccount(name: "First Account", number: AccountNumber("12345"), currency: .USD), "Should have thrown \(ChartOfAccounts.ChartOfAccountsError.accountAlreadyInList)") {
             (error) in
             XCTAssertEqual(error as? ChartOfAccounts.ChartOfAccountsError, ChartOfAccounts.ChartOfAccountsError.accountAlreadyInList)
         }
@@ -50,9 +50,9 @@ final class ChartOfAccountsTest: XCTestCase {
     }
     
     func testAccountNamesSorted() {
-        XCTAssertNoThrow(try COA.addAccountWith(name: "ABCD", number: AccountNumber("12345"), currency: .USD))
-        XCTAssertNoThrow(try COA.addAccountWith(name: "ACD", number: AccountNumber("12345"), currency: .USD))
-        XCTAssertNoThrow(try COA.addAccountWith(name: "ABCA", number: AccountNumber("12345"), currency: .USD))
+        XCTAssertNoThrow(try COA.addAccount(name: "ABCD", number: AccountNumber("12345"), currency: .USD))
+        XCTAssertNoThrow(try COA.addAccount(name: "ACD", number: AccountNumber("12345"), currency: .USD))
+        XCTAssertNoThrow(try COA.addAccount(name: "ABCA", number: AccountNumber("12345"), currency: .USD))
         //var (accountNames, accounts) = COA.accountsSorted(.ascending)
 //        XCTAssertEqual("ABCA", accountNames[0])
 //        XCTAssertEqual("ABCD", accountNames[1])
