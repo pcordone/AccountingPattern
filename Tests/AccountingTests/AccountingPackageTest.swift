@@ -20,7 +20,7 @@ final class AccountingPackateTest: XCTestCase {
     func testPackageServiceAgreementPostEvent() {
         var agreement = ServiceAgreement()
         let otherParty = OtherParty(name: "Other Party Opening Balance")
-        var event: AccountingEvent = AccountingEvent(name: "Opening Balance Event", whenOccurred: now, whenNoticed: nil, isProcessed: false, otherParty: otherParty, amount: Money(100.0), account: Account(name: "First Account", number: AccountNumber("12345"), currency: .USD), entryType: .debit)
+        var event: AccountingEvent = AccountingEvent(name: "Opening Balance Event", whenOccurred: now, whenNoticed: nil, isProcessed: false, otherParty: otherParty, amount: Money(100.0), account: Account(name: "First Account", type: .asset, number: AccountNumber("12345"), currency: .USD), entryType: .debit)
         agreement.addPostingRule(postingRule, forEventType: AccountingEvent.POSTING_EVENT_TYPE, andDate: now)
         // store the generated id of the event so we can make sure they match after the call to processEvent
         let eventIdBeforeProcessCall = event.id
@@ -42,7 +42,7 @@ final class AccountingPackateTest: XCTestCase {
     func testPackageRulesRepositoryPostEvent() {
         let rulesRepository = RulesRepository()
         let otherParty = OtherParty(name: "Other Party Opening Balance")
-        var event: AccountingEvent = AccountingEvent(name: "Opening Balance Event", whenOccurred: now, whenNoticed: nil, isProcessed: false, otherParty: otherParty, amount: Money(100.0), account: Account(name: "First Account", number: AccountNumber("12345"), currency: .USD), entryType: .debit)
+        var event: AccountingEvent = AccountingEvent(name: "Opening Balance Event", whenOccurred: now, whenNoticed: nil, isProcessed: false, otherParty: otherParty, amount: Money(100.0), account: Account(name: "First Account", type: .asset, number: AccountNumber("12345"), currency: .USD), entryType: .debit)
         XCTAssertNoThrow(try rulesRepository.addPostingRule(postingRule, forEventType: AccountingEvent.POSTING_EVENT_TYPE))
         // store the generated id of the event so we can make sure they match after the call to processEvent
         let eventIdBeforeProcessCall = event.id

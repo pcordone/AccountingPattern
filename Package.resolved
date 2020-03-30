@@ -60,8 +60,8 @@
         "repositoryURL": "https://github.com/Quick/Nimble.git",
         "state": {
           "branch": null,
-          "revision": "b02b00b30b6353632aa4a5fb6124f8147f7140c0",
-          "version": "8.0.5"
+          "revision": "827b2b167cf22580bf3fe4debddbd63f5229979c",
+          "version": "8.0.6"
         }
       },
       {
@@ -123,7 +123,7 @@
         "repositoryURL": "https://github.com/pcordone/SwiftAlgorithmClub.git",
         "state": {
           "branch": "master",
-          "revision": "57690cc6937a8be18bf5b5f993ee4499b2646022",
+          "revision": "d6ebe9c15915c8d8d1432d0ebabca745aa4c6080",
           "version": null
         }
       },
@@ -141,8 +141,8 @@
         "repositoryURL": "https://github.com/tuist/XcodeProj.git",
         "state": {
           "branch": null,
-          "revision": "f32704e01d2752bdc17cde3963bee4256c1f4df4",
-          "version": "7.8.0"
+          "revision": "942b35d6a7ee94752cc726b1fbd8dd7ec468e49d",
+          "version": "7.9.0"
         }
       },
       {

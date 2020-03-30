@@ -57,3 +57,9 @@ extension AccountingEvent: Hashable {
         hasher.combine(self.id.hashValue)
     }
 }
+
+extension AccountingEvent: Comparable {
+    public static func < (lhs: AccountingEvent, rhs: AccountingEvent) -> Bool {
+        return lhs.whenOccurred < rhs.whenOccurred
+    }
+}

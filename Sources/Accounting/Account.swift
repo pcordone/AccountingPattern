@@ -8,6 +8,16 @@
 
 import Foundation
 
+public enum AccountType: String {
+    case asset = "Asset"
+    case liability = "Liability"
+    case income = "Income"
+    case expense = "Expense"
+}
+
+extension AccountType: CaseIterable {
+}
+
 /**
  Collect together related accounting entries and provide summarizing behavior.
  - Note: Starts on page 39.
@@ -18,15 +28,18 @@ public struct Account: NamedObject {
     enum AccountError: Error {
         case attemptedToAddEntryWhereAmountCurrencyDoesNotMatchAccountCurrency
     }
+    
     public var name: String
     public let id: UUID
+    public let type: AccountType
     public let number: AccountNumber
     public let currency: CurrencyType
     public var entries: Set<Entry>
     
-    public init(name: String, number: AccountNumber, currency: CurrencyType, id: UUID = UUID(), entries: Set<Entry> = Set<Entry>()) {
+    public init(name: String, type: AccountType, number: AccountNumber, currency: CurrencyType, id: UUID = UUID(), entries: Set<Entry> = Set<Entry>()) {
         self.id = id
         self.name = name
+        self.type = type
         self.number = number
         self.currency = currency
         self.entries = entries

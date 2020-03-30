@@ -4,7 +4,7 @@ import XCTest
 final class AccountTests: XCTestCase {
     func testAddEntry() {
         let now = Date()
-        var account = Account(name: "Account Name", number: AccountNumber("123456"), currency: CurrencyType.USD)
+        var account = Account(name: "Account Name", type: .asset, number: AccountNumber("123456"), currency: CurrencyType.USD)
         XCTAssertEqual(0, account.entries.count)
         let eventId = UUID()
         let id = UUID()

@@ -15,7 +15,7 @@ final class PostingRulesTests: XCTestCase {
         let now = Date()
         let otherParty = OtherParty(name: "Other Party")
         // test an debit
-        var event: AccountingEvent = AccountingEvent(name: "Test postentry debit", whenOccurred: now, whenNoticed: nil, isProcessed: false, otherParty: otherParty, amount: Money(100), account: Account(name: "Account Name", number: AccountNumber("12345"), currency: .USD), entryType: .debit)
+        var event: AccountingEvent = AccountingEvent(name: "Test postentry debit", whenOccurred: now, whenNoticed: nil, isProcessed: false, otherParty: otherParty, amount: Money(100), account: Account(name: "Account Name", type: .asset, number: AccountNumber("12345"), currency: .USD), entryType: .debit)
         // store the generated id of the event so we can make sure they match after the call to processEvent
         let eventIdBeforeProcessCall = event.id
         XCTAssertEqual(0, event.account.entries.count)

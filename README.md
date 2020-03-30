@@ -1,7 +1,7 @@
 # accounting-pattern
-An implementation of Martin Fowlers accounting pattern https://www.martinfowler.com/eaaDev/AccountingNarrative.html.
 
 ## Description
+An implementation of Martin Fowlers accounting pattern https://www.martinfowler.com/eaaDev/AccountingNarrative.html.  I kept the entries in an Account object and also created a ChartOfAccounts object to store all accounts since that follows the domain structure of a typical accounting system. 
 
 
 ## Installation
