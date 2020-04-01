@@ -15,8 +15,10 @@ public struct AccountPostingRule: PostingRule, Identifiable {
         self.id = id
     }
     
-    public func processEvent(_ event: inout AccountingEvent) throws {
+    public func processEvent(_ event: AccountingEvent) throws  -> AccountingEvent {
+        var event = event
         try event.account.addEntry(eventId: event.id, type: event.entryType, amount: event.amount, date: event.whenOccurred, otherParty: event.otherParty, note: event.note)
+        return event
     }
 }
 

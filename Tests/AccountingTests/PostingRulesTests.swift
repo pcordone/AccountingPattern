@@ -10,21 +10,22 @@ import XCTest
 @testable import Accounting
     
 final class PostingRulesTests: XCTestCase {
-    func testAccountPostingRule() {
+    func testAccountPostingRule() throws {
         let postingRule = AccountPostingRule()
         let now = Date()
         let otherParty = OtherParty(name: "Other Party")
         // test an debit
-        var event: AccountingEvent = AccountingEvent(name: "Test postentry debit", whenOccurred: now, whenNoticed: nil, isProcessed: false, otherParty: otherParty, amount: Money(100), account: Account(name: "Account Name", type: .asset, number: AccountNumber("12345"), currency: .USD), entryType: .debit)
+        let event: AccountingEvent = AccountingEvent(name: "Test postentry debit", whenOccurred: now, whenNoticed: nil, isProcessed: false, otherParty: otherParty, amount: Money(100), account: Account(name: "Account Name", type: .asset, number: AccountNumber("12345"), currency: .USD), entryType: .debit)
         // store the generated id of the event so we can make sure they match after the call to processEvent
         let eventIdBeforeProcessCall = event.id
         XCTAssertEqual(0, event.account.entries.count)
-        XCTAssertNoThrow(try postingRule.processEvent(&event))
+        let processedEvent = try postingRule.processEvent(event)
         // make sure the id's match before and after the process call so that I can rely on id
         XCTAssertEqual(eventIdBeforeProcessCall, event.id)
-        XCTAssertEqual(1, event.account.entries.count)
-        XCTAssertNotNil(event.account.entries.first)
-        guard let entry = event.account.entries.first else {
+        XCTAssertEqual(eventIdBeforeProcessCall, processedEvent.id)
+        XCTAssertEqual(1, processedEvent.account.entries.count)
+        XCTAssertNotNil(processedEvent.account.entries.first)
+        guard let entry = processedEvent.account.entries.first else {
             return XCTFail("Expected a single entry but got none!")
         }
         XCTAssertEqual(now, entry.date)

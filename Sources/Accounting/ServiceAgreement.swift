@@ -28,8 +28,8 @@ public struct ServiceAgreement {
         return rule
     }
     
-    public mutating func processEvent(_ event: inout AccountingEvent) throws {
+    public mutating func processEvent(_ event: AccountingEvent) throws -> AccountingEvent {
         let postingRule = try findPostingRuleForEventType(event.type, date: event.whenOccurred)
-        try postingRule.processEvent(&event)
+        return try postingRule.processEvent(event)
     }
 }

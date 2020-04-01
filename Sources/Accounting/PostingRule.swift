@@ -13,5 +13,5 @@ import Foundation
  - Note: TODO is to use type erasure to be able to pass Event protocol so that we can process any structs implementing Event.  For now, let's move on.
  */
 public protocol PostingRule {
-    func processEvent(_ event: inout AccountingEvent) throws
+    func processEvent(_ event: AccountingEvent) throws -> AccountingEvent
 }

@@ -848,11 +848,11 @@ public enum CurrencyType: String {
         guard let currencyCode = locale.currencyCode else {
             preconditionFailure("Locale \(locale) does not have a currency code associated with it.")
         }
-        return try CurrencyType.currencyFromCode(currencyCode)
+        return CurrencyType.currencyFromCode(currencyCode)
     }
 
     public static func currencyForDefaultLocale() -> CurrencyType {
-        return try currencyFromLocale(Locale.current)
+        return currencyFromLocale(Locale.current)
     }
 
     /**

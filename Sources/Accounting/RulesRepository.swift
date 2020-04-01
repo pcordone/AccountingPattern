@@ -24,8 +24,8 @@ public class RulesRepository {
         return rule
     }
     
-    public func processEvent(_ event: inout AccountingEvent) throws {
+    public func processEvent(_ event: AccountingEvent) throws -> AccountingEvent {
         let postingRule = try findPostingRuleForEventType(event.type)
-        try postingRule.processEvent(&event)
+        return try postingRule.processEvent(event)
     }
 }
