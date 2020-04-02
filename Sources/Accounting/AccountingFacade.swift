@@ -10,7 +10,7 @@ import SwiftAlgorithmClub
 
 public class AccountingFacade {
     public enum Errors: Error {
-        case triedToAddEventThatAlreadyExists
+        case triedToUpdateAnAccountThatDoesntExist
     }
     
     public let chartOfAccounts = ChartOfAccounts()
@@ -27,4 +27,16 @@ public class AccountingFacade {
         let event = AccountingEvent(name: "Opening Balance", whenOccurred: balanceDate, whenNoticed: nil, isProcessed: false, otherParty: OtherParty(name: "Opening Balance"), amount: Money(openingBalance, currency), account: Account(name: name, type: type, number: number, currency: currency), entryType: EntryType.debit, note: "Opening Balance")
         try chartOfAccounts.addAccount(rulesRepository.processEvent(event).account)
      }
+    
+    public func updateAccount(_ account: Account) throws {
+        try chartOfAccounts.updateAccount(account)
+    }
+    
+    func deleteAccount(_ account: Account) throws {
+        try chartOfAccounts.deleteAccount(account)
+    }
+    
+    func hideAccount(_ account: Account) throws {
+        try chartOfAccounts.hideAccount(account)
+    }
 }

@@ -34,14 +34,16 @@ public struct Account: NamedObject {
     public let type: AccountType
     public let number: AccountNumber
     public let currency: CurrencyType
+    public var hidden: Bool
     public var entries: Set<Entry>
     
-    public init(name: String, type: AccountType, number: AccountNumber, currency: CurrencyType, id: UUID = UUID(), entries: Set<Entry> = Set<Entry>()) {
+    public init(name: String, type: AccountType, number: AccountNumber, currency: CurrencyType, hidden: Bool = false, id: UUID = UUID(), entries: Set<Entry> = Set<Entry>()) {
         self.id = id
         self.name = name
         self.type = type
         self.number = number
         self.currency = currency
+        self.hidden = hidden
         self.entries = entries
     }
     

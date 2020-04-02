@@ -35,15 +35,38 @@ final class ChartOfAccountsTest: XCTestCase {
         XCTAssertNotNil(id)
         XCTAssertNotNil(COAAccount)
         let account = Account(name: "Second account with same id as first", type: .asset, number: AccountNumber("7890"), currency: .USD, id: id!)
-        XCTAssertThrowsError(try COA.addAccount(account), "Should have thrown \(ChartOfAccounts.ChartOfAccountsError.accountAlreadyInList)") {
+        XCTAssertThrowsError(try COA.addAccount(account), "Should have thrown \(ChartOfAccounts.ChartOfAccountsError.accountAlreadyExists)") {
             (error) in
-            XCTAssertEqual(error as? ChartOfAccounts.ChartOfAccountsError, ChartOfAccounts.ChartOfAccountsError.accountAlreadyInList)
+            XCTAssertEqual(error as? ChartOfAccounts.ChartOfAccountsError, ChartOfAccounts.ChartOfAccountsError.accountAlreadyExists)
         }
+    }
+    
+    func testUpdateAccount() {
+        var account = Account(name: "Name", type: .asset, number: AccountNumber("12345"), currency: .USD)
+        XCTAssertNoThrow(try COA.addAccount(account))
+        account.name = "New Name"
+        XCTAssertNoThrow(try COA.updateAccount(account))
+        XCTAssertEqual("New Name", account.name)
+    }
+    
+    func testDeleteAccount() {
+        let account = Account(name: "Name", type: .asset, number: AccountNumber("12345"), currency: .USD)
+        XCTAssertNoThrow(try COA.addAccount(account))
+        XCTAssertNoThrow(try COA.deleteAccount(account))
+        XCTAssertNil(COA.accounts[account.id])
+    }
+
+    func testHideAccount() {
+        let account = Account(name: "Name", type: .asset, number: AccountNumber("12345"), currency: .USD)
+        XCTAssertNoThrow(try COA.addAccount(account))
+        XCTAssertNoThrow(try COA.hideAccount(account))
+        XCTAssertNotNil(COA.accounts[account.id])
+        XCTAssertNil(COA[account.id])
+        XCTAssertNotNil(COA[account.id, true])
     }
     
     func testCount() {
         XCTAssertEqual(0, COA.count)
-        
     }
     
     func testSubscript() {
@@ -55,9 +78,9 @@ final class ChartOfAccountsTest: XCTestCase {
     }
     
 //    func testAccountNamesSorted() {
-//        XCTAssertNoThrow(try COA.addAccount(name: "ABCD", number: AccountNumber("12345"), currency: .USD))
-//        XCTAssertNoThrow(try COA.addAccount(name: "ACD", number: AccountNumber("12345"), currency: .USD))
-//        XCTAssertNoThrow(try COA.addAccount(name: "ABCA", number: AccountNumber("12345"), currency: .USD))
+//        XCTAssertNoThrow(try COA.addAccount(name: "ABCD", type: .expense, number: AccountNumber("12345"), currency: .USD))
+//        XCTAssertNoThrow(try COA.addAccount(name: "ACD", type: .expense, number: AccountNumber("12345"), currency: .USD))
+//        XCTAssertNoThrow(try COA.addAccount(name: "ABCA", type: .expense, number: AccountNumber("12345"), currency: .USD))
 //        var (accountNames, accounts) = COA.accountsSorted(.ascending)
 //        XCTAssertEqual("ABCA", accountNames[0])
 //        XCTAssertEqual("ABCD", accountNames[1])
@@ -67,5 +90,10 @@ final class ChartOfAccountsTest: XCTestCase {
     static var allTests = [
         ("testAddingAccounts", testAddingAccounts),
         ("testAddingAccounts", testAddingAccountAlreadyExists),
+        ("testUpdateAccount", testUpdateAccount),
+        ("testDeleteAccount", testDeleteAccount),
+        ("testHideAccount", testHideAccount),
+        ("testCount", testCount),
+        ("testSubscript", testSubscript),
     ]
 }
