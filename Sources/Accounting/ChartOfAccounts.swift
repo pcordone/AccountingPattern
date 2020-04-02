@@ -33,7 +33,13 @@ public class ChartOfAccounts {
             guard (account.hidden && includeHidden) || !account.hidden else {
                 return nil
             }
-            return accounts[index]
+            return account
+        }
+        set(newValue) {
+            let account = accounts[index]
+            if account == nil || ((account!.hidden && includeHidden) || !account!.hidden) {
+                accounts[index] = newValue
+            }
         }
     }
     

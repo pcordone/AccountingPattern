@@ -77,15 +77,23 @@ final class ChartOfAccountsTest: XCTestCase {
         XCTAssertEqual(account, COA[id])
     }
     
-//    func testAccountNamesSorted() {
-//        XCTAssertNoThrow(try COA.addAccount(name: "ABCD", type: .expense, number: AccountNumber("12345"), currency: .USD))
-//        XCTAssertNoThrow(try COA.addAccount(name: "ACD", type: .expense, number: AccountNumber("12345"), currency: .USD))
-//        XCTAssertNoThrow(try COA.addAccount(name: "ABCA", type: .expense, number: AccountNumber("12345"), currency: .USD))
-//        var (accountNames, accounts) = COA.accountsSorted(.ascending)
-//        XCTAssertEqual("ABCA", accountNames[0])
-//        XCTAssertEqual("ABCD", accountNames[1])
-//        XCTAssertEqual("ACD", accountNames[2])
-//    }
+    func testAccountNamesSorted() {
+        XCTAssertNoThrow(try COA.addAccount(name: "ABCD", type: .expense, number: AccountNumber("12345"), currency: .USD))
+        XCTAssertNoThrow(try COA.addAccount(name: "ACD", type: .expense, number: AccountNumber("12345"), currency: .USD))
+        XCTAssertNoThrow(try COA.addAccount(name: "ABCA", type: .expense, number: AccountNumber("12345"), currency: .USD))
+        var results = COA.accountsSorted(.ascending)
+        XCTAssertEqual("ABCA", results[0].value.name)
+        XCTAssertEqual("ABCD", results[1].value.name)
+        XCTAssertEqual("ACD", results[2].value.name)
+        XCTAssertNoThrow(try COA.hideAccount(results[0].value))
+        results = COA.accountsSorted(.ascending)
+        XCTAssertEqual("ABCD", results[0].value.name)
+        XCTAssertEqual("ACD", results[1].value.name)
+        results = COA.accountsSorted(.ascending, includeHidden: true)
+        XCTAssertEqual("ABCA", results[0].value.name)
+        XCTAssertEqual("ABCD", results[1].value.name)
+        XCTAssertEqual("ACD", results[2].value.name)
+    }
     
     static var allTests = [
         ("testAddingAccounts", testAddingAccounts),
