@@ -10,9 +10,10 @@ import Foundation
 
 public enum AccountType: String {
     case asset = "Asset"
-    case liability = "Liability"
-    case income = "Income"
     case expense = "Expense"
+    case income = "Income"
+    case liability = "Liability"
+    case equity = "Equity"
 }
 
 extension AccountType: CaseIterable {
@@ -21,6 +22,14 @@ extension AccountType: CaseIterable {
 /**
  Collect together related accounting entries and provide summarizing behavior.
  - Note: Starts on page 39.
+ - Note:Debits and credits from accounting principles:
+ Asset accounts. A debit increases the balance and a credit decreases the balance.
+ Liability accounts. A debit decreases the balance and a credit increases the balance.
+ Equity accounts. A debit decreases the balance and a credit increases the balance.
+ Revenue accounts. A debit decreases the balance and a credit increases the balance.
+ Expense accounts. A debit increases the balance and a credit decreases the balance.
+ Gain accounts. A debit decreases the balance and a credit increases the balance.
+ Loss accounts. A debit increases the balance and a credit decreases the balance.
  - ToDo: Need to incorporate MoneyBag for balance calculations and return it.
  - ToDo: Do I also want to put in validation for enforcing a XF transaction for when currency of entries change or more generally, how do we support spending across currencies?  I probably want to create a new account for the new currency.
  */
@@ -35,16 +44,33 @@ public struct Account: NamedObject {
     public let number: AccountNumber
     public let currency: CurrencyType
     public var hidden: Bool
+    public var tags: Set<String>
     public var entries: Set<Entry>
     
-    public init(name: String, type: AccountType, number: AccountNumber, currency: CurrencyType, hidden: Bool = false, id: UUID = UUID(), entries: Set<Entry> = Set<Entry>()) {
+    public init(name: String, type: AccountType, number: AccountNumber, currency: CurrencyType, hidden: Bool = false, tags: Set<String> = Set<String>(), id: UUID = UUID(), entries: Set<Entry> = Set<Entry>()) {
         self.id = id
         self.name = name
         self.type = type
         self.number = number
         self.currency = currency
         self.hidden = hidden
+        self.tags = tags
         self.entries = entries
+    }
+    
+    private func signedAmountForEntry(_ entry: Entry) -> Decimal {
+        switch (type) {
+        case .asset: // Asset accounts. A debit increases the balance and a credit decreases the balance.
+            return entry.type == .credit ? entry.amount.amount * -1 : entry.amount.amount
+        case .expense: //Expense accounts. A debit increases the balance and a credit decreases the balance.
+            return entry.type == .credit ? entry.amount.amount * -1 : entry.amount.amount
+        case .income: // Revenue accounts. A debit decreases the balance and a credit increases the balance.
+            return entry.type == .debit ? entry.amount.amount * -1 : entry.amount.amount
+        case .liability: // Liability accounts. A debit decreases the balance and a credit increases the balance.
+            return entry.type == .debit ? entry.amount.amount * -1 : entry.amount.amount
+        case .equity: // Equity accounts. A debit decreases the balance and a credit increases the balance.
+            return entry.type == .debit ? entry.amount.amount * -1 : entry.amount.amount
+        }
     }
     
     public mutating func addEntry(_ entry: Entry) throws {
@@ -59,17 +85,29 @@ public struct Account: NamedObject {
         try addEntry(entry)
     }
     
+    public mutating func addTag(_ tag: String) {
+        tags.insert(tag)
+    }
+    
+    public mutating func removeTag(_ tag: String) {
+        tags.remove(tag)
+    }
+    
+    public func hasTag(_ tag: String) -> Bool {
+        return tags.contains(tag)
+    }
+    
     @available(OSX 10.12, *)
     @available(iOS 10.0, *)
     public func balanceBetween(_ interval: DateInterval) -> Money {
         return Money(entries.filter({ interval.contains($0.date) })
-                           .reduce(0, { result, entry in result + entry.amount.amount }),
+                           .reduce(0, { result, entry in result + signedAmountForEntry(entry) }),
                      currency)
     }
     
     public func balanceAsOf(_ asOfDate: Date) -> Money {
-        return Money(entries.filter({ $0.date >= asOfDate })
-                         .reduce(0, { result, entry in result + entry.amount.amount }),
+        return Money(entries.filter({ $0.date <= asOfDate })
+                         .reduce(0, { result, entry in result + signedAmountForEntry(entry) }),
                      currency)
     }
     
@@ -79,16 +117,16 @@ public struct Account: NamedObject {
     
     @available(OSX 10.12, *)
     @available(iOS 10.0, *)
-    public func depositsBetween(_ interval: DateInterval) -> Money {
-        return Money(entries.filter({ interval.contains($0.date) && $0.amount > 0 })
+    public func debitsBetween(_ interval: DateInterval) -> Money {
+        return Money(entries.filter({ interval.contains($0.date) && $0.type == .debit })
             .reduce(0, { result, entry in result + entry.amount.amount }),
                      currency)
     }
     
     @available(OSX 10.12, *)
     @available(iOS 10.0, *)
-    public func withdrawlsBetween(_ interval: DateInterval) -> Money {
-        return Money(entries.filter({ interval.contains($0.date) && $0.amount < 0 })
+    public func creditsBetween(_ interval: DateInterval) -> Money {
+        return Money(entries.filter({ interval.contains($0.date) && $0.type == .credit })
             .reduce(Decimal(0), {result, entry in result + entry.amount.amount}),
                      currency)
     }

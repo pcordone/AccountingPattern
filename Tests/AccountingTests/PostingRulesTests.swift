@@ -30,7 +30,7 @@ final class PostingRulesTests: XCTestCase {
         }
         XCTAssertEqual(now, entry.date)
         XCTAssertEqual(Money(100), entry.amount)
-        XCTAssertEqual(.debit, entry.entryType)
+        XCTAssertEqual(.debit, entry.type)
         XCTAssertEqual(otherParty.id, entry.otherParty.id)
     }
     

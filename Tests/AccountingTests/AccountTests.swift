@@ -22,8 +22,115 @@ final class AccountTests: XCTestCase {
         XCTAssertNoThrow(try account.addEntry(deposityEntry))
         XCTAssertTrue(account.entries.contains(deposityEntry))
     }
+
+    func testBalanceBetween() {
+        if #available(OSX 10.12, iOS 10.0, *) {
+            let now = Date()
+            var account = Account(name: "Account Name", type: .asset, number: AccountNumber("123456"), currency: CurrencyType.USD)
+            XCTAssertEqual(Money(0, .USD), account.balanceBetween(DateInterval(start: now.addingTimeInterval(-1), end: now.addingTimeInterval(1))))
+            let entryNow = Entry(eventId: UUID(), date: now, entryType: .debit, amount: 1000, otherParty: OtherParty(name: "Other Party"), note: "Note text.")
+            XCTAssertNoThrow(try account.addEntry(entryNow))
+            let entryPast = Entry(eventId: UUID(), date: now.addingTimeInterval(-1), entryType: .debit, amount: 500, otherParty: OtherParty(name: "Other Party"), note: "Note text.")
+            XCTAssertNoThrow(try account.addEntry(entryPast))
+            let entryFuture = Entry(eventId: UUID(), date: now.addingTimeInterval(1), entryType: .debit, amount: 2000, otherParty: OtherParty(name: "Other Party"), note: "Note text.")
+            XCTAssertNoThrow(try account.addEntry(entryFuture))
+            XCTAssertEqual(Money(3500, .USD), account.balanceBetween(DateInterval(start: now.addingTimeInterval(-1), end: now.addingTimeInterval(1))))
+            XCTAssertEqual(Money(1500, .USD), account.balanceBetween(DateInterval(start: now.addingTimeInterval(-1), end: now)))
+            XCTAssertEqual(Money(3000, .USD), account.balanceBetween(DateInterval(start: now, end: now.addingTimeInterval(1))))
+        }
+    }
+    
+    func testBalanceAsOf() {
+        let now = Date()
+        var account = Account(name: "Account Name", type: .asset, number: AccountNumber("123456"), currency: CurrencyType.USD)
+        XCTAssertEqual(Money(0, .USD), account.balanceAsOf(now))
+        let openingBalEntry = Entry(eventId: UUID(), date: now, entryType: .debit, amount: 1000, otherParty: OtherParty(name: "Other Party"), note: "Note text.")
+        XCTAssertNoThrow(try account.addEntry(openingBalEntry))
+        XCTAssertEqual(Money(1000, .USD), account.balanceAsOf(now))
+        XCTAssertEqual(Money(1000, .USD), account.balanceAsOf(now.addingTimeInterval(1)))
+        XCTAssertEqual(Money(0, .USD), account.balanceAsOf(now.addingTimeInterval(-1)))
+    }
+    
+    func testBalance() {
+        let now = Date()
+        var account = Account(name: "Account Name", type: .asset, number: AccountNumber("123456"), currency: CurrencyType.USD)
+        XCTAssertEqual(Money(0, .USD), account.balance())
+        let openingBalEntry = Entry(eventId: UUID(), date: now, entryType: .debit, amount: 1000, otherParty: OtherParty(name: "Other Party"), note: "Note text.")
+        XCTAssertNoThrow(try account.addEntry(openingBalEntry))
+        XCTAssertEqual(Money(1000, .USD), account.balance())
+    }
+    
+    private func makeCreditAndDebitEntriesForAccount(_ account: Account, withNow: Date) -> Account {
+        var account = account
+        let debitEntryNow = Entry(eventId: UUID(), date: withNow, entryType: .debit, amount: 1000, otherParty: OtherParty(name: "Other Party"), note: "Note text.")
+        XCTAssertNoThrow(try account.addEntry(debitEntryNow))
+        let debitEntryPast = Entry(eventId: UUID(), date: withNow.addingTimeInterval(-1), entryType: .debit, amount: 500, otherParty: OtherParty(name: "Other Party"), note: "Note text.")
+        XCTAssertNoThrow(try account.addEntry(debitEntryPast))
+        let debitEntryFuture = Entry(eventId: UUID(), date: withNow.addingTimeInterval(1), entryType: .debit, amount: 2000, otherParty: OtherParty(name: "Other Party"), note: "Note text.")
+        XCTAssertNoThrow(try account.addEntry(debitEntryFuture))
+        let creditEntryNow = Entry(eventId: UUID(), date: withNow, entryType: .credit, amount: 1000, otherParty: OtherParty(name: "Other Party"), note: "Note text.")
+        XCTAssertNoThrow(try account.addEntry(creditEntryNow))
+        let creditEntryPast = Entry(eventId: UUID(), date: withNow.addingTimeInterval(-1), entryType: .credit, amount: 400, otherParty: OtherParty(name: "Other Party"), note: "Note text.")
+        XCTAssertNoThrow(try account.addEntry(creditEntryPast))
+        let creditEntryFuture = Entry(eventId: UUID(), date: withNow.addingTimeInterval(1), entryType: .credit, amount: 2200, otherParty: OtherParty(name: "Other Party"), note: "Note text.")
+        XCTAssertNoThrow(try account.addEntry(creditEntryFuture))
+        return account
+    }
+    
+    func testDebitsBetween() {
+        if #available(OSX 10.12, iOS 10.0, *) {
+            let now = Date()
+            var account = Account(name: "Account Name", type: .asset, number: AccountNumber("123456"), currency: CurrencyType.USD)
+            XCTAssertEqual(Money(0, .USD), account.debitsBetween(DateInterval(start: now.addingTimeInterval(-1), end: now.addingTimeInterval(1))))
+            account = makeCreditAndDebitEntriesForAccount(account, withNow: now)
+            XCTAssertEqual(Money(3500, .USD), account.debitsBetween(DateInterval(start: now.addingTimeInterval(-1), end: now.addingTimeInterval(1))))
+            XCTAssertEqual(Money(1500, .USD), account.debitsBetween(DateInterval(start: now.addingTimeInterval(-1), end: now)))
+            XCTAssertEqual(Money(3000, .USD), account.debitsBetween(DateInterval(start: now, end: now.addingTimeInterval(1))))
+        }
+    }
+    
+    func testCreditsBetween() {
+        if #available(OSX 10.12, iOS 10.0, *) {
+        let now = Date()
+        var account = Account(name: "Account Name", type: .asset, number: AccountNumber("123456"), currency: CurrencyType.USD)
+        XCTAssertEqual(Money(0, .USD), account.debitsBetween(DateInterval(start: now.addingTimeInterval(-1), end: now.addingTimeInterval(1))))
+        account = makeCreditAndDebitEntriesForAccount(account, withNow: now)
+            XCTAssertEqual(Money(3600, .USD), account.creditsBetween(DateInterval(start: now.addingTimeInterval(-1), end: now.addingTimeInterval(1))))
+        XCTAssertEqual(Money(1400, .USD), account.creditsBetween(DateInterval(start: now.addingTimeInterval(-1), end: now)))
+        XCTAssertEqual(Money(3200, .USD), account.creditsBetween(DateInterval(start: now, end: now.addingTimeInterval(1))))
+            
+        }
+    }
+    
+    func testHashable() {
+        let account = Account(name: "Account One", type: .asset, number: AccountNumber("123456"), currency: CurrencyType.USD)
+        XCTAssertEqual(account.id.hashValue, account.hashValue)
+    }
+    
+    func testEquatable() {
+        let account = Account(name: "Account One", type: .asset, number: AccountNumber("123456"), currency: CurrencyType.USD)
+        let account2 = Account(name: "Account Two", type: .liability, number: AccountNumber("654321"), currency: CurrencyType.AED, id: account.id)
+        XCTAssertEqual(account, account2)
+        let account3 = Account(name: account.name, type: account.type, number: account.number, currency: account.currency, id: UUID())
+        XCTAssertNotEqual(account, account3)
+    }
+    
+    func testTags() {
+        // addTag
+        // removeTag
+        // hasTag
+        
+    }
     
     static var allTests = [
         ("testAddEntry", testAddEntry),
+        ("testBalanceAsOf", testBalanceAsOf),
+        ("testBalance", testBalance),
+        ("testHashable", testHashable),
+        ("testEquatable", testEquatable),
+        ("testTags", testTags),
+        ("testBalanceBetween", testBalanceBetween),
+        ("testDebitsBetween", testDebitsBetween),
+        ("testCreditsBetween", testCreditsBetween),
     ]
 }

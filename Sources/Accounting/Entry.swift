@@ -15,7 +15,7 @@ public struct Entry: Identifiable {
     public let id: UUID
     public let eventId: UUID
     public let date: Date
-    public let entryType: EntryType
+    public let type: EntryType
     public let amount: Money
     public let otherParty: OtherParty
     public let note: String?
@@ -24,7 +24,7 @@ public struct Entry: Identifiable {
         self.id = id
         self.eventId = eventId
         self.date = date
-        self.entryType = entryType
+        self.type = entryType
         self.amount = amount
         self.otherParty = otherParty
         self.note = note

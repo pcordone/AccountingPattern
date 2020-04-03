@@ -28,7 +28,7 @@ final class AccountingFacadeTest: XCTestCase {
         XCTAssertNotNil(entry)
         XCTAssertEqual(1000, entry!.amount)
         XCTAssertEqual(now, entry!.date)
-        XCTAssertEqual(.debit, entry!.entryType)
+        XCTAssertEqual(.debit, entry!.type)
         XCTAssertEqual("Opening Balance", entry!.otherParty.name)
         XCTAssertEqual("Opening Balance", entry!.note)
     }
