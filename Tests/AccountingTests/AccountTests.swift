@@ -115,17 +115,43 @@ final class AccountTests: XCTestCase {
         XCTAssertNotEqual(account, account3)
     }
     
-    func testTags() {
+    func testTagsDefaultCategory() {
         var account = Account(name: "Account One", type: .asset, number: AccountNumber("123456"), currency: CurrencyType.USD)
         XCTAssertTrue(account.tags.isEmpty)
         XCTAssertFalse(account.hasTag("Tag"))
         account.addTag("Tag")
         XCTAssertTrue(account.hasTag("Tag"))
-        account.removeTag("Tag")
+        XCTAssertNoThrow(try account.removeTag("Tag"))
         XCTAssertFalse(account.hasTag("Tag"))
         account.addTag("Tag")
         account.addTag("Tag Tag")
-        XCTAssertEqual(2, account.tags.count)
+        XCTAssertEqual(2, account.tags[""]?.count)
+        account.removeAllTags()
+        XCTAssertTrue(account.tags.isEmpty)
+    }
+    
+    func testTagsWithCategory() {
+        var account = Account(name: "Account One", type: .asset, number: AccountNumber("123456"), currency: CurrencyType.USD)
+        XCTAssertTrue(account.tags.isEmpty)
+        XCTAssertFalse(account.hasTag("Tag", forCategory: "Category 1"))
+        account.addTag("Tag", forCategory: "Category 1")
+        XCTAssertEqual(1, account.tags["Category 1"]?.count)
+        XCTAssertTrue(account.hasTag("Tag", forCategory: "Category 1"))
+        XCTAssertNil(account.tags["Category 2"])
+        XCTAssertFalse(account.hasTag("Tag", forCategory: "Category 2"))
+        account.addTag("Tag", forCategory: "Category 2")
+        XCTAssertEqual(1, account.tags["Category 2"]?.count)
+        XCTAssertTrue(account.hasTag("Tag", forCategory: "Category 2"))
+        XCTAssertNoThrow(try account.removeTag("Tag", forCategory: "Category 1"))
+        XCTAssertFalse(account.hasTag("Tag", forCategory: "Category 1"))
+        XCTAssertTrue(account.hasTag("Tag", forCategory: "Category 2"))
+        account.addTag("Tag", forCategory: "Category 1")
+        XCTAssertEqual(1, account.tags["Category 1"]?.count)
+        XCTAssertNoThrow(try account.removeAllTagsForCategory("Category 1"))
+        XCTAssertTrue(account.tags["Category 1"]?.isEmpty ?? false)
+        account.addTag("Tag", forCategory: "Category 1")
+        XCTAssertFalse(account.tags["Category 1"]?.isEmpty ?? true)
+        XCTAssertFalse(account.tags["Category 2"]?.isEmpty ?? true)
         account.removeAllTags()
         XCTAssertTrue(account.tags.isEmpty)
     }
@@ -139,6 +165,7 @@ final class AccountTests: XCTestCase {
         ("testBalanceAsOf", testBalanceAsOf),
         ("testHashable", testHashable),
         ("testEquatable", testEquatable),
-        ("testTags", testTags),
+        ("testTagsDefaultCategory", testTagsDefaultCategory),
+        ("testTagsWithCategory", testTagsWithCategory),
     ]
 }

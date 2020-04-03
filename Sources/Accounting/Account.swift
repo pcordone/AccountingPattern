@@ -36,6 +36,7 @@ extension AccountType: CaseIterable {
 public struct Account: NamedObject {
     enum AccountError: Error {
         case attemptedToAddEntryWhereAmountCurrencyDoesNotMatchAccountCurrency
+        case cantFindTagCategory
     }
     
     public var name: String
@@ -44,10 +45,10 @@ public struct Account: NamedObject {
     public let number: AccountNumber
     public let currency: CurrencyType
     public var hidden: Bool
-    public var tags: Set<String>
+    public var tags: Dictionary<String, Set<String>>
     public var entries: Set<Entry>
     
-    public init(name: String, type: AccountType, number: AccountNumber, currency: CurrencyType, hidden: Bool = false, tags: Set<String> = Set<String>(), id: UUID = UUID(), entries: Set<Entry> = Set<Entry>()) {
+    public init(name: String, type: AccountType, number: AccountNumber, currency: CurrencyType, hidden: Bool = false, tags: Dictionary<String, Set<String>> = Dictionary<String, Set<String>>(), id: UUID = UUID(), entries: Set<Entry> = Set<Entry>()) {
         self.id = id
         self.name = name
         self.type = type
@@ -85,20 +86,33 @@ public struct Account: NamedObject {
         try addEntry(entry)
     }
     
-    public mutating func addTag(_ tag: String) {
-        tags.insert(tag)
+    public mutating func addTag(_ tag: String, forCategory: String = "") {
+        if !tags.contains(where: {$0.key == forCategory }) {
+            tags[forCategory] = Set<String>()
+        }
+        tags[forCategory]!.insert(tag)
     }
     
-    public mutating func removeTag(_ tag: String) {
-        tags.remove(tag)
+    public mutating func removeTag(_ tag: String, forCategory: String = "") throws {
+        guard tags.contains(where: {$0.key == forCategory}) else {
+            throw AccountError.cantFindTagCategory
+        }
+        tags[forCategory]!.remove(tag)
     }
     
-    public func hasTag(_ tag: String) -> Bool {
-        return tags.contains(tag)
+    public func hasTag(_ tag: String, forCategory: String = "") -> Bool {
+        return tags[forCategory]?.contains(tag) ?? false
     }
     
     public mutating func removeAllTags() {
         tags.removeAll()
+    }
+    
+    public mutating func removeAllTagsForCategory(_ category: String) throws {
+        guard tags.contains(where: {$0.key == category}) else {
+            throw AccountError.cantFindTagCategory
+        }
+        tags[category]!.removeAll()
     }
     
     @available(OSX 10.12, *)
