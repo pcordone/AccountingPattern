@@ -97,6 +97,10 @@ public struct Account: NamedObject {
         return tags.contains(tag)
     }
     
+    public mutating func removeAllTags() {
+        tags.removeAll()
+    }
+    
     @available(OSX 10.12, *)
     @available(iOS 10.0, *)
     public func balanceBetween(_ interval: DateInterval) -> Money {

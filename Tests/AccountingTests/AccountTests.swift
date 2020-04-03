@@ -116,10 +116,20 @@ final class AccountTests: XCTestCase {
     }
     
     func testTags() {
-        // addTag
-        // removeTag
-        // hasTag
-        
+        var account = Account(name: "Account One", type: .asset, number: AccountNumber("123456"), currency: CurrencyType.USD)
+        XCTAssertTrue(account.tags.isEmpty)
+        XCTAssertFalse(account.hasTag("Tag"))
+        account.addTag("Tag")
+        XCTAssertTrue(account.hasTag("Tag"))
+        account.removeTag("Tag")
+        XCTAssertFalse(account.hasTag("Tag"))
+        account.addTag("Tag")
+        account.addTag("Tag Tag")
+        XCTAssertEqual(2, account.tags.count)
+        account.removeAllTags()
+        XCTAssertTrue(account.tags.isEmpty)
+
+        // removeAllTags
     }
     
     static var allTests = [
