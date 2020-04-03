@@ -128,19 +128,17 @@ final class AccountTests: XCTestCase {
         XCTAssertEqual(2, account.tags.count)
         account.removeAllTags()
         XCTAssertTrue(account.tags.isEmpty)
-
-        // removeAllTags
     }
     
     static var allTests = [
         ("testAddEntry", testAddEntry),
-        ("testBalanceAsOf", testBalanceAsOf),
+        ("testBalanceBetween", testBalanceBetween),
         ("testBalance", testBalance),
+        ("testDebitsBetween", testDebitsBetween),
+        ("testCreditsBetween", testCreditsBetween),
+        ("testBalanceAsOf", testBalanceAsOf),
         ("testHashable", testHashable),
         ("testEquatable", testEquatable),
         ("testTags", testTags),
-        ("testBalanceBetween", testBalanceBetween),
-        ("testDebitsBetween", testDebitsBetween),
-        ("testCreditsBetween", testCreditsBetween),
     ]
 }
