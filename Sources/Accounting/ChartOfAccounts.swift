@@ -77,25 +77,25 @@ public class ChartOfAccounts {
         accounts[account.id]!.hidden = true
     }
     
-    public func addTag(_ tag: String, forAccount: Account, withCategory: String = "") throws {
+    public func addTag(_ tag: String, forAccount: Account, withCategory category: String = "") throws {
         guard accounts.contains(where: { $0.value.id == forAccount.id }) else {
             throw ChartOfAccountsError.cantFindAccount
         }
-        accounts[forAccount.id]!.addTag(tag, forCategory: withCategory)
+        accounts[forAccount.id]!.addTag(tag, forCategory: category)
     }
     
-    public func removeTag(_ tag: String, forAccount: Account, withCategory: String = "") throws {
+    public func removeTag(_ tag: String, forAccount: Account, withCategory category: String = "") throws {
         guard accounts.contains(where: { $0.value.id == forAccount.id }) else {
             throw ChartOfAccountsError.cantFindAccount
         }
-        try accounts[forAccount.id]!.removeTag(tag, forCategory: withCategory)
+        try accounts[forAccount.id]!.removeTag(tag, forCategory: category)
     }
     
-    public func hasTag(_ tag: String, forAccount: Account, withCategory: String = "") throws -> Bool {
+    public func hasTag(_ tag: String, forAccount: Account, withCategory category: String = "") throws -> Bool {
         guard accounts.contains(where: { $0.value.id == forAccount.id }) else {
             throw ChartOfAccountsError.cantFindAccount
         }
-        return accounts[forAccount.id]!.hasTag(tag, forCategory: withCategory)
+        return accounts[forAccount.id]!.hasTag(tag, forCategory: category)
     }
     
     public func removeAllTagsForAccount(_ account: Account) throws {
@@ -105,11 +105,11 @@ public class ChartOfAccounts {
         accounts[account.id]!.removeAllTags()
     }
        
-    public func removeAllTagsForAccount(_ account: Account, forCategory: String) throws {
+    public func removeAllTagsForAccount(_ account: Account, withCategory category: String = "") throws {
         guard accounts.contains(where: { $0.value.id == account.id }) else {
             throw ChartOfAccountsError.cantFindAccount
         }
-        try accounts[account.id]!.removeAllTagsForCategory(forCategory)
+        try accounts[account.id]!.removeAllTagsForCategory(category)
     }
 
     public func accountsSorted(_ order: SortOrderType, includeHidden: Bool = false) -> [(key: UUID, value: Account)] {
