@@ -95,6 +95,70 @@ final class ChartOfAccountsTest: XCTestCase {
         XCTAssertEqual("ACD", results[2].value.name)
     }
     
+    func testAddTag() {
+        let account = Account(name: "Account One", type: .asset, number: AccountNumber("123456"), currency: CurrencyType.USD)
+        let account2 = Account(name: "Account Two", type: .asset, number: AccountNumber("123456"), currency: CurrencyType.USD)
+        XCTAssertNoThrow(try COA.addAccount(account))
+        XCTAssertNoThrow(try COA.addAccount(account2))
+        XCTAssertTrue(COA[account.id]?.tags.isEmpty ?? false)
+        XCTAssertTrue(COA[account2.id]?.tags.isEmpty ?? false)
+        XCTAssertNoThrow(try COA.addTag("Tag", forAccount: account))
+        XCTAssertTrue(COA[account.id]?.tags[""]?.contains("Tag") ?? false)
+        XCTAssertTrue(COA[account2.id]?.tags.isEmpty ?? false)
+        XCTAssertNoThrow(try COA.addTag("Tag 2", forAccount: account2, withCategory: "Category"))
+        XCTAssertFalse(COA[account.id]?.tags["Category"]?.contains("Tag 2") ?? false)
+        XCTAssertFalse(COA[account.id]?.tags[""]?.contains("Tag 2") ?? false)
+    }
+    
+    func testRemoveTag() {
+        let account = Account(name: "Account One", type: .asset, number: AccountNumber("123456"), currency: CurrencyType.USD)
+        let account2 = Account(name: "Account Two", type: .asset, number: AccountNumber("123456"), currency: CurrencyType.USD)
+        XCTAssertNoThrow(try COA.addAccount(account))
+        XCTAssertNoThrow(try COA.addAccount(account2))
+        XCTAssertTrue(COA[account.id]?.tags.isEmpty ?? false)
+        XCTAssertTrue(COA[account2.id]?.tags.isEmpty ?? false)
+        XCTAssertNoThrow(try COA.addTag("Tag", forAccount: account))
+        XCTAssertTrue(COA[account.id]?.tags[""]?.contains("Tag") ?? false)
+        XCTAssertNoThrow(try COA.addTag("Tag 2", forAccount: account2, withCategory: "Category"))
+        XCTAssertTrue(COA[account2.id]?.tags["Category"]?.contains("Tag 2") ?? false)
+        XCTAssertNoThrow(try COA.removeTag("Tag", forAccount: account))
+        XCTAssertTrue(COA[account.id]?.tags[""]?.isEmpty ?? false)
+        XCTAssertNoThrow(try COA.removeTag("Tag 2", forAccount: account2, withCategory: "Category"))
+        XCTAssertTrue(COA[account2.id]?.tags["Category"]?.isEmpty ?? false)
+    }
+    
+    func testHasTag() {
+        let account = Account(name: "Account One", type: .asset, number: AccountNumber("123456"), currency: CurrencyType.USD)
+        let account2 = Account(name: "Account Two", type: .asset, number: AccountNumber("123456"), currency: CurrencyType.USD)
+        XCTAssertNoThrow(try COA.addAccount(account))
+        XCTAssertNoThrow(try COA.addAccount(account2))
+        XCTAssertTrue(COA[account.id]?.tags.isEmpty ?? false)
+        XCTAssertTrue(COA[account2.id]?.tags.isEmpty ?? false)
+        XCTAssertFalse(try COA.hasTag("Tag", forAccount: account))
+        XCTAssertFalse(try COA.hasTag("Tag 2", forAccount: account2, withCategory: "Category"))
+        XCTAssertNoThrow(try COA.addTag("Tag", forAccount: account))
+        XCTAssertTrue(try COA.hasTag("Tag", forAccount: account))
+        XCTAssertFalse(try COA.hasTag("Tag", forAccount: account, withCategory: "Category"))
+        XCTAssertNoThrow(try COA.addTag("Tag 2", forAccount: account2, withCategory: "Category"))
+        XCTAssertTrue(try COA.hasTag("Tag 2", forAccount: account2, withCategory: "Category"))
+        XCTAssertFalse(try COA.hasTag("Tag", forAccount: account2))
+    }
+    
+    func testRemoveAllTagsForCategory() {
+        let account = Account(name: "Account One", type: .asset, number: AccountNumber("123456"), currency: CurrencyType.USD)
+        let account2 = Account(name: "Account Two", type: .asset, number: AccountNumber("123456"), currency: CurrencyType.USD)
+        XCTAssertNoThrow(try COA.addAccount(account))
+        XCTAssertNoThrow(try COA.addTag("Tag", forAccount: account))
+        XCTAssertNoThrow(try COA.addAccount(account2))
+        XCTAssertNoThrow(try COA.addTag("Tag 2", forAccount: account2, withCategory: "Category"))
+        XCTAssertTrue(COA[account.id]?.tags[""]?.contains("Tag") ?? false)
+        XCTAssertTrue(COA[account2.id]?.tags["Category"]?.contains("Tag 2") ?? false)
+        XCTAssertNoThrow(try COA.removeAllTagsForAccount(account))
+        XCTAssertTrue(COA[account.id]?.tags.isEmpty ?? false)
+        XCTAssertNoThrow(try COA.removeAllTagsForAccount(account2))
+        XCTAssertTrue(COA[account2.id]?.tags.isEmpty ?? false)
+    }
+    
     static var allTests = [
         ("testAddingAccounts", testAddingAccounts),
         ("testAddingAccounts", testAddingAccountAlreadyExists),
@@ -103,5 +167,11 @@ final class ChartOfAccountsTest: XCTestCase {
         ("testHideAccount", testHideAccount),
         ("testCount", testCount),
         ("testSubscript", testSubscript),
+        ("testAccountNamesSorted", testAccountNamesSorted),
+        ("testAccountNamesSorted", testAccountNamesSorted),
+        ("testAddTag", testAddTag),
+        ("testRemoveTag", testRemoveTag),
+        ("testHasTag", testHasTag),
+        ("testRemoveAllTagsForCategory", testRemoveAllTagsForCategory),
     ]
 }
