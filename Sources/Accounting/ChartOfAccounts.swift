@@ -17,14 +17,16 @@ public class ChartOfAccounts {
     }
     
     var accounts = Dictionary<UUID, Account>()
-    
-    public var count: Int {
-        return accounts.count
-    }
-        
+            
     public init() {
     }
 
+    // MARK: Accessing and managing accounts
+
+    public var count: Int {
+        return accounts.count
+    }
+    
     subscript(index: UUID, includeHidden: Bool = false) -> Account? {
         get {
             guard let account = accounts[index] else {
@@ -76,6 +78,8 @@ public class ChartOfAccounts {
         }
         accounts[account.id]!.hidden = true
     }
+    
+    // MARK: Managing tags
     
     public func addTag(_ tag: String, forAccount: Account, withCategory category: String = "") throws {
         guard accounts.contains(where: { $0.value.id == forAccount.id }) else {
