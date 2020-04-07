@@ -31,7 +31,7 @@ final class ChartOfAccountsTest: XCTestCase {
     func testAddingAccountAlreadyExists() {
         XCTAssertNoThrow(try COA.addAccount(name: "First Account", type: .asset, number: AccountNumber("12345"), currency: .USD))
         XCTAssertEqual(1, COA.count)
-        let (id, COAAccount) = COA.accounts.first ?? (nil, nil)
+        let (id, COAAccount) = COA._accounts.first ?? (nil, nil)
         XCTAssertNotNil(id)
         XCTAssertNotNil(COAAccount)
         let account = Account(name: "Second account with same id as first", type: .asset, number: AccountNumber("7890"), currency: .USD, id: id!)
@@ -53,14 +53,14 @@ final class ChartOfAccountsTest: XCTestCase {
         let account = Account(name: "Name", type: .asset, number: AccountNumber("12345"), currency: .USD)
         XCTAssertNoThrow(try COA.addAccount(account))
         XCTAssertNoThrow(try COA.deleteAccount(account))
-        XCTAssertNil(COA.accounts[account.id])
+        XCTAssertNil(COA._accounts[account.id])
     }
 
     func testHideAccount() {
         let account = Account(name: "Name", type: .asset, number: AccountNumber("12345"), currency: .USD)
         XCTAssertNoThrow(try COA.addAccount(account))
         XCTAssertNoThrow(try COA.hideAccount(account))
-        XCTAssertNotNil(COA.accounts[account.id])
+        XCTAssertNotNil(COA._accounts[account.id])
         XCTAssertNil(COA[account.id])
         XCTAssertNotNil(COA[account.id, true])
     }
@@ -159,6 +159,21 @@ final class ChartOfAccountsTest: XCTestCase {
         XCTAssertTrue(COA[account2.id]?.tags.isEmpty ?? false)
     }
     
+    func testAccountsList() {
+        XCTAssertEqual(0, COA.accounts.count)
+        let account = Account(name: "Account One", type: .asset, number: AccountNumber("123456"), currency: CurrencyType.USD)
+        XCTAssertNoThrow(try COA.addAccount(account))
+        let accounts = COA.accounts
+        XCTAssertEqual(1, accounts.count)
+        XCTAssertEqual(account.name, accounts[0].name)
+        XCTAssertEqual(account.currency, accounts[0].currency)
+        XCTAssertEqual(account.hidden, accounts[0].hidden)
+        XCTAssertEqual(account.id, accounts[0].id)
+        XCTAssertEqual(account.entries, accounts[0].entries)
+        XCTAssertEqual(account.number, accounts[0].number)
+        XCTAssertEqual(account.tags, accounts[0].tags)
+    }
+    
     static var allTests = [
         ("testAddingAccounts", testAddingAccounts),
         ("testAddingAccounts", testAddingAccountAlreadyExists),
@@ -173,5 +188,6 @@ final class ChartOfAccountsTest: XCTestCase {
         ("testRemoveTag", testRemoveTag),
         ("testHasTag", testHasTag),
         ("testRemoveAllTagsForCategory", testRemoveAllTagsForCategory),
+        ("testAccountsList", testAccountsList),
     ]
 }
