@@ -7,13 +7,13 @@
 
 import Foundation
 
-struct Balance {
-    public static var zero = Balance(debit: Decimal.zero, credit: Decimal.zero)
+struct DebitsAndCredits {
+    public static var zero = DebitsAndCredits(debit: Decimal.zero, credit: Decimal.zero)
     
     var debit: Decimal
     var credit: Decimal
     
-    public init(_ balance: Balance) {
+    public init(_ balance: DebitsAndCredits) {
         self.debit = balance.debit
         self.credit = balance.credit
     }
@@ -41,14 +41,14 @@ struct Balance {
     }
 }
 
-extension Balance: Hashable {
+extension DebitsAndCredits: Hashable {
     public var hashValue: Int {
         var hasher = Hasher()
         self.hash(into: &hasher)
         return hasher.finalize()
     }
     
-    public static func == (lhs: Balance, rhs: Balance) -> Bool {
+    public static func == (lhs: DebitsAndCredits, rhs: DebitsAndCredits) -> Bool {
         return (lhs.debit == rhs.debit) && (lhs.credit == rhs.credit)
     }
     
@@ -58,9 +58,9 @@ extension Balance: Hashable {
     }
 }
 
-extension Balance: AdditiveArithmetic {
+extension DebitsAndCredits: AdditiveArithmetic {
     /// Minus equal a Balance
-    public static func -= (lhs: inout Balance, rhs: Balance) {
+    public static func -= (lhs: inout DebitsAndCredits, rhs: DebitsAndCredits) {
         if !rhs.debit.isZero {
             lhs.debit -= rhs.debit
         }
@@ -70,7 +70,7 @@ extension Balance: AdditiveArithmetic {
     }
     
     /// Adds one monetary amount to another.
-    public static func += (lhs: inout Balance, rhs: Balance) {
+    public static func += (lhs: inout DebitsAndCredits, rhs: DebitsAndCredits) {
         if !rhs.debit.isZero {
             lhs.debit += rhs.debit
         }
@@ -80,7 +80,7 @@ extension Balance: AdditiveArithmetic {
     }
     
     /// Minus equal a Balance and an Entry
-    public static func -= (lhs: inout Balance, rhs: Entry) {
+    public static func -= (lhs: inout DebitsAndCredits, rhs: Entry) {
         switch(rhs.type) {
         case .debit:
             if !rhs.amount.amount.isZero {
@@ -94,7 +94,7 @@ extension Balance: AdditiveArithmetic {
     }
     
     /// Minus equal a Balance and an Entry
-    public static func += (lhs: inout Balance, rhs: Entry) {
+    public static func += (lhs: inout DebitsAndCredits, rhs: Entry) {
         switch(rhs.type) {
         case .debit:
             if !rhs.amount.amount.isZero {
@@ -108,19 +108,19 @@ extension Balance: AdditiveArithmetic {
     }
     
     /// The difference between two Balance objects.
-    public static func - (lhs: Balance, rhs: Balance) -> Balance {
-        return Balance(debit: rhs.debit.isZero ? lhs.debit : lhs.debit - rhs.debit,
+    public static func - (lhs: DebitsAndCredits, rhs: DebitsAndCredits) -> DebitsAndCredits {
+        return DebitsAndCredits(debit: rhs.debit.isZero ? lhs.debit : lhs.debit - rhs.debit,
                        credit: rhs.credit.isZero ? lhs.credit : lhs.credit - rhs.credit)
     }
     
     /// The sum of two Balance objects.
-    public static func + (lhs: Balance, rhs: Balance) -> Balance {
-        return Balance(debit: rhs.debit.isZero ? lhs.debit : lhs.debit + rhs.debit,
+    public static func + (lhs: DebitsAndCredits, rhs: DebitsAndCredits) -> DebitsAndCredits {
+        return DebitsAndCredits(debit: rhs.debit.isZero ? lhs.debit : lhs.debit + rhs.debit,
                        credit: rhs.credit.isZero ? lhs.credit : lhs.credit + rhs.credit)
     }
     
     /// The differene between a Balance and an Entry
-    public static func - (lhs: Balance, rhs: Entry) -> Balance {
+    public static func - (lhs: DebitsAndCredits, rhs: Entry) -> DebitsAndCredits {
         var debitAmount = lhs.debit
         var creditAmount = lhs.credit
         switch(rhs.type) {
@@ -133,11 +133,11 @@ extension Balance: AdditiveArithmetic {
                 creditAmount -= rhs.amount.amount
             }
         }
-        return Balance(debit: debitAmount, credit: creditAmount)
+        return DebitsAndCredits(debit: debitAmount, credit: creditAmount)
     }
     
     /// The difference between a Balance and an Entry
-    public static func + (lhs: Balance, rhs: Entry) -> Balance {
+    public static func + (lhs: DebitsAndCredits, rhs: Entry) -> DebitsAndCredits {
         var debitAmount = lhs.debit
         var creditAmount = lhs.credit
         switch(rhs.type) {
@@ -150,6 +150,6 @@ extension Balance: AdditiveArithmetic {
                 creditAmount += rhs.amount.amount
             }
         }
-        return Balance(debit: debitAmount, credit: creditAmount)
+        return DebitsAndCredits(debit: debitAmount, credit: creditAmount)
     }
 }

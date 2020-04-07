@@ -10,24 +10,24 @@ import XCTest
 @testable import DataStructures
 
 final class BalanceTest: XCTestCase {
-    var debitOne: Balance!
-    var creditOne: Balance!
+    var debitOne: DebitsAndCredits!
+    var creditOne: DebitsAndCredits!
     var debitOneEntry: Entry!
     var creditOneEntry: Entry!
 
     override func setUp() {
-        debitOne = Balance(debit: 1, credit: 0)
-        creditOne = Balance(debit: 0, credit: 1)
+        debitOne = DebitsAndCredits(debit: 1, credit: 0)
+        creditOne = DebitsAndCredits(debit: 0, credit: 1)
         let eventId = UUID()
         debitOneEntry = Entry(eventId: eventId, date: Date(), entryType: .debit, amount: 1, otherParty: OtherParty(name: "Other Party Name"))
         creditOneEntry = Entry(eventId: eventId, date: Date(), entryType: .credit, amount: 1, otherParty: OtherParty(name: "Other Party Name"))
     }
     
     func testAddingTwoBalances() {
-        var result = Balance.zero + debitOne
+        var result = DebitsAndCredits.zero + debitOne
         XCTAssertEqual(1, result.debit)
         XCTAssertEqual(0, result.credit)
-        result = Balance.zero + creditOne
+        result = DebitsAndCredits.zero + creditOne
         XCTAssertEqual(0, result.debit)
         XCTAssertEqual(1, result.credit)
         result = debitOne + creditOne
@@ -36,10 +36,10 @@ final class BalanceTest: XCTestCase {
     }
     
     func testSubtractingTwoBalances() {
-        var result = Balance.zero - debitOne
+        var result = DebitsAndCredits.zero - debitOne
         XCTAssertEqual(-1, result.debit)
         XCTAssertEqual(0, result.credit)
-        result = Balance.zero - creditOne
+        result = DebitsAndCredits.zero - creditOne
         XCTAssertEqual(0, result.debit)
         XCTAssertEqual(-1, result.credit)
         result = debitOne - creditOne
@@ -51,69 +51,69 @@ final class BalanceTest: XCTestCase {
     }
     
     func testPlusEqualsBalance() {
-        var result = Balance.zero
+        var result = DebitsAndCredits.zero
         result += debitOne
         XCTAssertEqual(1, result.debit)
         XCTAssertEqual(0, result.credit)
-        result = Balance.zero
+        result = DebitsAndCredits.zero
         result += creditOne
         XCTAssertEqual(0, result.debit)
         XCTAssertEqual(1, result.credit)
     }
     
     func testPlusEqualsBalanceAndEntry() {
-        var result = Balance.zero
+        var result = DebitsAndCredits.zero
         result += debitOneEntry
         XCTAssertEqual(1, result.debit)
         XCTAssertEqual(0, result.credit)
-        result = Balance.zero
+        result = DebitsAndCredits.zero
         result += creditOneEntry
         XCTAssertEqual(0, result.debit)
         XCTAssertEqual(1, result.credit)
     }
     
     func testMinusEqualsBalance() {
-        var result = Balance.zero
+        var result = DebitsAndCredits.zero
         result -= debitOne
         XCTAssertEqual(-1, result.debit)
         XCTAssertEqual(0, result.credit)
-        result = Balance.zero
+        result = DebitsAndCredits.zero
         result -= creditOne
         XCTAssertEqual(0, result.debit)
         XCTAssertEqual(-1, result.credit)
     }
     
     func testMinusEqualsBalanceAndEntry() {
-        var result = Balance.zero
+        var result = DebitsAndCredits.zero
         result -= debitOneEntry
         XCTAssertEqual(-1, result.debit)
         XCTAssertEqual(0, result.credit)
-        result = Balance.zero
+        result = DebitsAndCredits.zero
         result -= creditOneEntry
         XCTAssertEqual(0, result.debit)
         XCTAssertEqual(-1, result.credit)
     }
     
     func testAddingABalanceAndEntry() {
-        var result = Balance.zero + debitOneEntry
+        var result = DebitsAndCredits.zero + debitOneEntry
         XCTAssertEqual(1, result.debit)
         XCTAssertEqual(0, result.credit)
-        result = Balance.zero + creditOneEntry
+        result = DebitsAndCredits.zero + creditOneEntry
         XCTAssertEqual(0, result.debit)
         XCTAssertEqual(1, result.credit)
     }
     
     func testSubractingABalanceAndEntry() {
-        var result = Balance.zero - debitOneEntry
+        var result = DebitsAndCredits.zero - debitOneEntry
         XCTAssertEqual(-1, result.debit)
         XCTAssertEqual(0, result.credit)
-        result = Balance.zero - creditOneEntry
+        result = DebitsAndCredits.zero - creditOneEntry
         XCTAssertEqual(0, result.debit)
         XCTAssertEqual(-1, result.credit)
     }
     
     func testAddingZerosTogether() {
-        let result = Balance.zero + Balance.zero
+        let result = DebitsAndCredits.zero + DebitsAndCredits.zero
         XCTAssertEqual(0, result.debit)
         XCTAssertEqual(0, result.credit)
     }
