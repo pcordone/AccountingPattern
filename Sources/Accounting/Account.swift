@@ -118,15 +118,16 @@ public struct Account: NamedObject {
     @available(OSX 10.12, *)
     @available(iOS 10.0, *)
     public func balanceBetween(_ interval: DateInterval) -> Money {
-        return Money(entries.filter({ interval.contains($0.date) })
-                           .reduce(0, { result, entry in result + signedAmountForEntry(entry) }),
-                     currency)
+        let balance = Balance(entries.filter({ interval.contains($0.date) })
+                           .reduce(Balance(debit: 0, credit: 0), { result, entry in result + entry }))
+        return Money(balance.balanceForAccountType(type), currency)
+        
     }
     
     public func balanceAsOf(_ asOfDate: Date) -> Money {
-        return Money(entries.filter({ $0.date <= asOfDate })
-                         .reduce(0, { result, entry in result + signedAmountForEntry(entry) }),
-                     currency)
+        let balance = Balance(entries.filter({ $0.date <= asOfDate })
+                         .reduce(Balance(debit: 0, credit: 0), { result, entry in result + entry }))
+        return Money(balance.balanceForAccountType(type), currency)
     }
     
     public func balance() -> Money {
