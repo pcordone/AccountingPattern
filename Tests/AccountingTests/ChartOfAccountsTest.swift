@@ -10,8 +10,6 @@ import Foundation
 import XCTest
 @testable import Accounting
 
-import Mockingbird
-
 final class ChartOfAccountsTest: XCTestCase {
     var COA: ChartOfAccounts!
     
@@ -35,9 +33,9 @@ final class ChartOfAccountsTest: XCTestCase {
         XCTAssertNotNil(id)
         XCTAssertNotNil(COAAccount)
         let account = Account(name: "Second account with same id as first", type: .asset, number: AccountNumber("7890"), currency: .USD, id: id!)
-        XCTAssertThrowsError(try COA.addAccount(account), "Should have thrown \(ChartOfAccounts.ChartOfAccountsError.accountAlreadyExists)") {
+        XCTAssertThrowsError(try COA.addAccount(account), "Should have thrown \(ChartOfAccountsError.accountAlreadyExists)") {
             (error) in
-            XCTAssertEqual(error as? ChartOfAccounts.ChartOfAccountsError, ChartOfAccounts.ChartOfAccountsError.accountAlreadyExists)
+            XCTAssertEqual(error as? ChartOfAccountsError, ChartOfAccountsError.accountAlreadyExists)
         }
     }
     

@@ -78,6 +78,7 @@ build/
 # NB: this is exclusive with OPTION 1 above
 #
 xcuserdata/**/*
+xcuserdata/pete.xcuserdatad/UserInterfaceState.xcuserstate
 
 #     (requires option 2 above): Personal Schemes
 #
@@ -128,3 +129,4 @@ xcuserdata/**/*
 #
 Breakpoints_v2.xcbkptlist
 Expressions.xcexplist
+UserInterfaceState.xcuserstate

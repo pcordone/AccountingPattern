@@ -7,15 +7,15 @@
 
 import Foundation
 
+public enum ChartOfAccountsError: Error {
+    case accountAlreadyExists
+    case cantFindAccount
+}
+
 /**
  This is our chart of accounts or holder of all our accounts.
  */
 public class ChartOfAccounts {
-    public enum ChartOfAccountsError: Error {
-        case accountAlreadyExists
-        case cantFindAccount
-    }
-    
     var _accounts = Dictionary<UUID, Account>()
 
     public var accounts: [Account] {
@@ -125,4 +125,10 @@ public class ChartOfAccounts {
     public func accountsSorted(_ order: SortOrderType, includeHidden: Bool = false) -> [(key: UUID, value: Account)] {
         return _accounts.filter({ $0.value.hidden && includeHidden || !$0.value.hidden }).sorted(by: { order == SortOrderType.ascending ? $0.value.name < $1.value.name : $0.value.name > $1.value.name })
         }
+    
+    // MARK: Managing entries
+    // TODO: Add unit test coverage
+    public func addEntry(_ entry: Entry, forAccountId accountId: UUID) throws {
+        try _accounts[accountId]?.addEntry(entry)
+    }
 }

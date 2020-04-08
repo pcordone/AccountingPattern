@@ -118,6 +118,16 @@ final class AccountingFacadeTest: XCTestCase {
         XCTAssertTrue(accountingFacade.chartOfAccounts._accounts[account.id]?.tags[""]?.isEmpty ?? true)
         XCTAssertTrue(accountingFacade.chartOfAccounts._accounts[account.id]?.tags["Category"]?.isEmpty ?? true)
     }
+    
+    func testProcessEvent() {
+        let account = Account(name: "Account Name", type: .asset, number: AccountNumber("123456"))
+        XCTAssertNoThrow(try accountingFacade.addAccount(account))
+        XCTAssertEqual(account.id, accountingFacade.chartOfAccounts._accounts.first?.value.id)
+        XCTAssertNoThrow(try accountingFacade.processAccountingEvent(name: "Debit", whenOccured: Date(), whenNoticed: nil, otherParty: OtherParty(name: "Other Party"), amount: 1000, account: account, entryType: .debit))
+        XCTAssertEqual(account.id, accountingFacade.chartOfAccounts._accounts.first?.value.id)
+        XCTAssertEqual(1, accountingFacade.chartOfAccounts._accounts.first?.value.entries.count)
+        XCTAssertEqual(1000, accountingFacade.chartOfAccounts._accounts.first?.value.entries.first?.amount)
+    }
         
     static var allTests = [
         ("testAddAccount", testAddAccount),

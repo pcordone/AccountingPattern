@@ -33,7 +33,7 @@ extension AccountType: CaseIterable {
  - ToDo: Need to incorporate MoneyBag for balance calculations and return it.
  - ToDo: Do I also want to put in validation for enforcing a XF transaction for when currency of entries change or more generally, how do we support spending across currencies?  I probably want to create a new account for the new currency.
  */
-public struct Account: NamedObject {
+public struct Account: NamedObject, Identifiable {
     enum AccountError: Error {
         case attemptedToAddEntryWhereAmountCurrencyDoesNotMatchAccountCurrency
         case cantFindTagCategory
@@ -48,7 +48,13 @@ public struct Account: NamedObject {
     public var tags: Dictionary<String, Set<String>>
     public var entries: Set<Entry>
     
-    public init(name: String, type: AccountType, number: AccountNumber, currency: CurrencyType, hidden: Bool = false, tags: Dictionary<String, Set<String>> = Dictionary<String, Set<String>>(), id: UUID = UUID(), entries: Set<Entry> = Set<Entry>()) {
+    public var balance: Money {
+        get {
+            return balanceAsOf(Date())
+        }
+    }
+    
+    public init(name: String, type: AccountType, number: AccountNumber, currency: CurrencyType = CurrencyType.currencyForDefaultLocale(), hidden: Bool = false, tags: Dictionary<String, Set<String>> = Dictionary<String, Set<String>>(), id: UUID = UUID(), entries: Set<Entry> = Set<Entry>()) {
         self.id = id
         self.name = name
         self.type = type
@@ -59,21 +65,8 @@ public struct Account: NamedObject {
         self.entries = entries
     }
     
-    private func signedAmountForEntry(_ entry: Entry) -> Decimal {
-        switch (type) {
-        case .asset: // Asset accounts. A debit increases the balance and a credit decreases the balance.
-            return entry.type == .credit ? entry.amount.amount * -1 : entry.amount.amount
-        case .expense: //Expense accounts. A debit increases the balance and a credit decreases the balance.
-            return entry.type == .credit ? entry.amount.amount * -1 : entry.amount.amount
-        case .income: // Revenue accounts. A debit decreases the balance and a credit increases the balance.
-            return entry.type == .debit ? entry.amount.amount * -1 : entry.amount.amount
-        case .liability: // Liability accounts. A debit decreases the balance and a credit increases the balance.
-            return entry.type == .debit ? entry.amount.amount * -1 : entry.amount.amount
-        case .equity: // Equity accounts. A debit decreases the balance and a credit increases the balance.
-            return entry.type == .debit ? entry.amount.amount * -1 : entry.amount.amount
-        }
-    }
-    
+    // MARK: Entry methods
+    // TODO: I don't want to have addEntry be public since I want to only add entries through events.
     public mutating func addEntry(_ entry: Entry) throws {
         guard currency == entry.amount.currency else {
              throw AccountError.attemptedToAddEntryWhereAmountCurrencyDoesNotMatchAccountCurrency
@@ -85,6 +78,13 @@ public struct Account: NamedObject {
         let entry = Entry(eventId: eventId, date: date, entryType: type, amount: amount, otherParty: otherParty, note: note, id: id)
         try addEntry(entry)
     }
+    
+    public func entriesSortedByDate(_ order: SortOrderType) -> [Entry] {
+        return entries.sorted(by: { order == SortOrderType.ascending ? $0.date < $1.date : $0.date > $1.date })
+    }
+    
+    
+    // MARK: Tag methods
     
     public mutating func addTag(_ tag: String, forCategory: String = "") {
         if !tags.contains(where: {$0.key == forCategory }) {
@@ -115,6 +115,8 @@ public struct Account: NamedObject {
         tags[category]!.removeAll()
     }
     
+    // MARK: Balance methods
+    
     @available(OSX 10.12, *)
     @available(iOS 10.0, *)
     public func balanceBetween(_ interval: DateInterval) -> Money {
@@ -137,10 +139,6 @@ public struct Account: NamedObject {
                          .reduce(DebitsCredits(debit: 0, credit: 0), { result, entry in result + entry }))
     }
     
-    public func balance() -> Money {
-        return balanceAsOf(Date())
-    }
-    
     @available(OSX 10.12, *)
     @available(iOS 10.0, *)
     public func debitsBetween(_ interval: DateInterval) -> Money {
@@ -157,6 +155,8 @@ public struct Account: NamedObject {
                      currency)
     }
 }
+
+// MARK: Extensions
 
 extension Account: Hashable {
     public var hashValue: Int {

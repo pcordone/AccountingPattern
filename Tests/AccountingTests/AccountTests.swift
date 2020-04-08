@@ -54,10 +54,10 @@ final class AccountTests: XCTestCase {
     func testBalance() {
         let now = Date()
         var account = Account(name: "Account Name", type: .asset, number: AccountNumber("123456"), currency: CurrencyType.USD)
-        XCTAssertEqual(Money(0, .USD), account.balance())
+        XCTAssertEqual(Money(0, .USD), account.balance)
         let openingBalEntry = Entry(eventId: UUID(), date: now, entryType: .debit, amount: 1000, otherParty: OtherParty(name: "Other Party"), note: "Note text.")
         XCTAssertNoThrow(try account.addEntry(openingBalEntry))
-        XCTAssertEqual(Money(1000, .USD), account.balance())
+        XCTAssertEqual(Money(1000, .USD), account.balance)
     }
     
     private func makeCreditAndDebitEntriesForAccount(_ account: Account, withNow: Date) -> Account {
@@ -154,6 +154,23 @@ final class AccountTests: XCTestCase {
         XCTAssertFalse(account.tags["Category 2"]?.isEmpty ?? true)
         account.removeAllTags()
         XCTAssertTrue(account.tags.isEmpty)
+    }
+    
+    public func testAccountEntriesSortedByDate() {
+        let now = Date()
+        let eventId = UUID()
+        var account = Account(name: "Account Name", type: .asset, number: AccountNumber("123456"), currency: CurrencyType.USD)
+        XCTAssertNoThrow(try account.addEntry(eventId: eventId, type: .credit, amount: 3000, date: now.addingTimeInterval(-1), otherParty: OtherParty(name: "Other Party Second Credit")))
+        XCTAssertNoThrow(try account.addEntry(eventId: eventId, type: .debit, amount: 1000, date: now, otherParty: OtherParty(name: "Other Party First Debit")))
+        XCTAssertNoThrow(try account.addEntry(eventId: eventId, type: .credit, amount: 2000, date: now.addingTimeInterval(1), otherParty: OtherParty(name: "Other Party First Credit")))
+        let entriesAscending = account.entriesSortedByDate(.ascending)
+        XCTAssertEqual(3000, entriesAscending[0].amount)
+        XCTAssertEqual(1000, entriesAscending[1].amount)
+        XCTAssertEqual(2000, entriesAscending[2].amount)
+        let entriesDescending = account.entriesSortedByDate(.descending)
+        XCTAssertEqual(2000, entriesDescending[0].amount)
+        XCTAssertEqual(1000, entriesDescending[1].amount)
+        XCTAssertEqual(3000, entriesDescending[2].amount)
     }
     
     static var allTests = [
