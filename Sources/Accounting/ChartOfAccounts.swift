@@ -33,7 +33,7 @@ public class ChartOfAccounts {
         return _accounts.count
     }
     
-    subscript(index: UUID, includeHidden: Bool = false) -> Account? {
+    public subscript(index: UUID, includeHidden: Bool = false) -> Account? {
         get {
             guard let account = _accounts[index] else {
                 return nil
@@ -51,12 +51,12 @@ public class ChartOfAccounts {
         }
     }
     
-    public func addAccount(name: String, type: AccountType, number: AccountNumber, currency: CurrencyType = CurrencyType.currencyForDefaultLocale(), entries: Set<Entry> = Set<Entry>()) throws {
+    func addAccount(name: String, type: AccountType, number: AccountNumber, currency: CurrencyType = CurrencyType.currencyForDefaultLocale(), entries: Set<Entry> = Set<Entry>()) throws {
         let account = Account(name: name, type: type, number: number, currency: currency, entries: entries)
         try addAccount(account)
     }
     
-    public func addAccount(_ account: Account) throws {
+    func addAccount(_ account: Account) throws {
         if (_accounts[account.id] != nil) {
             throw ChartOfAccountsError.accountAlreadyExists
         } else {
@@ -64,21 +64,21 @@ public class ChartOfAccounts {
         }
     }
     
-    public func updateAccount(_ account: Account) throws {
+    func updateAccount(_ account: Account) throws {
         guard _accounts.contains(where: { $0.key == account.id }) else {
             throw ChartOfAccountsError.cantFindAccount
         }
         _accounts[account.id] = account
     }
     
-    public func deleteAccount(_ account: Account) throws {
+    func deleteAccount(_ account: Account) throws {
         guard _accounts.contains(where: { $0.value.id == account.id }) else {
             throw ChartOfAccountsError.cantFindAccount
         }
         _accounts.removeValue(forKey: account.id)
     }
     
-    public func hideAccount(_ account: Account) throws {
+    func hideAccount(_ account: Account) throws {
         guard _accounts.contains(where: { $0.value.id == account.id }) else {
             throw ChartOfAccountsError.cantFindAccount
         }
@@ -126,7 +126,7 @@ public class ChartOfAccounts {
         try _accounts[account.id]!.removeAllTagsForCategory(category)
     }
     
-    subscript(index: String, forCategory category: String = "", includeHidden: Bool = false) -> [Account] {
+    public subscript(index: String, forCategory category: String = "", includeHidden: Bool = false) -> [Account] {
         get {
             return _accounts.filter({ ($0.value.hidden && includeHidden || !$0.value.hidden) && $0.value.hasTag(index, forCategory: category) }).map( {$0.value} )
         }
