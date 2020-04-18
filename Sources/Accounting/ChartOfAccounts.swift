@@ -85,6 +85,10 @@ public class ChartOfAccounts {
         _accounts[account.id]!.hidden = true
     }
     
+    public func accountsSorted(_ order: SortOrderType, includeHidden: Bool = false) -> [(key: UUID, value: Account)] {
+        return _accounts.filter({ $0.value.hidden && includeHidden || !$0.value.hidden }).sorted(by: { order == SortOrderType.ascending ? $0.value.name < $1.value.name : $0.value.name > $1.value.name })
+        }
+    
     // MARK: Managing tags
     
     public func addTag(_ tag: String, forAccount: Account, withCategory category: String = "") throws {
@@ -121,12 +125,15 @@ public class ChartOfAccounts {
         }
         try _accounts[account.id]!.removeAllTagsForCategory(category)
     }
-
-    public func accountsSorted(_ order: SortOrderType, includeHidden: Bool = false) -> [(key: UUID, value: Account)] {
-        return _accounts.filter({ $0.value.hidden && includeHidden || !$0.value.hidden }).sorted(by: { order == SortOrderType.ascending ? $0.value.name < $1.value.name : $0.value.name > $1.value.name })
+    
+    subscript(index: String, forCategory category: String = "", includeHidden: Bool = false) -> [Account] {
+        get {
+            return _accounts.filter({ ($0.value.hidden && includeHidden || !$0.value.hidden) && $0.value.hasTag(index, forCategory: category) }).map( {$0.value} )
         }
+    }
     
     // MARK: Managing entries
+    
     // TODO: Add unit test coverage
     public func addEntry(_ entry: Entry, forAccountId accountId: UUID) throws {
         try _accounts[accountId]?.addEntry(entry)

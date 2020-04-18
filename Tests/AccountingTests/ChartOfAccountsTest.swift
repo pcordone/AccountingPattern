@@ -17,6 +17,8 @@ final class ChartOfAccountsTest: XCTestCase {
         COA = ChartOfAccounts()
     }
     
+    // MARK: Account management tests
+    
     func testAddingAccounts() {
         XCTAssertNoThrow(try COA.addAccount(name: "First Account", type: .asset, number: AccountNumber("12345"), currency: .USD))
         XCTAssertEqual(1, COA.count)
@@ -93,6 +95,23 @@ final class ChartOfAccountsTest: XCTestCase {
         XCTAssertEqual("ACD", results[2].value.name)
     }
     
+    func testAccountsList() {
+        XCTAssertEqual(0, COA.accounts.count)
+        let account = Account(name: "Account One", type: .asset, number: AccountNumber("123456"), currency: CurrencyType.USD)
+        XCTAssertNoThrow(try COA.addAccount(account))
+        let accounts = COA.accounts
+        XCTAssertEqual(1, accounts.count)
+        XCTAssertEqual(account.name, accounts[0].name)
+        XCTAssertEqual(account.currency, accounts[0].currency)
+        XCTAssertEqual(account.hidden, accounts[0].hidden)
+        XCTAssertEqual(account.id, accounts[0].id)
+        XCTAssertEqual(account.entries, accounts[0].entries)
+        XCTAssertEqual(account.number, accounts[0].number)
+        XCTAssertEqual(account.tags, accounts[0].tags)
+    }
+    
+    // MARK: Test tag management methods
+    
     func testAddTag() {
         let account = Account(name: "Account One", type: .asset, number: AccountNumber("123456"), currency: CurrencyType.USD)
         let account2 = Account(name: "Account Two", type: .asset, number: AccountNumber("123456"), currency: CurrencyType.USD)
@@ -157,19 +176,13 @@ final class ChartOfAccountsTest: XCTestCase {
         XCTAssertTrue(COA[account2.id]?.tags.isEmpty ?? false)
     }
     
-    func testAccountsList() {
-        XCTAssertEqual(0, COA.accounts.count)
+    func testAccountTagSubscript() {
+        XCTAssertTrue(COA["Tag Name", forCategory: "Category Name"].isEmpty)
         let account = Account(name: "Account One", type: .asset, number: AccountNumber("123456"), currency: CurrencyType.USD)
         XCTAssertNoThrow(try COA.addAccount(account))
-        let accounts = COA.accounts
-        XCTAssertEqual(1, accounts.count)
-        XCTAssertEqual(account.name, accounts[0].name)
-        XCTAssertEqual(account.currency, accounts[0].currency)
-        XCTAssertEqual(account.hidden, accounts[0].hidden)
-        XCTAssertEqual(account.id, accounts[0].id)
-        XCTAssertEqual(account.entries, accounts[0].entries)
-        XCTAssertEqual(account.number, accounts[0].number)
-        XCTAssertEqual(account.tags, accounts[0].tags)
+        XCTAssertNoThrow(try COA.addTag("Tag Name", forAccount: account))
+        let accountsForTag = COA["Tag Name"]
+        XCTAssertEqual(account, accountsForTag[0])
     }
     
     static var allTests = [
@@ -182,10 +195,11 @@ final class ChartOfAccountsTest: XCTestCase {
         ("testSubscript", testSubscript),
         ("testAccountNamesSorted", testAccountNamesSorted),
         ("testAccountNamesSorted", testAccountNamesSorted),
+        ("testAccountsList", testAccountsList),
         ("testAddTag", testAddTag),
         ("testRemoveTag", testRemoveTag),
         ("testHasTag", testHasTag),
         ("testRemoveAllTagsForCategory", testRemoveAllTagsForCategory),
-        ("testAccountsList", testAccountsList),
+        ("testAccountTagSubscript", testAccountTagSubscript),
     ]
 }
