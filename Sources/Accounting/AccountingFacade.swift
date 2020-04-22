@@ -47,16 +47,11 @@ public class AccountingFacade {
         try chartOfAccounts.deleteAccount(account)
     }
     
-    public func hideAccount(_ account: Account) throws {
-        // TODO: Do I need to capture an event for updating an account?
-        try chartOfAccounts.hideAccount(account)
-    }
-    
     // MARK: Event methods
     
     public func processAccountingEvent(_ event: AccountingEvent) throws {
         // TODO: Need to store the processed events.  Disregarding result for now.
-        guard chartOfAccounts[event.account.id] != nil else {
+        guard chartOfAccounts.accounts.contains(event.account) else {
             throw ChartOfAccountsError.cantFindAccount
         }
         try chartOfAccounts.updateAccount(rulesRepository.processEvent(event).account)
@@ -65,27 +60,5 @@ public class AccountingFacade {
     public func processAccountingEvent(name: String, whenOccured: Date, whenNoticed: Date?, otherParty: OtherParty, amount: Money, account: Account, entryType: EntryType) throws {
         let event = AccountingEvent(name: name, whenOccurred: whenOccured, whenNoticed: whenNoticed, isProcessed: false, otherParty: otherParty, amount: amount, account: account, entryType: entryType)
         try processAccountingEvent(event)
-    }
-    
-    // MARK: Account tagging methods
-    
-    public func addTag(_ tag: String, forAccount account: Account, withCategory category: String = "") throws {
-        // TODO: Do I need to capture an event for updating an account?
-        try chartOfAccounts.addTag(tag, forAccount: account, withCategory: category)
-    }
-    
-    public func removeTag(_ tag: String, forAccount account: Account, withCategory category: String = "") throws {
-        // TODO: Do I need to capture an event for updating an account?
-        try chartOfAccounts.removeTag(tag, forAccount: account, withCategory: category)
-    }
-
-    public func removeAllTagsForAccount(_ account: Account) throws {
-        // TODO: Do I need to capture an event for updating an account?
-        try chartOfAccounts.removeAllTagsForAccount(account)
-    }
-    
-    public func removeAllTagsForAccount(_ account: Account, withCategory category: String = "") throws {
-        // TODO: Do I need to capture an event for updating an account?
-        try chartOfAccounts.removeAllTagsForAccount(account, withCategory: category)
     }
 }

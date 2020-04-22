@@ -19,11 +19,15 @@ final class AccountingFacadeTest: XCTestCase {
         let now = Date()
         XCTAssertEqual(0, accountingFacade.chartOfAccounts.count)
         XCTAssertNoThrow(try accountingFacade.addAccount(name: "Test Account", type: .asset, number: AccountNumber("12345"), balanceDate: now, openingBalance: 1000, currency: CurrencyType.currencyForDefaultLocale()))
-        let (id, account) = accountingFacade.chartOfAccounts._accounts.first ?? (nil, nil)
-        XCTAssertNotNil(id)
+        let account = accountingFacade.chartOfAccounts.accounts.first ?? nil
         XCTAssertNotNil(account)
-        XCTAssertEqual(id!, account!.id)
+        XCTAssertNotNil(account!.id)
+        XCTAssertEqual("Test Account", account!.name)
+        XCTAssertEqual(.asset, account!.type)
         XCTAssertEqual("12345", account!.number.number)
+        XCTAssertEqual(CurrencyType.currencyForDefaultLocale(), account!.currency)
+        XCTAssertFalse(account!.hidden)
+        XCTAssertTrue(account!.tags.isEmpty)
         let entry = account!.entries.first
         XCTAssertNotNil(entry)
         XCTAssertEqual(1000, entry!.amount)
@@ -46,7 +50,7 @@ final class AccountingFacadeTest: XCTestCase {
         account.name = "Account Name Modified"
         account.hidden = true
         XCTAssertNoThrow(try accountingFacade.updateAccount(account))
-        let modifiedAccount = accountingFacade.chartOfAccounts[account.id, true]
+        let modifiedAccount = accountingFacade.chartOfAccounts.accounts.first
         XCTAssertEqual(.USD, modifiedAccount?.currency)
         XCTAssertEqual("Account Name Modified", modifiedAccount?.name)
         XCTAssertEqual("123456", modifiedAccount?.number.number)
@@ -59,85 +63,25 @@ final class AccountingFacadeTest: XCTestCase {
         XCTAssertEqual(0, accountingFacade.chartOfAccounts.count)
         let account = Account(name: "Account Name", type: .asset, number: AccountNumber("123456"), currency: CurrencyType.USD)
         XCTAssertNoThrow(try accountingFacade.addAccount(account))
-        XCTAssertTrue(accountingFacade.chartOfAccounts._accounts.contains(where: { $0.key == account.id }))
+        XCTAssertTrue(accountingFacade.chartOfAccounts.accounts.contains(where: { $0.id == account.id }))
         XCTAssertNoThrow(try accountingFacade.deleteAccount(account))
-        XCTAssertFalse(accountingFacade.chartOfAccounts._accounts.contains(where: { $0.key == account.id }))
-    }
-    
-    func testHideAccount() {
-        XCTAssertEqual(0, accountingFacade.chartOfAccounts.count)
-        let account = Account(name: "Account Name", type: .asset, number: AccountNumber("123456"), currency: CurrencyType.USD)
-        XCTAssertNoThrow(try accountingFacade.addAccount(account))
-        XCTAssertTrue(accountingFacade.chartOfAccounts._accounts.contains(where: { $0.key == account.id }))
-        XCTAssertNoThrow(try accountingFacade.hideAccount(account))
-    }
-    
-    func testAddTag() {
-        let account = Account(name: "Account Name", type: .asset, number: AccountNumber("123456"), currency: CurrencyType.USD)
-        XCTAssertNoThrow(try accountingFacade.addAccount(account))
-        XCTAssertTrue(accountingFacade.chartOfAccounts._accounts.contains(where: { $0.key == account.id }))
-        XCTAssertFalse(accountingFacade.chartOfAccounts._accounts[account.id]?.tags[""]?.contains("Tag") ?? false)
-        XCTAssertNoThrow(try accountingFacade.addTag("Tag", forAccount: account))
-        XCTAssertTrue(accountingFacade.chartOfAccounts._accounts[account.id]?.tags[""]?.contains("Tag") ?? false)
-    }
-    
-    func testRemoveTag() {
-        let account = Account(name: "Account Name", type: .asset, number: AccountNumber("123456"), currency: CurrencyType.USD)
-        XCTAssertNoThrow(try accountingFacade.addAccount(account))
-        XCTAssertTrue(accountingFacade.chartOfAccounts._accounts.contains(where: { $0.key == account.id }))
-        XCTAssertFalse(accountingFacade.chartOfAccounts._accounts[account.id]?.tags[""]?.contains("Tag") ?? false)
-        XCTAssertNoThrow(try accountingFacade.addTag("Tag", forAccount: account))
-        XCTAssertTrue(accountingFacade.chartOfAccounts._accounts[account.id]?.tags[""]?.contains("Tag") ?? false)
-        XCTAssertNoThrow(try accountingFacade.removeTag("Tag", forAccount: account))
-        XCTAssertFalse(accountingFacade.chartOfAccounts._accounts[account.id]?.tags[""]?.contains("Tag") ?? false)
-    }
-    
-    func testRemoveAllTagsForAccount() {
-        let account = Account(name: "Account Name", type: .asset, number: AccountNumber("123456"), currency: CurrencyType.USD)
-        XCTAssertNoThrow(try accountingFacade.addAccount(account))
-        XCTAssertTrue(accountingFacade.chartOfAccounts._accounts.contains(where: { $0.key == account.id }))
-        XCTAssertFalse(accountingFacade.chartOfAccounts._accounts[account.id]?.tags[""]?.contains("Tag") ?? false)
-        XCTAssertNoThrow(try accountingFacade.addTag("Tag", forAccount: account))
-        XCTAssertTrue(accountingFacade.chartOfAccounts._accounts[account.id]?.tags[""]?.contains("Tag") ?? false)
-        XCTAssertNoThrow(try accountingFacade.addTag("Tag 2", forAccount: account))
-        XCTAssertTrue(accountingFacade.chartOfAccounts._accounts[account.id]?.tags[""]?.contains("Tag 2") ?? false)
-        XCTAssertNoThrow(try accountingFacade.removeAllTagsForAccount(account))
-        XCTAssertTrue(accountingFacade.chartOfAccounts._accounts[account.id]?.tags[""]?.isEmpty ?? true)
-    }
-    
-    func testRemoveAllTagsForAccountWithCategory() {
-        let account = Account(name: "Account Name", type: .asset, number: AccountNumber("123456"), currency: CurrencyType.USD)
-        XCTAssertNoThrow(try accountingFacade.addAccount(account))
-        XCTAssertTrue(accountingFacade.chartOfAccounts._accounts.contains(where: { $0.key == account.id }))
-        XCTAssertFalse(accountingFacade.chartOfAccounts._accounts[account.id]?.tags[""]?.contains("Tag") ?? false)
-        XCTAssertNoThrow(try accountingFacade.addTag("Tag", forAccount: account, withCategory: ""))
-        XCTAssertTrue(accountingFacade.chartOfAccounts._accounts[account.id]?.tags[""]?.contains("Tag") ?? false)
-        XCTAssertNoThrow(try accountingFacade.addTag("Tag 2", forAccount: account, withCategory: "Category"))
-        XCTAssertTrue(accountingFacade.chartOfAccounts._accounts[account.id]?.tags["Category"]?.contains("Tag 2") ?? false)
-        XCTAssertNoThrow(try accountingFacade.removeAllTagsForAccount(account))
-        XCTAssertTrue(accountingFacade.chartOfAccounts._accounts[account.id]?.tags[""]?.isEmpty ?? true)
-        XCTAssertTrue(accountingFacade.chartOfAccounts._accounts[account.id]?.tags["Category"]?.isEmpty ?? true)
+        XCTAssertFalse(accountingFacade.chartOfAccounts.accounts.contains(where: { $0.id == account.id }))
     }
     
     func testProcessEvent() {
         let account = Account(name: "Account Name", type: .asset, number: AccountNumber("123456"))
         XCTAssertNoThrow(try accountingFacade.addAccount(account))
-        XCTAssertEqual(account.id, accountingFacade.chartOfAccounts._accounts.first?.value.id)
+        XCTAssertEqual(account.id, accountingFacade.chartOfAccounts.accounts.first?.id)
         XCTAssertNoThrow(try accountingFacade.processAccountingEvent(name: "Debit", whenOccured: Date(), whenNoticed: nil, otherParty: OtherParty(name: "Other Party"), amount: 1000, account: account, entryType: .debit))
-        XCTAssertEqual(account.id, accountingFacade.chartOfAccounts._accounts.first?.value.id)
-        XCTAssertEqual(1, accountingFacade.chartOfAccounts._accounts.first?.value.entries.count)
-        XCTAssertEqual(1000, accountingFacade.chartOfAccounts._accounts.first?.value.entries.first?.amount)
+        XCTAssertEqual(account.id, accountingFacade.chartOfAccounts.accounts.first?.id)
+        XCTAssertEqual(1, accountingFacade.chartOfAccounts.accounts.first?.entries.count)
+        XCTAssertEqual(1000, accountingFacade.chartOfAccounts.accounts.first?.entries.first?.amount)
     }
         
     static var allTests = [
         ("testAddAccount", testAddAccount),
         ("testUpdateAccount", testUpdateAccount),
         ("testDeleteAccount", testDeleteAccount),
-        ("testHideAccount", testHideAccount),
-        ("testAddTag", testAddTag),
-        ("testRemoveTag", testRemoveTag),
-        ("testRemoveAllTagsForAccount", testRemoveAllTagsForAccount),
-        ("testRemoveAllTagsForAccountWithCategory", testRemoveAllTagsForAccountWithCategory),
     ]
 }
 

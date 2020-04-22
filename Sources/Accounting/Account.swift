@@ -173,3 +173,16 @@ extension Account: Equatable {
         return lhs.id == rhs.id
     }
 }
+
+extension Account {
+    public static func isEqual(lhs: Account, rhs: Account) -> Bool {
+        return lhs.name == rhs.name &&
+            lhs.id == rhs.id &&
+            lhs.type == rhs.type &&
+            lhs.number == rhs.number &&
+            lhs.currency == rhs.currency &&
+            lhs.hidden == rhs.hidden &&
+            lhs.tags == rhs.tags &&
+            lhs.entries == rhs.entries
+    }
+}
