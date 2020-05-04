@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 public enum ChartOfAccountsError: Error {
     case accountAlreadyExists
@@ -14,9 +15,10 @@ public enum ChartOfAccountsError: Error {
 
 /**
  This is our chart of accounts or holder of all our accounts.
+  TODO: We should consider making Combine integration optional.  For now I am publishing the accounts property.
  */
-public class ChartOfAccounts {
-    public var accounts = Set<Account>()
+public class ChartOfAccounts: ObservableObject {
+    @Published public var accounts = Set<Account>()
     
     public init() {
     }

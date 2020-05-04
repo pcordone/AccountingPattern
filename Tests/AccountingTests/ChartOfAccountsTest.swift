@@ -8,29 +8,37 @@
 import Foundation
 
 import XCTest
+import Combine
 @testable import Accounting
 
 final class ChartOfAccountsTest: XCTestCase {
     var COA: ChartOfAccounts!
-    
+    var subscriptions = Set<AnyCancellable>()
+    var accounts = Set<Account>()
+  
     override func setUp() {
         COA = ChartOfAccounts()
+        COA.$accounts.assign(to: \.accounts, on: self).store(in: &subscriptions)
     }
     
     // MARK: Account management tests
     
     func testAddingAccounts() {
+        XCTAssertTrue(accounts.isEmpty)
         XCTAssertNoThrow(try COA.addAccount(name: "First Account", type: .asset, number: AccountNumber("12345"), currency: .USD))
         XCTAssertEqual(1, COA.count)
+        XCTAssertEqual(COA.accounts, accounts)
         //let accountmock = mock(Account.self)
         let account = Account(name: "Second Account", type: .asset, number: AccountNumber("67890"), currency: .USD)
         XCTAssertNoThrow(try COA.addAccount(account))
         XCTAssertEqual(2, COA.count)
+        XCTAssertEqual(COA.accounts, accounts)
     }
     
     func testAddingAccountAlreadyExists() {
         XCTAssertNoThrow(try COA.addAccount(name: "First Account", type: .asset, number: AccountNumber("12345"), currency: .USD))
         XCTAssertEqual(1, COA.count)
+        XCTAssertEqual(COA.accounts, accounts)
         let COAAccount = COA.accounts.first
         XCTAssertNotNil(COAAccount)
         let account = Account(name: "Second account with same id as first", type: .asset, number: AccountNumber("7890"), currency: .USD, id: COAAccount!.id)
@@ -38,6 +46,7 @@ final class ChartOfAccountsTest: XCTestCase {
             (error) in
             XCTAssertEqual(error as? ChartOfAccountsError, ChartOfAccountsError.accountAlreadyExists)
         }
+        XCTAssertEqual(COA.accounts, accounts)
     }
     
     func testUpdateAccount() {
@@ -46,6 +55,7 @@ final class ChartOfAccountsTest: XCTestCase {
         account.name = "New Name"
         XCTAssertNoThrow(try COA.updateAccount(account))
         XCTAssertEqual("New Name", account.name)
+        XCTAssertEqual(COA.accounts, accounts)
     }
     
     func testDeleteAccount() {
@@ -53,10 +63,11 @@ final class ChartOfAccountsTest: XCTestCase {
         XCTAssertNoThrow(try COA.addAccount(account))
         XCTAssertNoThrow(try COA.deleteAccount(account))
         XCTAssertFalse(COA.accounts.contains(account))
+        XCTAssertEqual(COA.accounts, accounts)
     }
     
     func testCount() {
-        XCTAssertEqual(0, COA.count)
+        XCTAssertEqual(0, COA.count
     }
     
     func testAccountNamesSorted() {

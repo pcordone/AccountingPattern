@@ -5,6 +5,9 @@ import PackageDescription
 
 let package = Package(
     name: "Accounting",
+    platforms: [
+        .macOS(.v10_15), // incorpoated Combine so that we can publish the ChartOfAccounts account list.
+    ],
     products: [
         // Products define the executables and libraries produced by a package, and make them visible to other packages.
         .library(
