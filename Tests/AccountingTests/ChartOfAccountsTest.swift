@@ -67,7 +67,7 @@ final class ChartOfAccountsTest: XCTestCase {
     }
     
     func testCount() {
-        XCTAssertEqual(0, COA.count
+        XCTAssertEqual(0, COA.count)
     }
     
     func testAccountNamesSorted() {

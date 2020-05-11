@@ -42,7 +42,7 @@ public struct Account: NamedObject, Identifiable {
     public var name: String
     public let id: UUID
     public let type: AccountType
-    public let number: AccountNumber
+    public let number: AccountNumber?
     public let currency: CurrencyType
     public var hidden: Bool
     public var tags: Dictionary<String, Set<String>>
@@ -54,7 +54,7 @@ public struct Account: NamedObject, Identifiable {
         }
     }
     
-    public init(name: String, type: AccountType, number: AccountNumber, currency: CurrencyType = CurrencyType.currencyForDefaultLocale(), hidden: Bool = false, tags: Dictionary<String, Set<String>> = Dictionary<String, Set<String>>(), id: UUID = UUID(), entries: Set<Entry> = Set<Entry>()) {
+    public init(name: String, type: AccountType, number: AccountNumber?, currency: CurrencyType = CurrencyType.currencyForDefaultLocale(), hidden: Bool = false, tags: Dictionary<String, Set<String>> = Dictionary<String, Set<String>>(), id: UUID = UUID(), entries: Set<Entry> = Set<Entry>()) {
         self.id = id
         self.name = name
         self.type = type
